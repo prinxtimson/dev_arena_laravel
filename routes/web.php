@@ -24,3 +24,11 @@ Route::get('/login', function () {
 Route::get('/reset-password', function () {
     return view('welcome');
 });
+
+Route::get('/forgot-password', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('welcome');
+});

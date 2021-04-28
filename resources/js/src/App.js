@@ -6,6 +6,8 @@ import {
     Route,
     Link
   } from "react-router-dom";
+import Dashboard from './screens/Dashboard';
+import ForgotPassPage from './screens/ForgotPassPage';
 import HomePage from './screens/HomePage';
 import LoginPage from './screens/LoginPage';
 import ResetPassPage from './screens/ResetPassPage';
@@ -16,6 +18,12 @@ const App = () => {
             <Switch>
                 <Route exact path="/">
                     <HomePage />
+                </Route>
+                <Route path="/dashboard">
+                    <Dashboard />
+                </Route>
+                <Route path="/forgot-password">
+                    <ForgotPassPage />
                 </Route>
                 <Route path="/reset-password">
                     <ResetPassPage />

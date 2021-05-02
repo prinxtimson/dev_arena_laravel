@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,18 +18,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', function () {
-    return view('welcome');
-});
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
-Route::get('/reset-password', function () {
+Route::get('/dashboard', ['as' => 'dashboard', function () {
     return view('welcome');
-});
+}])->middleware('auth');
 
-Route::get('/forgot-password', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('welcome');
+Route::middleware(['guest'])->group(function () {
+    //
+    Route::get('/login', function () {
+        return view('welcome');
+    })->name('login');
+    Route::get('/reset-password', function () {
+        return view('welcome');
+    });
+    Route::get('/forgot-password', function () {
+        return view('welcome');
+    });
 });

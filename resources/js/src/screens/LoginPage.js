@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AppContainer from '../components/AppContainer';
+import { UserContext } from '../context/GlobalState';
+import Alert from '@material-ui/lab/Alert';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -40,6 +42,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const context = React.useContext(UserContext);
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    context.login({email, password})
+  }
+
+  React.useEffect(() => {
+    //console.log(window.sessionStorage.getItem('laravel_session'))
+    console.log(context.state)
+  }, [context.state]);
 
   return (
     <AppContainer>
@@ -52,7 +67,13 @@ export default function SignIn() {
                 <Typography component="h1" variant="h4">
                     Sign in
                 </Typography>
+                
                 <form className={classes.form} noValidate>
+                {context.state.error ? (
+                    <Alert onClose={() => {context.clearError(context.state)}} severity="error">
+                        {context.state.error.message}
+                    </Alert>
+                ) : null}
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -63,6 +84,8 @@ export default function SignIn() {
                         name="email"
                         autoComplete="email"
                         autoFocus
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
                     />
                     <TextField
                         variant="outlined"
@@ -74,6 +97,8 @@ export default function SignIn() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
                     />  
                     <Grid container alignItems="center">
                         <Grid item xs>
@@ -81,10 +106,10 @@ export default function SignIn() {
                             className={classes.checkboxLabel}
                             control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"
-                            si
+                            //si
                         />
                         </Grid>
-                        <Grid item justify="center">
+                        <Grid item>
                         <Link href="/reset-password" variant="body1">
                             Forgot password?
                         </Link>
@@ -97,6 +122,8 @@ export default function SignIn() {
                         color="primary"
                         size="large"
                         className={classes.submit}
+                        disabled={context.state.loading}
+                        onClick={handleSubmit}
                     >
                         Login
                     </Button>

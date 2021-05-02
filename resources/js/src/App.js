@@ -6,6 +6,9 @@ import {
     Route,
     Link
   } from "react-router-dom";
+import { UserContextProvider } from './context/GlobalState';
+
+import AuthRoute from './utils/AuthRoute';
 import Dashboard from './screens/Dashboard';
 import ForgotPassPage from './screens/ForgotPassPage';
 import HomePage from './screens/HomePage';
@@ -14,25 +17,25 @@ import ResetPassPage from './screens/ResetPassPage';
 
 const App = () => {
     return (
-        <Router>
-            <Switch>
-                <Route exact path="/">
-                    <HomePage />
-                </Route>
-                <Route path="/dashboard">
-                    <Dashboard />
-                </Route>
-                <Route path="/forgot-password">
-                    <ForgotPassPage />
-                </Route>
-                <Route path="/reset-password">
-                    <ResetPassPage />
-                </Route>
-                <Route path="/login">
-                    <LoginPage />
-                </Route>
-            </Switch>
-        </Router>
+        <UserContextProvider>
+            <Router>
+                <Switch>
+                    <Route exact path="/">
+                        <HomePage />
+                    </Route>
+                    <Route path="/dashboard">
+                        <Dashboard />
+                    </Route>
+                    <Route path="/forgot-password">
+                        <ForgotPassPage />
+                    </Route>
+                    <Route path="/reset-password">
+                        <ResetPassPage />
+                    </Route>
+                    <AuthRoute path="/login" exact component={LoginPage} />
+                </Switch>
+            </Router>
+        </UserContextProvider>
     )
 }
 

@@ -19,6 +19,7 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import DropDownMenu from './DropDownMenu';
 
 const drawerWidth = 260;
 
@@ -62,10 +63,19 @@ const useStyles = makeStyles((theme) => ({
 function DrawerMenu({ window, children }) {
     const classes = useStyles();
     const theme = useTheme();
+    const [anchorE1, setAnchorE1] = React.useState(null);
     const [mobileOpen, setMobileOpen] = React.useState(false);
   
     const handleDrawerToggle = () => {
       setMobileOpen(!mobileOpen);
+    };
+
+    const handleClick = (event) => {
+      setAnchorE1(event.currentTarget);
+    };
+  
+    const handleClose = () => {
+      setAnchorE1(null);
     };
   
     const drawer = (
@@ -114,11 +124,19 @@ function DrawerMenu({ window, children }) {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-                <Avatar alt="Remy Sharp" src={require("../../../views/public/no_img.jpg")}>
+            <IconButton 
+              aria-label="avatar"
+              color="inherit"
+              onClick={handleClick}
+            >
+                <Avatar alt="Remy Sharp" src="../../../views/public/no_img.jpg">
                     RS
                 </Avatar>
             </IconButton>
+            <DropDownMenu
+              handleClose={handleClose}
+              anchorE1={anchorE1}
+            />
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer} aria-label="mailbox folders">

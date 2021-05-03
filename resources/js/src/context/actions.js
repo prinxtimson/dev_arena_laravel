@@ -9,9 +9,8 @@ export const loginUser = async (data) => {
 
     try {
         const res = await axios.post(`${BASE_URL}/login`, data, config);
-        console.log(res)
-        //getUser(res.data.user.id);
-        return {user: res.data};
+       
+        return {user: res.data, isAuthenticated: true};
 
     } catch (err) {
         console.log(err.response);
@@ -19,14 +18,25 @@ export const loginUser = async (data) => {
     }
 }
 
-export const getUser = async (user) => {
+export const logoutUser = async () => {
     try {
-        const res = await axios.get(`${BASE_URL}/api/users/${user}`);
-        console.log(res.data)
-        return res.data;
+        await axios.post(`${BASE_URL}/logout`);
+
+        return {isAuthenticated: false, user: null}
+    } catch (err) {
+        console.log(err.response);
+        return {error: err.response.data, isAuthenticated: false,};
+    }
+}
+
+export const getUser = async () => {
+    try {
+        const res = await axios.get(`${BASE_URL}/api/me`);
+        
+        return {user: res.data, isAuthenticated: true};
 
     } catch (err) {
         console.log(err.response);
-        return {error: err.response.data};
+        return {error: err.response.data, isAuthenticated: false,};
     }
 }

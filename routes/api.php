@@ -22,10 +22,12 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::post('/projects', [ProjectController::class, 'store']);
 Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/{id}', [UserController::class, 'show']);
+//->middleware('auth:sanctum');
 
 //Protected routes 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/me', [AuthController::class, 'me']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 

@@ -36,6 +36,10 @@ class AuthController extends Controller
         return response($response, 200);
     }
 
+    public function me(Request $request) {
+        return auth()->user()->load(['profile', 'projects']);
+    }
+
     public function logout(Request $request) {
         auth()->user()->tokens()->delete();
 

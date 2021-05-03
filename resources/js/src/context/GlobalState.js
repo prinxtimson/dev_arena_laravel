@@ -1,7 +1,7 @@
 import React from 'react';
-import { getUser, loginUser } from './actions';
+import { getUser, loginUser, logoutUser } from './actions';
 import { userReducer } from './reducers';
-import { LOADING, LOAD_USER, LOGIN, REMOVE_ALERT } from './types';
+import { LOADING, LOAD_USER, LOGIN, LOGOUT, REMOVE_ALERT } from './types';
 
 export const UserContext = React.createContext(null);
 
@@ -15,13 +15,17 @@ export const UserContextProvider = ({children}) => {
 
     const login = (data) => {
         dispatch({type: LOADING});
-        loginUser(data).then(res => dispatch({type: LOGIN, payload: res}));   
+        loginUser(data).then(res => dispatch({type: LOGIN, payload: res}));  
     }
 
-    const loadUser = user => {
-        dispatch({type: LOADING});
-        getUser(user).then(res => dispatch({type: LOAD_USER, payload: res}));
+    const logout = () => {
+        logoutUser().then(res => dispatch({type: LOGOUT, payload: res}));
     }
+
+    React.useEffect(() => {
+        dispatch({type: LOADING});
+        getUser().then(res => dispatch({type: LOAD_USER, payload: res}));
+    }, [])
 
     const clearError = () => {
         dispatch({type: REMOVE_ALERT});
@@ -32,7 +36,7 @@ export const UserContextProvider = ({children}) => {
             value={{
                 state,
                 login,
-                loadUser,
+                logout,
                 clearError
             }}
         >

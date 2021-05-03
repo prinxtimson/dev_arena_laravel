@@ -1,4 +1,4 @@
-import { LOADING, LOAD_USER, LOGIN, REMOVE_ALERT } from "./types";
+import { LOADING, LOAD_USER, LOGIN, LOGOUT, REMOVE_ALERT } from "./types";
 
 
 export const userReducer = (state, action) => {
@@ -8,7 +8,9 @@ export const userReducer = (state, action) => {
         case LOADING:
             return {...state, loading: true};
         case LOGIN:
-            return {...state, ...payload, isAuthenticated: true, loading: false};
+            return {...state, ...payload, loading: false};
+        case LOGOUT:
+            return {...state, ...payload, loading: false};
         case LOAD_USER:
             return {...state, ...payload, loading: false};
         case REMOVE_ALERT:

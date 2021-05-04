@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
@@ -70,7 +71,11 @@ function DropDownMenu({handleClose, anchorE1}) {
                     </ListItemIcon>
                     <ListItemText primary="Profile" />
                 </MenuItem>
-                <MenuItem>
+                <MenuItem
+                  component={Link}
+                  to="/dashboard/change_password"
+                  onClick={handleClose}
+                >
                     <ListItemIcon>
                         <LockIcon fontSize="small" />
                     </ListItemIcon>

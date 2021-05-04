@@ -21,7 +21,7 @@ Route::get('/', function () {
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
-Route::get('/dashboard', ['as' => 'dashboard', function () {
+Route::get('/dashboard/{name?}', ['as' => 'dashboard', function ($name = null) {
     return view('welcome');
 }])->middleware('auth');
 

@@ -23,7 +23,7 @@ const App = () => {
                     <Route exact path="/">
                         <HomePage />
                     </Route>
-                    <Route path="/dashboard">
+                    <Route path="/dashboard/:routeName">
                         <Dashboard />
                     </Route>
                     <Route path="/forgot-password">

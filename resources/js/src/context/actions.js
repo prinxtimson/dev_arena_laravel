@@ -1,6 +1,4 @@
-
-const axios = window.axios;
-const BASE_URL = "http://127.0.0.1:8000";
+import {axios, BASE_URL} from '../utils/utils';
 
 export const loginUser = async (data) => {
     const config = {
@@ -38,5 +36,16 @@ export const getUser = async () => {
     } catch (err) {
         console.log(err.response);
         return {error: err.response.data, isAuthenticated: false,};
+    }
+}
+
+export const getAllUsers = async () => {
+    try {
+        const res = await axios.get(`${BASE_URL}/api/users`);
+        
+        return res.data;
+
+    } catch (error) {
+        
     }
 }

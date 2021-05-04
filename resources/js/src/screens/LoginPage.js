@@ -51,11 +51,6 @@ export default function SignIn() {
     context.login({email, password})
   }
 
-  React.useEffect(() => {
-    //console.log(window.sessionStorage.getItem('laravel_session'))
-    console.log(context.state)
-  }, [context.state]);
-
   return (
     <AppContainer>
         <Container component="main" maxWidth="xs" className="card">

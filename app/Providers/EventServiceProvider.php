@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Events\NewUserAdded;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Auth\Listeners\CreateUserProfile;
 use Illuminate\Auth\Listeners\SendWelcomeEmail;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
@@ -22,7 +23,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         NewUserAdded::class => [
             SendWelcomeEmail::class,
-        ]
+        ],
     ];
 
     /**

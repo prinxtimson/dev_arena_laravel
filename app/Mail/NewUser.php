@@ -7,21 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SignupEmail extends Mailable
+class NewUser extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data;
+    public $user;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($user)
     {
-        //
-        $this->data = $data;
+        $this->user = $user;
     }
 
     /**
@@ -31,13 +30,10 @@ class SignupEmail extends Mailable
      */
     public function build()
     {
-        $address = 'noreply@dev-arena.com';
         $subject = 'Dev Arena Unboading';
-        $name = 'Admin';
+        $address = 'noreply@dev-arena.com';
 
-        return $this->markdown('view.emails.signup')
-                    ->from($address, $name)
-                    ->subject($subject)
-                    ->with([ 'message' => $this->data['message']]);
+        return $this->markdown('emails.new_user')
+                    ->subject($subject);
     }
 }

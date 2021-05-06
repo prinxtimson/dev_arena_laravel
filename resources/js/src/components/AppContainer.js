@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         minHeight: HEIGHT - 50,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center'
+        //justifyContent: 'center'
     }
   }));
 

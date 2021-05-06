@@ -17,11 +17,11 @@ class CreateProfilesTable extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('dev_stack')->nullable();
             $table->string('github')->nullable();
             $table->foreignId('user_id')
-                  ->constrained('users');
+                  ->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

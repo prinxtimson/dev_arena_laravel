@@ -10,9 +10,9 @@ import IconButton from '@material-ui/core/IconButton'
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AppContainer from './AppContainer';
-import { UserContext } from '../context/GlobalState';
+import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import { generatePassword } from '../utils/utils';
+import { axios, BASE_URL, generatePassword } from '../utils/utils';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -41,7 +41,9 @@ const useStyles = makeStyles((theme) => ({
 
 const AddUserForm = () => {
     const classes = useStyles();
-    const context = React.useContext(UserContext);
+    const [loading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState(null);
+    const [msg, setMsg] = React.useState(null);
     const [data, setData] = React.useState({
         firstname: '',
         lastname: '',
@@ -54,7 +56,27 @@ const AddUserForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    context.login(data)
+    setLoading(true);
+    axios.post(`${BASE_URL}/api/users`, data)
+        .then(res => {
+            setLoading(false);
+            setMsg(res.data.msg);
+            setData({
+                firstname: '',
+                lastname: '',
+                email: '',
+                role: '',
+                password: '',
+                confirm_password: '',
+                showPassword: false
+            });
+        })
+        .catch(err => {
+            console.log(err.response);
+            setLoading(false);
+            setError(err.response.data);
+        })
+    
   }
 
   const handleOnFocus = () => {
@@ -84,11 +106,24 @@ const AddUserForm = () => {
                 <Typography component="h1" variant="h4">
                     Add User
                 </Typography>
-                
+                <Snackbar
+                    open={Boolean(msg)}
+                    anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+                    autoHideDuration={8000} 
+                    onClose={() => setMsg(null)}
+                >
+                    <Alert
+                        onClose={() => setMsg(null)} 
+                        severity="success"
+                        variant="filled"
+                    >
+                        {msg}
+                    </Alert>
+                </Snackbar>
                 <form className={classes.form} noValidate>
-                {context.state.error ? (
-                    <Alert onClose={() => {context.clearError(context.state)}} severity="error">
-                        {context.state.error.message}
+                {error ? (
+                    <Alert onClose={() => setError(null)} severity="error">
+                        {error.message}
                     </Alert>
                 ) : null}
                     <TextField
@@ -119,7 +154,7 @@ const AddUserForm = () => {
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
+                        id="email_address"
                         label="Email Address"
                         name="email"
                         value={data.email}
@@ -181,7 +216,7 @@ const AddUserForm = () => {
                         color="primary"
                         size="large"
                         className={classes.submit}
-                        disabled={context.state.loading}
+                        disabled={loading || !data.firstname || !data.lastname || !data.email || !data.password || !data.role || data.password != data.confirm_password}
                         onClick={handleSubmit}
                     >
                         Submit

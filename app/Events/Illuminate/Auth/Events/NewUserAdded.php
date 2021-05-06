@@ -14,17 +14,17 @@ class NewUserAdded
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $new_user;
+    public $user;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($new_user)
+    public function __construct($user)
     {
         //
-        $this->new_user = $new_user;
+        $this->user = $user;
     }
 
 }

@@ -12,6 +12,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import MenuItem from '@material-ui/core/MenuItem';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -84,7 +85,7 @@ function DrawerMenu({ window, children }) {
         <div className={classes.toolbar} />
         <Divider />
         <List>
-            <ListItem
+            <MenuItem
               component={Link}
               to="/dashboard/users"
               onClick={handleDrawerToggle}
@@ -93,7 +94,7 @@ function DrawerMenu({ window, children }) {
                 <PersonIcon />
               </ListItemIcon>
               <ListItemText primary="User" />
-            </ListItem>
+            </MenuItem>
         </List>
       </div>
     );

@@ -6,6 +6,9 @@ import DrawerMenu from '../components/DrawerMenu';
 import UsersTable from '../components/UsersTable';
 import ChangePasswordForm from '../components/ChangePasswordForm';
 import AddUserForm from '../components/AddUserForm';
+import DashboardIndex from '../components/DashboardIndex';
+import { UserContext } from '../context/GlobalState';
+import InfoDialog from '../components/InfoDialog';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -14,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 function Dashboard({match}) {
     const classes = useStyles();
     const {routeName} = useParams() ;
+    const {state} = React.useContext(UserContext);
 
     const renderComponent = (param) => {
         switch(param) {
@@ -24,13 +28,14 @@ function Dashboard({match}) {
             case 'add_user':
                 return <AddUserForm />;
             default:
-                return;
+                return <DashboardIndex />;
         }
     }
 
     return (
         <DrawerMenu>
             <CssBaseline />
+            <InfoDialog email_verified_at={state.user && state.user.email_verified_at} />
             {renderComponent(routeName)}
         </DrawerMenu>
     )

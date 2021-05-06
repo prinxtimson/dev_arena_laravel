@@ -20,6 +20,8 @@ class UserSeeder extends Seeder
         //
         $user = User::create([
             'name' => 'John Doe',
+            'username' => 'johndoe',
+            'avatar' => 'https://avatar.com',
             'email' => 'john.doe@example.com',
             'password' => Hash::make('123456'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -27,6 +29,16 @@ class UserSeeder extends Seeder
         ]);
 
         $user->assignRole('admin');
+
+        $user->profile()->create([
+            'firstname' => 'John',
+            'lastname' => 'Doe',
+            'phone' => '44012652634',
+            'dev_stack' => '',
+            'github' => '',
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
 
     }
 }

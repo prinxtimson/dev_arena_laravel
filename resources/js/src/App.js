@@ -4,7 +4,6 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
   } from "react-router-dom";
 import { UserContextProvider } from './context/GlobalState';
 
@@ -24,6 +23,9 @@ const App = () => {
                         <HomePage />
                     </Route>
                     <Route path="/dashboard/:routeName">
+                        <Dashboard />
+                    </Route>
+                    <Route path="/dashboard">
                         <Dashboard />
                     </Route>
                     <Route path="/forgot-password">

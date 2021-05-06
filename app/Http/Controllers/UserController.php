@@ -6,7 +6,10 @@ use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Events\Illuminate\Auth\Events\NewUserAdded;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\NewUser;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -18,8 +21,8 @@ class UserController extends Controller
     public function index()
     {
         //
-        return User::all()
-                    ->load(['profile', 'projects']);
+        return User::paginate(20)
+                    ->load(['roles']);
     }
 
     /**
@@ -32,18 +35,30 @@ class UserController extends Controller
     {
         //
         $fields = $request->validate([
-            'name' => 'required|string',
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'role' => 'required|string',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string'
         ]);
 
         $user = User::create([
-            'name' => $fields['name'],
+            'name' =>  $fields['firstname'].' '.$fields['lastname'],
             'email' => $fields['email'],
+            'username' => strtolower($fields['firstname'].$fields['lastname']),
+            'avatar' => 'myavatar.com',
             'password' => bcrypt($fields['password'])
         ]);
 
-        event(new NewUserAdded($fields));
+        $user->profile()->create([
+            'firstname' => $fields['firstname'],
+            'lastname' => $fields['lastname'],
+        ]);
+
+        $user->assignRole($fields['role']);
+
+        //event(new NewUserAdded($fields));
+        Mail::to($user)->send(new NewUser($fields));
 
         $response = [
             'user' => $user,
@@ -63,7 +78,7 @@ class UserController extends Controller
     {
         //
         return User::find($id)
-                    ->load(['profile', 'projects']);
+                    ->load(['profiles', 'roles', 'projects']);
     }
 
     /**
@@ -77,17 +92,17 @@ class UserController extends Controller
     {
         //
         $fields = $request->validate([
-            'name' => 'string',
-            'email' => 'string|unique:users,email',
-            'password' => 'string'
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'role' => 'required|string',
         ]);
 
         $user = User::find($id);
         $user->update([
-            empty($fields['name'])? null : 'name' => $fields['name'],
-            empty($fields['email'])? null : 'email' => $fields['email'],
-            empty($fields['password'])? null : 'password' => bcrypt($fields['password']),
+            'name' =>  $fields['firstname'] . $fields['lastname'],
         ]);
+
+        $user->profile()->update();
 
         $response = [
             'user' => $user,

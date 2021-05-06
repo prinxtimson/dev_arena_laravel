@@ -3,12 +3,12 @@
 namespace App\Listeners\Illuminate\Auth\Listeners;
 
 use Illuminate\Auth\Events\NewUserAdded;
-use App\Mail\NewUser;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\Mail;
+use App\Models\User;
+use App\Models\Profile;
 
-class SendWelcomeEmail
+class CreateUserProfile
 {
     /**
      * Create the event listener.
@@ -29,6 +29,18 @@ class SendWelcomeEmail
     public function handle(NewUserAdded $event)
     {
         //
-        Mail::to($event->user->email)->send(new NewUser($event->user));
+        $fields = $event->user;
+
+        $profile = Profile::create('profiles')->insertGetId([
+            'firstname' => $fields['firstname'],
+            'lastname' => $fields['lastname'],
+            'user_id' => $fields['id'],
+        ]);
+
+        $user = User::find($id);
+
+        $user->update([
+            'profile_id' =>  $profile->id,
+        ]);
     }
 }

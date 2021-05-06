@@ -6,7 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AppContainer from './AppContainer';
-import { UserContext } from '../context/GlobalState';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
+import { axios, BASE_URL } from '../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -27,17 +29,36 @@ const useStyles = makeStyles((theme) => ({
 
 const ChangePasswordForm = () => {
     const classes = useStyles();
-    const context = React.useContext(UserContext);
+    const [loading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState(null);
+    const [msg, setMsg] = React.useState(null);
     const [currentPassword, setCurrentPassword] = React.useState('');
     const [newPassword, setNewPassword] = React.useState('');
     const [confirmNewPassword, setConfirmNewPassword] = React.useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    context.login({
+    setLoading(true);
+    console.log({newPassword, confirmNewPassword});
+    axios.put(`${BASE_URL}/api/change_password`, {
         password: currentPassword,
         new_password: newPassword,
-        confirm_new_password: confirmNewPassword
+        new_password_confirmation: confirmNewPassword
+    }).then(res => {
+        setLoading(false);
+        setMsg(res.data.msg);
+        setCurrentPassword('');
+        setNewPassword('');
+        setConfirmNewPassword('');
+    })
+    .catch(err => {
+        console.log(err.response);
+        setLoading(false);
+        if(err.response.status === 500){
+            setError({message: 'Server Error, Please try again.'});
+            return;
+        }
+        setError(err.response.data);
     })
   }
 
@@ -49,11 +70,24 @@ const ChangePasswordForm = () => {
                 <Typography component="h1" variant="h4">
                     Change Password
                 </Typography>
-                
+                <Snackbar
+                    open={Boolean(msg)}
+                    anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+                    autoHideDuration={8000} 
+                    onClose={() => setMsg(null)}
+                >
+                    <Alert
+                        onClose={() => setMsg(null)} 
+                        severity="success"
+                        variant="filled"
+                    >
+                        {msg}
+                    </Alert>
+                </Snackbar>
                 <form className={classes.form} noValidate>
-                {context.state.error ? (
-                    <Alert onClose={() => {context.clearError(context.state)}} severity="error">
-                        {context.state.error.message}
+                {error ? (
+                    <Alert onClose={() => setError(null)} severity="error">
+                        {error.message}
                     </Alert>
                 ) : null}
                     <TextField
@@ -102,7 +136,7 @@ const ChangePasswordForm = () => {
                         color="primary"
                         size="large"
                         className={classes.submit}
-                        disabled={context.state.loading}
+                        disabled={loading || !currentPassword || !newPassword || newPassword !== confirmNewPassword}
                         onClick={handleSubmit}
                     >
                         Submit

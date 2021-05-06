@@ -44,7 +44,7 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
 
         return [
-            'message' => 'Logged out'
+            'msg' => 'Logged out'
         ];
     }
 
@@ -69,7 +69,7 @@ class AuthController extends Controller
         $user = auth()->user();
 
         $fields = $request->validate([
-            'old_password' => 'required|string',
+            'password' => 'required|string',
             'new_password' => 'required|string|confirmed'
         ]);
 
@@ -79,12 +79,15 @@ class AuthController extends Controller
             ], 401);
         }
 
+        if(!$user->email_verified_at) {
+            $user->markEmailAsVerified();
+        }
         $user->update([
-            'password' => bcrypt($fields['new_password'])
+            'password' => bcrypt($fields['new_password']),
         ]);
 
         return response([
-            'message' => 'password update successful'
+            'msg' => 'password update successful'
         ]);
     }
 }

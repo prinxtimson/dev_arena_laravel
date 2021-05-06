@@ -28,6 +28,7 @@ Route::get('/users', [UserController::class, 'index']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::get('/users/{id}', [UserController::class, 'show']);
+    Route::put('change_password', [AuthController::class, 'changePass']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 

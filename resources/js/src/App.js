@@ -31,7 +31,7 @@ const App = () => {
                     <Route path="/forgot-password">
                         <ForgotPassPage />
                     </Route>
-                    <Route path="/reset-password">
+                    <Route path="/reset-password/:token">
                         <ResetPassPage />
                     </Route>
                     <AuthRoute path="/login" exact component={LoginPage} />

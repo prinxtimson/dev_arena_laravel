@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 // Route::resource('projects', ProjectController::class);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/forgot-password', [AuthController::class, 'forgotPass']);
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::post('/projects', [ProjectController::class, 'store']);
 Route::get('/users', [UserController::class, 'index']);
@@ -28,7 +29,7 @@ Route::get('/users', [UserController::class, 'index']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::get('/users/{id}', [UserController::class, 'show']);
-    Route::put('change_password', [AuthController::class, 'changePass']);
+    Route::put('/change-password', [AuthController::class, 'changePass']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 

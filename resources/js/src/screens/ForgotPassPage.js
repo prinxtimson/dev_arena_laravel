@@ -7,6 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AppContainer from '../components/AppContainer';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
+import { axios, BASE_URL } from '../utils/utils';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,11 +35,49 @@ const useStyles = makeStyles((theme) => ({
 
 function ForgotPassPage() {
     const classes = useStyles();
+    const [email, setEmail] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState(null);
+    const [msg, setMsg] = React.useState(null);
+
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+        setLoading(true);
+        axios.post(`${BASE_URL}/api/forgot-password`, {email})
+            .then(res => {
+                setLoading(false);
+                setEmail('');
+                setMsg('An email has been sent to you, please check your email.');
+            })
+            .catch(err => {
+                console.log(err.response);
+                setLoading(false);
+                if(err.response.status === 500){
+                    setError({message: 'Server Error, Please try again.'});
+                    return;
+                }
+                setError(err.response.data);
+            })
+    }
 
     return (
       <AppContainer>
           <Container component="main" maxWidth="xs" className="card">
               <CssBaseline />
+              <Snackbar
+                    open={Boolean(msg)}
+                    anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+                    autoHideDuration={8000} 
+                    onClose={() => setMsg(null)}
+                >
+                    <Alert
+                        onClose={() => setMsg(null)} 
+                        severity="success"
+                        variant="filled"
+                    >
+                        {msg}
+                    </Alert>
+                </Snackbar>
               <div className={classes.paper}>
                   <Typography
                       component="h1"
@@ -46,9 +87,14 @@ function ForgotPassPage() {
                       Forgot your password?
                   </Typography>
                   <Typography component="h1" variant="body2">
-                  Please enter the email address associated with your account and We will email you a link to reset your password.
+                    Please enter the email address associated with your account and We will email you a link to reset your password.
                   </Typography>
                   <form className={classes.form} noValidate>
+                    {error ? (
+                        <Alert onClose={() => setError(null)} severity="error">
+                            {error.message}
+                        </Alert>
+                    ) : null}
                       <TextField
                           variant="outlined"
                           margin="normal"
@@ -59,6 +105,8 @@ function ForgotPassPage() {
                           name="email"
                           autoComplete="email"
                           autoFocus
+                          value={email}
+                          onChange={e => setEmail(e.target.value)}
                       />
                       <Button
                           type="submit"
@@ -67,6 +115,8 @@ function ForgotPassPage() {
                           color="primary"
                           size="large"
                           className={classes.submit}
+                          disabled={loading || !email}
+                          onClick={handleOnSubmit}
                       >
                           Reset Password
                       </Button>

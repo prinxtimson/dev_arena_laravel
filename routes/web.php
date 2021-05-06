@@ -30,9 +30,9 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/login', function () {
         return view('welcome');
     })->name('login');
-    Route::get('/reset-password', function () {
+    Route::get('/reset-password/{token}', function () {
         return view('welcome');
-    });
+    })->name('password.reset');
     Route::get('/forgot-password', function () {
         return view('welcome');
     });

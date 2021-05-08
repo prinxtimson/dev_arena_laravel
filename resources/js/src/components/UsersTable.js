@@ -17,6 +17,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Paper from '@material-ui/core/Paper';
 import AppContainer from './AppContainer';
 import { axios, BASE_URL } from '../utils/utils';
+import { UserContext } from '../context/GlobalState';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     btnContainer: {
@@ -73,6 +75,7 @@ const RenderDeleteConfirmationDialog = ({open, user, handleClose, handleDelete})
 
 const UsersTable = () => {
     const classes = useStyles();
+    const context = React.useContext(UserContext);
     const [open, setOpen] = React.useState(false);
     const [user, setUser] = React.useState(null);
     const [page, setPage] = React.useState(0);
@@ -138,7 +141,8 @@ const UsersTable = () => {
                         variant="contained"
                         color="primary"
                         size="large"
-                        href="/dashboard/add_user"
+                        component={Link}
+                        to="/dashboard/add_user"
                     >
                         Add User
                     </Button>
@@ -192,14 +196,25 @@ const UsersTable = () => {
                                         {row.roles[0] && row.roles[0].name}
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
-                                        <Button
-                                            variant="contained"
-                                            color="secondary"
-                                            size="small"
-                                            onClick={() => handleOpen(row)}
-                                        >
-                                            Delete
-                                        </Button>
+                                        {row.roles[0] && row.roles[0].name === 'super-admin' ? null : row.roles[0].name === 'admin' && context.state.user && context.state.user.roles[0].name === 'super-admin' ? (
+                                            <Button
+                                                variant="contained"
+                                                color="secondary"
+                                                size="small"
+                                                onClick={() => handleOpen(row)}
+                                            >
+                                                Delete
+                                            </Button>
+                                        ) : row.roles[0].name === 'developer' ? (
+                                            <Button
+                                                variant="contained"
+                                                color="secondary"
+                                                size="small"
+                                                onClick={() => handleOpen(row)}
+                                            >
+                                                Delete
+                                            </Button>
+                                        ) : null}
                                     </StyledTableCell>
                                 </StyledTableRow>
                             ))}
@@ -207,6 +222,7 @@ const UsersTable = () => {
                         <TableFooter>
                             <TableRow>
                                 <TablePagination
+                                    rowsPerPageOptions={[20]}
                                     rowsPerPage={state.rows.length}
                                     count={state.rows.length}
                                     page={page}

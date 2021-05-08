@@ -35,11 +35,14 @@ const ChangePasswordForm = () => {
     const [currentPassword, setCurrentPassword] = React.useState('');
     const [newPassword, setNewPassword] = React.useState('');
     const [confirmNewPassword, setConfirmNewPassword] = React.useState('');
+    const passwordValidation = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    //console.log({newPassword, confirmNewPassword});
+    if(!passwordValidation.test(newPassword)){
+        return;
+    }
     axios.put(`${BASE_URL}/change_password`, {
         password: currentPassword,
         new_password: newPassword,
@@ -109,6 +112,8 @@ const ChangePasswordForm = () => {
                         required
                         fullWidth
                         name="new_password"
+                        error={newPassword && !passwordValidation.test(newPassword)}
+                        helperText="Must contain at least one of each sets A-Z,a-z,0-9 and minimum of 8 characters."
                         label="New Password"
                         type="password"
                         id="new_password"

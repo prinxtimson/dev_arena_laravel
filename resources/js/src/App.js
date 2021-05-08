@@ -28,13 +28,14 @@ const theme = createMuiTheme({
     },
     typography: {
       button: {
-        textTransform: "none"
+        textTransform: "none",
+        color: 'white',
       }
     },
     palette: {
       primary: {
         // Purple and green play nicely together.
-        main: '#dd7c12'
+        main: '#c7a936'
       },
     },
   })

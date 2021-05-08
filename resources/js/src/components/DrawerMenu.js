@@ -22,6 +22,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import DropDownMenu from './DropDownMenu';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../context/GlobalState';
 
 const drawerWidth = 260;
 
@@ -65,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 function DrawerMenu({ window, children }) {
     const classes = useStyles();
+    const {state} = React.useContext(UserContext);
     const theme = useTheme();
     const [anchorE1, setAnchorE1] = React.useState(null);
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -86,6 +88,7 @@ function DrawerMenu({ window, children }) {
         <div className={classes.toolbar} />
         <Divider />
         <List>
+          {state.user && state.user.roles[0].name === 'developer' ? null : (
             <MenuItem
               component={Link}
               to="/dashboard/users"
@@ -96,6 +99,7 @@ function DrawerMenu({ window, children }) {
               </ListItemIcon>
               <ListItemText primary="User" />
             </MenuItem>
+          )}   
         </List>
       </div>
     );
@@ -105,7 +109,7 @@ function DrawerMenu({ window, children }) {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar} color="inherit">
+        <AppBar elevation={0} position="fixed" className={classes.appBar} color="inherit">
           <Toolbar>
             <IconButton
               color="inherit"

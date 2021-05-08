@@ -46,9 +46,13 @@ export default function ResetPassPage() {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const [msg, setMsg] = React.useState(null);
+  const passwordValidation = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!passwordValidation.test(data.password)){
+        return;
+    }
     setLoading(true);
     axios.post(`${BASE_URL}/reset-password`, {token, ...data})
         .then(() => {
@@ -115,10 +119,12 @@ export default function ResetPassPage() {
                         required
                         fullWidth
                         name="password"
+                        error={data.password && !passwordValidation.test(data.password)}
                         label="Password"
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        helperText="Must contain at least one of each sets A-Z,a-z,0-9 and minimum of 8 characters."
                         onChange={e => setData({...data, password: e.target.value})}
                     /> 
                     <TextField

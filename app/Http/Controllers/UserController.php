@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        return User::paginate(2)
+        return User::paginate(20)
                     ->load(['roles']);
     }
 

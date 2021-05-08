@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
         minHeight: HEIGHT,
     },
     innerContainer: {
-        minHeight: HEIGHT - 50,
+        margin: theme.spacing(5, 0),
         display: 'flex',
         flexDirection: 'column',
         //justifyContent: 'center'
@@ -21,7 +21,7 @@ function AppContainer({children}) {
     const classes = useStyles();
 
     return (
-        <div className={classes.container}>
+        <div className="container-fluid">
             <CssBaseline />
             <div className={classes.innerContainer}>
                 {children}

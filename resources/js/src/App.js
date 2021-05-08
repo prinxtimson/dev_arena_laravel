@@ -6,6 +6,8 @@ import {
     Route,
   } from "react-router-dom";
 import { UserContextProvider } from './context/GlobalState';
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
 import AuthRoute from './utils/AuthRoute';
 import Dashboard from './screens/Dashboard';
@@ -14,30 +16,56 @@ import HomePage from './screens/HomePage';
 import LoginPage from './screens/LoginPage';
 import ResetPassPage from './screens/ResetPassPage';
 
+const theme = createMuiTheme({
+    overrides: {
+      MuiCssBaseline: {
+        '@global': {
+          html: {
+            backgroundColor: 'white',
+          },
+        },
+      },
+    },
+    typography: {
+      button: {
+        textTransform: "none"
+      }
+    },
+    palette: {
+      primary: {
+        // Purple and green play nicely together.
+        main: '#dd7c12'
+      },
+    },
+  })
+
 const App = () => {
+    
     return (
-        <UserContextProvider>
-            <Router>
-                <Switch>
-                    <Route exact path="/">
-                        <HomePage />
-                    </Route>
-                    <Route path="/dashboard/:routeName">
-                        <Dashboard />
-                    </Route>
-                    <Route path="/dashboard">
-                        <Dashboard />
-                    </Route>
-                    <Route path="/forgot-password">
-                        <ForgotPassPage />
-                    </Route>
-                    <Route path="/reset-password/:token">
-                        <ResetPassPage />
-                    </Route>
-                    <AuthRoute path="/login" exact component={LoginPage} />
-                </Switch>
-            </Router>
-        </UserContextProvider>
+        <MuiThemeProvider theme={theme}>
+            <UserContextProvider>
+                <Router>
+                    <Switch>
+                        <Route exact path="/">
+                            <HomePage />
+                        </Route>
+                        <Route path="/dashboard/:routeName">
+                            <Dashboard />
+                        </Route>
+                        <Route path="/dashboard">
+                            <Dashboard />
+                        </Route>
+                        <Route path="/forgot-password">
+                            <ForgotPassPage />
+                        </Route>
+                        <Route path="/reset-password/:token">
+                            <ResetPassPage />
+                        </Route>
+                        <AuthRoute path="/login" exact component={LoginPage} />
+                    </Switch>
+                </Router>
+            </UserContextProvider>
+        </MuiThemeProvider>
     )
 }
 

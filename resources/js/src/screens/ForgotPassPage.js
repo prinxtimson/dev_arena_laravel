@@ -43,7 +43,7 @@ function ForgotPassPage() {
     const handleOnSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
-        axios.post(`${BASE_URL}/api/forgot-password`, {email})
+        axios.post(`${BASE_URL}/forgot-password`, {email})
             .then(res => {
                 setLoading(false);
                 setEmail('');

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 // Route::resource('projects', ProjectController::class);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/forgot-password', [AuthController::class, 'forgotPass']);
+Route::post('/reset-password', [AuthController::class, 'resetPass']);
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::post('/projects', [ProjectController::class, 'store']);
 Route::get('/users', [UserController::class, 'index']);
@@ -37,6 +38,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
     //
     Route::post('/users', [UserController::class, 'store']);
     Route::put('/users/{id}', [UserController::class, 'update']);
+    Route::delete('users/{id}', [UserController::class, 'destroy']);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

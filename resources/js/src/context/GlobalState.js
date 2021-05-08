@@ -6,25 +6,32 @@ import { LOADING, LOAD_USER, LOGIN, LOGOUT, REMOVE_ALERT } from './types';
 export const UserContext = React.createContext(null);
 
 export const UserContextProvider = ({children}) => {
+    const token = localStorage.getItem('DEV-ARENA-TOKEN');
+
     const initialState = {
         loading: false,
         error: false,
-        isAuthenticated: false
+        isAuthenticated: Boolean(token),
+        token
     }
     const [state, dispatch] = React.useReducer(userReducer, initialState);
 
     const login = (data) => {
         dispatch({type: LOADING});
-        loginUser(data).then(res => dispatch({type: LOGIN, payload: res}));  
+        loginUser(data).then(res => dispatch({type: LOGIN, payload: res}))
+            
     }
 
     const logout = () => {
         logoutUser().then(res => dispatch({type: LOGOUT, payload: res}));
     }
 
-    React.useEffect(() => {
+    React.useMemo(() => {
         dispatch({type: LOADING});
-        getUser().then(res => dispatch({type: LOAD_USER, payload: res}));
+        getUser().then(res => {
+            dispatch({type: LOAD_USER, payload: res})
+            console.log(res)
+        });
     }, [])
 
     const clearError = () => {

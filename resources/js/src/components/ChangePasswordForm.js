@@ -40,7 +40,7 @@ const ChangePasswordForm = () => {
     e.preventDefault();
     setLoading(true);
     //console.log({newPassword, confirmNewPassword});
-    axios.put(`${BASE_URL}/api/change_password`, {
+    axios.put(`${BASE_URL}/change_password`, {
         password: currentPassword,
         new_password: newPassword,
         new_password_confirmation: confirmNewPassword

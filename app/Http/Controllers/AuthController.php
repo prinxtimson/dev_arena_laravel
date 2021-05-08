@@ -32,7 +32,7 @@ class AuthController extends Controller
         $token = $user->createToken('access_token')->plainTextToken;
 
         $response = [
-            'user' => $user,
+            'user' => $user->load(['profile', 'projects', 'roles']),
             'token' => $token
         ];
 
@@ -40,7 +40,7 @@ class AuthController extends Controller
     }
 
     public function me(Request $request) {
-        return auth()->user()->load(['profile', 'projects']);
+        return auth()->user()->load(['profile', 'projects', 'roles']);
     }
 
     public function logout(Request $request) {

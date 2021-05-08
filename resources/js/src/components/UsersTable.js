@@ -9,6 +9,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Paper from '@material-ui/core/Paper';
 import AppContainer from './AppContainer';
 import { axios, BASE_URL } from '../utils/utils';
@@ -40,17 +45,75 @@ const StyledTableCell = withStyles((theme) => ({
     },
   }))(TableRow);
 
+const RenderDeleteConfirmationDialog = ({open, user, handleClose, handleDelete}) => (
+    <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+    >
+        <DialogTitle id="alert-dialog-title">
+            Delete Confirmation
+        </DialogTitle>
+        <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+                You are about to delete {`${user && user.name}`} from the platform, click DELETE if you wish to continue or CANCEL to cancel
+            </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+            <Button onClick={handleClose} color="primary">
+                Cancel
+            </Button>
+            <Button onClick={handleDelete} color="primary" autoFocus>
+                Delete
+            </Button>
+        </DialogActions>
+    </Dialog>
+)
+
 const UsersTable = () => {
     const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+    const [user, setUser] = React.useState(null);
+    const [page, setPage] = React.useState(0);
     const [state, setState] = React.useState({
         rows: [],
         loading: false,
-        error: null
+        error: null,
+        msg: null
     });
+
+    const handleDelete = () => {
+        handleClose();
+        axios.delete(`${BASE_URL}/users/${user.id}`)
+            .then(() => {
+                setState({
+                    ...state,
+                    msg: 'User removed successfully',
+                    loading: false
+                });
+                const newRows = state.rows.filter(row => row.id !== user.id);
+                setState({...state, rows: newRows});
+                setUser(null)
+            })      
+    }
+
+    const handleOpen = currentUser => {
+        setUser(currentUser)
+        setOpen(true)
+    }
+
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+      };
 
     React.useEffect(() => {
         setState({...state, loading: true});
-        axios.get(`${BASE_URL}/api/users`)
+        axios.get(`${BASE_URL}/users`)
             .then(res => {
                 console.log(res.data)
                 setState({...state, rows: res.data, loading: false});
@@ -63,6 +126,12 @@ const UsersTable = () => {
 
     return (
         <AppContainer>
+            <RenderDeleteConfirmationDialog
+                open={open}
+                user={user}
+                handleClose={handleClose}
+                handleDelete={handleDelete}
+            />
             <Paper variant="outlined" className={classes.paper}>
                 <div className={classes.btnContainer}>
                     <Button
@@ -123,7 +192,14 @@ const UsersTable = () => {
                                         {row.roles[0] && row.roles[0].name}
                                     </StyledTableCell>
                                     <StyledTableCell align="center">
-                                        
+                                        <Button
+                                            variant="contained"
+                                            color="secondary"
+                                            size="small"
+                                            onClick={() => handleOpen(row)}
+                                        >
+                                            Delete
+                                        </Button>
                                     </StyledTableCell>
                                 </StyledTableRow>
                             ))}
@@ -131,7 +207,10 @@ const UsersTable = () => {
                         <TableFooter>
                             <TableRow>
                                 <TablePagination
-                                
+                                    rowsPerPage={state.rows.length}
+                                    count={state.rows.length}
+                                    page={page}
+                                    onChangePage={handleChangePage}
                                 />
                             </TableRow>
                         </TableFooter>

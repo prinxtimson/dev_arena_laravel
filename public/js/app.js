@@ -1,6 +1,32 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/@babel/runtime/helpers/defineProperty.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/defineProperty.js ***!
+  \***************************************************************/
+/***/ ((module) => {
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js":
 /*!*********************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js ***!
@@ -490,6 +516,36 @@ function _unsupportedIterableToArray(o, minLen) {
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/extends.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/extends.js ***!
+  \********************************************************/
+/***/ ((module) => {
+
+function _extends() {
+  module.exports = _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  module.exports.default = module.exports, module.exports.__esModule = true;
+  return _extends.apply(this, arguments);
+}
+
+module.exports = _extends;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js":
 /*!**********************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
@@ -572,6 +628,64 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/objectWithoutProperties.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/objectWithoutProperties.js ***!
+  \************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var objectWithoutPropertiesLoose = __webpack_require__(/*! ./objectWithoutPropertiesLoose.js */ "./node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js");
+
+function _objectWithoutProperties(source, excluded) {
+  if (source == null) return {};
+  var target = objectWithoutPropertiesLoose(source, excluded);
+  var key, i;
+
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+
+  return target;
+}
+
+module.exports = _objectWithoutProperties;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js ***!
+  \*****************************************************************************/
+/***/ ((module) => {
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+module.exports = _objectWithoutPropertiesLoose;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/typeof.js":
 /*!*******************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
@@ -611,6 +725,266 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime.js");
 
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/colors/blue.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@material-ui/core/colors/blue.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+var blue = {
+  50: '#e3f2fd',
+  100: '#bbdefb',
+  200: '#90caf9',
+  300: '#64b5f6',
+  400: '#42a5f5',
+  500: '#2196f3',
+  600: '#1e88e5',
+  700: '#1976d2',
+  800: '#1565c0',
+  900: '#0d47a1',
+  A100: '#82b1ff',
+  A200: '#448aff',
+  A400: '#2979ff',
+  A700: '#2962ff'
+};
+var _default = blue;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/colors/common.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material-ui/core/colors/common.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+var common = {
+  black: '#000',
+  white: '#fff'
+};
+var _default = common;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/colors/green.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@material-ui/core/colors/green.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+var green = {
+  50: '#e8f5e9',
+  100: '#c8e6c9',
+  200: '#a5d6a7',
+  300: '#81c784',
+  400: '#66bb6a',
+  500: '#4caf50',
+  600: '#43a047',
+  700: '#388e3c',
+  800: '#2e7d32',
+  900: '#1b5e20',
+  A100: '#b9f6ca',
+  A200: '#69f0ae',
+  A400: '#00e676',
+  A700: '#00c853'
+};
+var _default = green;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/colors/grey.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@material-ui/core/colors/grey.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+var grey = {
+  50: '#fafafa',
+  100: '#f5f5f5',
+  200: '#eeeeee',
+  300: '#e0e0e0',
+  400: '#bdbdbd',
+  500: '#9e9e9e',
+  600: '#757575',
+  700: '#616161',
+  800: '#424242',
+  900: '#212121',
+  A100: '#d5d5d5',
+  A200: '#aaaaaa',
+  A400: '#303030',
+  A700: '#616161'
+};
+var _default = grey;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/colors/indigo.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material-ui/core/colors/indigo.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+var indigo = {
+  50: '#e8eaf6',
+  100: '#c5cae9',
+  200: '#9fa8da',
+  300: '#7986cb',
+  400: '#5c6bc0',
+  500: '#3f51b5',
+  600: '#3949ab',
+  700: '#303f9f',
+  800: '#283593',
+  900: '#1a237e',
+  A100: '#8c9eff',
+  A200: '#536dfe',
+  A400: '#3d5afe',
+  A700: '#304ffe'
+};
+var _default = indigo;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/colors/orange.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material-ui/core/colors/orange.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+var orange = {
+  50: '#fff3e0',
+  100: '#ffe0b2',
+  200: '#ffcc80',
+  300: '#ffb74d',
+  400: '#ffa726',
+  500: '#ff9800',
+  600: '#fb8c00',
+  700: '#f57c00',
+  800: '#ef6c00',
+  900: '#e65100',
+  A100: '#ffd180',
+  A200: '#ffab40',
+  A400: '#ff9100',
+  A700: '#ff6d00'
+};
+var _default = orange;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/colors/pink.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@material-ui/core/colors/pink.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+var pink = {
+  50: '#fce4ec',
+  100: '#f8bbd0',
+  200: '#f48fb1',
+  300: '#f06292',
+  400: '#ec407a',
+  500: '#e91e63',
+  600: '#d81b60',
+  700: '#c2185b',
+  800: '#ad1457',
+  900: '#880e4f',
+  A100: '#ff80ab',
+  A200: '#ff4081',
+  A400: '#f50057',
+  A700: '#c51162'
+};
+var _default = pink;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/colors/red.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@material-ui/core/colors/red.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+var red = {
+  50: '#ffebee',
+  100: '#ffcdd2',
+  200: '#ef9a9a',
+  300: '#e57373',
+  400: '#ef5350',
+  500: '#f44336',
+  600: '#e53935',
+  700: '#d32f2f',
+  800: '#c62828',
+  900: '#b71c1c',
+  A100: '#ff8a80',
+  A200: '#ff5252',
+  A400: '#ff1744',
+  A700: '#d50000'
+};
+var _default = red;
+exports.default = _default;
 
 /***/ }),
 
@@ -21045,6 +21419,1256 @@ var withWidth = function withWidth() {
 
 /***/ }),
 
+/***/ "./node_modules/@material-ui/core/styles/colorManipulator.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@material-ui/core/styles/colorManipulator.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.hexToRgb = hexToRgb;
+exports.rgbToHex = rgbToHex;
+exports.hslToRgb = hslToRgb;
+exports.decomposeColor = decomposeColor;
+exports.recomposeColor = recomposeColor;
+exports.getContrastRatio = getContrastRatio;
+exports.getLuminance = getLuminance;
+exports.emphasize = emphasize;
+exports.fade = fade;
+exports.darken = darken;
+exports.lighten = lighten;
+
+var _utils = __webpack_require__(/*! @material-ui/utils */ "./node_modules/@material-ui/utils/esm/index.js");
+
+/* eslint-disable no-use-before-define */
+
+/**
+ * Returns a number whose value is limited to the given range.
+ *
+ * @param {number} value The value to be clamped
+ * @param {number} min The lower boundary of the output range
+ * @param {number} max The upper boundary of the output range
+ * @returns {number} A number in the range [min, max]
+ */
+function clamp(value) {
+  var min = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  var max = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+
+  if (true) {
+    if (value < min || value > max) {
+      console.error("Material-UI: The value provided ".concat(value, " is out of range [").concat(min, ", ").concat(max, "]."));
+    }
+  }
+
+  return Math.min(Math.max(min, value), max);
+}
+/**
+ * Converts a color from CSS hex format to CSS rgb format.
+ *
+ * @param {string} color - Hex color, i.e. #nnn or #nnnnnn
+ * @returns {string} A CSS rgb color string
+ */
+
+
+function hexToRgb(color) {
+  color = color.substr(1);
+  var re = new RegExp(".{1,".concat(color.length >= 6 ? 2 : 1, "}"), 'g');
+  var colors = color.match(re);
+
+  if (colors && colors[0].length === 1) {
+    colors = colors.map(function (n) {
+      return n + n;
+    });
+  }
+
+  return colors ? "rgb".concat(colors.length === 4 ? 'a' : '', "(").concat(colors.map(function (n, index) {
+    return index < 3 ? parseInt(n, 16) : Math.round(parseInt(n, 16) / 255 * 1000) / 1000;
+  }).join(', '), ")") : '';
+}
+
+function intToHex(int) {
+  var hex = int.toString(16);
+  return hex.length === 1 ? "0".concat(hex) : hex;
+}
+/**
+ * Converts a color from CSS rgb format to CSS hex format.
+ *
+ * @param {string} color - RGB color, i.e. rgb(n, n, n)
+ * @returns {string} A CSS rgb color string, i.e. #nnnnnn
+ */
+
+
+function rgbToHex(color) {
+  // Idempotent
+  if (color.indexOf('#') === 0) {
+    return color;
+  }
+
+  var _decomposeColor = decomposeColor(color),
+      values = _decomposeColor.values;
+
+  return "#".concat(values.map(function (n) {
+    return intToHex(n);
+  }).join(''));
+}
+/**
+ * Converts a color from hsl format to rgb format.
+ *
+ * @param {string} color - HSL color values
+ * @returns {string} rgb color values
+ */
+
+
+function hslToRgb(color) {
+  color = decomposeColor(color);
+  var _color = color,
+      values = _color.values;
+  var h = values[0];
+  var s = values[1] / 100;
+  var l = values[2] / 100;
+  var a = s * Math.min(l, 1 - l);
+
+  var f = function f(n) {
+    var k = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : (n + h / 30) % 12;
+    return l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+  };
+
+  var type = 'rgb';
+  var rgb = [Math.round(f(0) * 255), Math.round(f(8) * 255), Math.round(f(4) * 255)];
+
+  if (color.type === 'hsla') {
+    type += 'a';
+    rgb.push(values[3]);
+  }
+
+  return recomposeColor({
+    type: type,
+    values: rgb
+  });
+}
+/**
+ * Returns an object with the type and values of a color.
+ *
+ * Note: Does not support rgb % values.
+ *
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @returns {object} - A MUI color object: {type: string, values: number[]}
+ */
+
+
+function decomposeColor(color) {
+  // Idempotent
+  if (color.type) {
+    return color;
+  }
+
+  if (color.charAt(0) === '#') {
+    return decomposeColor(hexToRgb(color));
+  }
+
+  var marker = color.indexOf('(');
+  var type = color.substring(0, marker);
+
+  if (['rgb', 'rgba', 'hsl', 'hsla'].indexOf(type) === -1) {
+    throw new Error( true ? "Material-UI: Unsupported `".concat(color, "` color.\nWe support the following formats: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla().") : 0);
+  }
+
+  var values = color.substring(marker + 1, color.length - 1).split(',');
+  values = values.map(function (value) {
+    return parseFloat(value);
+  });
+  return {
+    type: type,
+    values: values
+  };
+}
+/**
+ * Converts a color object with type and values to a string.
+ *
+ * @param {object} color - Decomposed color
+ * @param {string} color.type - One of: 'rgb', 'rgba', 'hsl', 'hsla'
+ * @param {array} color.values - [n,n,n] or [n,n,n,n]
+ * @returns {string} A CSS color string
+ */
+
+
+function recomposeColor(color) {
+  var type = color.type;
+  var values = color.values;
+
+  if (type.indexOf('rgb') !== -1) {
+    // Only convert the first 3 values to int (i.e. not alpha)
+    values = values.map(function (n, i) {
+      return i < 3 ? parseInt(n, 10) : n;
+    });
+  } else if (type.indexOf('hsl') !== -1) {
+    values[1] = "".concat(values[1], "%");
+    values[2] = "".concat(values[2], "%");
+  }
+
+  return "".concat(type, "(").concat(values.join(', '), ")");
+}
+/**
+ * Calculates the contrast ratio between two colors.
+ *
+ * Formula: https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
+ *
+ * @param {string} foreground - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @param {string} background - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @returns {number} A contrast ratio value in the range 0 - 21.
+ */
+
+
+function getContrastRatio(foreground, background) {
+  var lumA = getLuminance(foreground);
+  var lumB = getLuminance(background);
+  return (Math.max(lumA, lumB) + 0.05) / (Math.min(lumA, lumB) + 0.05);
+}
+/**
+ * The relative brightness of any point in a color space,
+ * normalized to 0 for darkest black and 1 for lightest white.
+ *
+ * Formula: https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
+ *
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @returns {number} The relative brightness of the color in the range 0 - 1
+ */
+
+
+function getLuminance(color) {
+  color = decomposeColor(color);
+  var rgb = color.type === 'hsl' ? decomposeColor(hslToRgb(color)).values : color.values;
+  rgb = rgb.map(function (val) {
+    val /= 255; // normalized
+
+    return val <= 0.03928 ? val / 12.92 : Math.pow((val + 0.055) / 1.055, 2.4);
+  }); // Truncate at 3 digits
+
+  return Number((0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]).toFixed(3));
+}
+/**
+ * Darken or lighten a color, depending on its luminance.
+ * Light colors are darkened, dark colors are lightened.
+ *
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @param {number} coefficient=0.15 - multiplier in the range 0 - 1
+ * @returns {string} A CSS color string. Hex input values are returned as rgb
+ */
+
+
+function emphasize(color) {
+  var coefficient = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.15;
+  return getLuminance(color) > 0.5 ? darken(color, coefficient) : lighten(color, coefficient);
+}
+/**
+ * Set the absolute transparency of a color.
+ * Any existing alpha values are overwritten.
+ *
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @param {number} value - value to set the alpha channel to in the range 0 -1
+ * @returns {string} A CSS color string. Hex input values are returned as rgb
+ */
+
+
+function fade(color, value) {
+  color = decomposeColor(color);
+  value = clamp(value);
+
+  if (color.type === 'rgb' || color.type === 'hsl') {
+    color.type += 'a';
+  }
+
+  color.values[3] = value;
+  return recomposeColor(color);
+}
+/**
+ * Darkens a color.
+ *
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @param {number} coefficient - multiplier in the range 0 - 1
+ * @returns {string} A CSS color string. Hex input values are returned as rgb
+ */
+
+
+function darken(color, coefficient) {
+  color = decomposeColor(color);
+  coefficient = clamp(coefficient);
+
+  if (color.type.indexOf('hsl') !== -1) {
+    color.values[2] *= 1 - coefficient;
+  } else if (color.type.indexOf('rgb') !== -1) {
+    for (var i = 0; i < 3; i += 1) {
+      color.values[i] *= 1 - coefficient;
+    }
+  }
+
+  return recomposeColor(color);
+}
+/**
+ * Lightens a color.
+ *
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @param {number} coefficient - multiplier in the range 0 - 1
+ * @returns {string} A CSS color string. Hex input values are returned as rgb
+ */
+
+
+function lighten(color, coefficient) {
+  color = decomposeColor(color);
+  coefficient = clamp(coefficient);
+
+  if (color.type.indexOf('hsl') !== -1) {
+    color.values[2] += (100 - color.values[2]) * coefficient;
+  } else if (color.type.indexOf('rgb') !== -1) {
+    for (var i = 0; i < 3; i += 1) {
+      color.values[i] += (255 - color.values[i]) * coefficient;
+    }
+  }
+
+  return recomposeColor(color);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/styles/createBreakpoints.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@material-ui/core/styles/createBreakpoints.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = createBreakpoints;
+exports.keys = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+// Sorted ASC by size. That's important.
+// It can't be configured as it's used statically for propTypes.
+var keys = ['xs', 'sm', 'md', 'lg', 'xl']; // Keep in mind that @media is inclusive by the CSS specification.
+
+exports.keys = keys;
+
+function createBreakpoints(breakpoints) {
+  var _breakpoints$values = breakpoints.values,
+      values = _breakpoints$values === void 0 ? {
+    xs: 0,
+    sm: 600,
+    md: 960,
+    lg: 1280,
+    xl: 1920
+  } : _breakpoints$values,
+      _breakpoints$unit = breakpoints.unit,
+      unit = _breakpoints$unit === void 0 ? 'px' : _breakpoints$unit,
+      _breakpoints$step = breakpoints.step,
+      step = _breakpoints$step === void 0 ? 5 : _breakpoints$step,
+      other = (0, _objectWithoutProperties2.default)(breakpoints, ["values", "unit", "step"]);
+
+  function up(key) {
+    var value = typeof values[key] === 'number' ? values[key] : key;
+    return "@media (min-width:".concat(value).concat(unit, ")");
+  }
+
+  function down(key) {
+    var endIndex = keys.indexOf(key) + 1;
+    var upperbound = values[keys[endIndex]];
+
+    if (endIndex === keys.length) {
+      // xl down applies to all sizes
+      return up('xs');
+    }
+
+    var value = typeof upperbound === 'number' && endIndex > 0 ? upperbound : key;
+    return "@media (max-width:".concat(value - step / 100).concat(unit, ")");
+  }
+
+  function between(start, end) {
+    var endIndex = keys.indexOf(end);
+
+    if (endIndex === keys.length - 1) {
+      return up(start);
+    }
+
+    return "@media (min-width:".concat(typeof values[start] === 'number' ? values[start] : start).concat(unit, ") and ") + "(max-width:".concat((endIndex !== -1 && typeof values[keys[endIndex + 1]] === 'number' ? values[keys[endIndex + 1]] : end) - step / 100).concat(unit, ")");
+  }
+
+  function only(key) {
+    return between(key, key);
+  }
+
+  function width(key) {
+    return values[key];
+  }
+
+  return (0, _extends2.default)({
+    keys: keys,
+    values: values,
+    up: up,
+    down: down,
+    between: between,
+    only: only,
+    width: width
+  }, other);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/styles/createMixins.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@material-ui/core/styles/createMixins.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = createMixins;
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js"));
+
+var _extends3 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
+
+function createMixins(breakpoints, spacing, mixins) {
+  var _toolbar;
+
+  return (0, _extends3.default)({
+    gutters: function gutters() {
+      var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      // To deprecate in v4.1
+      //       warning(
+      //         false,
+      //         [
+      //           'Material-UI: Theme.mixins.gutters() is deprecated.',
+      //           'You can use the source of the mixin directly:',
+      //           `
+      // paddingLeft: theme.spacing(2),
+      // paddingRight: theme.spacing(2),
+      // [theme.breakpoints.up('sm')]: {
+      //   paddingLeft: theme.spacing(3),
+      //   paddingRight: theme.spacing(3),
+      // },
+      // `,
+      //         ].join('\n'),
+      //       );
+      return (0, _extends3.default)({
+        paddingLeft: spacing(2),
+        paddingRight: spacing(2)
+      }, styles, (0, _defineProperty2.default)({}, breakpoints.up('sm'), (0, _extends3.default)({
+        paddingLeft: spacing(3),
+        paddingRight: spacing(3)
+      }, styles[breakpoints.up('sm')])));
+    },
+    toolbar: (_toolbar = {
+      minHeight: 56
+    }, (0, _defineProperty2.default)(_toolbar, "".concat(breakpoints.up('xs'), " and (orientation: landscape)"), {
+      minHeight: 48
+    }), (0, _defineProperty2.default)(_toolbar, breakpoints.up('sm'), {
+      minHeight: 64
+    }), _toolbar)
+  }, mixins);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/styles/createMuiTheme.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@material-ui/core/styles/createMuiTheme.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+var _utils = __webpack_require__(/*! @material-ui/utils */ "./node_modules/@material-ui/utils/esm/index.js");
+
+var _createBreakpoints = _interopRequireDefault(__webpack_require__(/*! ./createBreakpoints */ "./node_modules/@material-ui/core/styles/createBreakpoints.js"));
+
+var _createMixins = _interopRequireDefault(__webpack_require__(/*! ./createMixins */ "./node_modules/@material-ui/core/styles/createMixins.js"));
+
+var _createPalette = _interopRequireDefault(__webpack_require__(/*! ./createPalette */ "./node_modules/@material-ui/core/styles/createPalette.js"));
+
+var _createTypography = _interopRequireDefault(__webpack_require__(/*! ./createTypography */ "./node_modules/@material-ui/core/styles/createTypography.js"));
+
+var _shadows = _interopRequireDefault(__webpack_require__(/*! ./shadows */ "./node_modules/@material-ui/core/styles/shadows.js"));
+
+var _shape = _interopRequireDefault(__webpack_require__(/*! ./shape */ "./node_modules/@material-ui/core/styles/shape.js"));
+
+var _createSpacing = _interopRequireDefault(__webpack_require__(/*! ./createSpacing */ "./node_modules/@material-ui/core/styles/createSpacing.js"));
+
+var _transitions = _interopRequireDefault(__webpack_require__(/*! ./transitions */ "./node_modules/@material-ui/core/styles/transitions.js"));
+
+var _zIndex = _interopRequireDefault(__webpack_require__(/*! ./zIndex */ "./node_modules/@material-ui/core/styles/zIndex.js"));
+
+function createMuiTheme() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var _options$breakpoints = options.breakpoints,
+      breakpointsInput = _options$breakpoints === void 0 ? {} : _options$breakpoints,
+      _options$mixins = options.mixins,
+      mixinsInput = _options$mixins === void 0 ? {} : _options$mixins,
+      _options$palette = options.palette,
+      paletteInput = _options$palette === void 0 ? {} : _options$palette,
+      spacingInput = options.spacing,
+      _options$typography = options.typography,
+      typographyInput = _options$typography === void 0 ? {} : _options$typography,
+      other = (0, _objectWithoutProperties2.default)(options, ["breakpoints", "mixins", "palette", "spacing", "typography"]);
+  var palette = (0, _createPalette.default)(paletteInput);
+  var breakpoints = (0, _createBreakpoints.default)(breakpointsInput);
+  var spacing = (0, _createSpacing.default)(spacingInput);
+  var muiTheme = (0, _utils.deepmerge)({
+    breakpoints: breakpoints,
+    direction: 'ltr',
+    mixins: (0, _createMixins.default)(breakpoints, spacing, mixinsInput),
+    overrides: {},
+    // Inject custom styles
+    palette: palette,
+    props: {},
+    // Provide default props
+    shadows: _shadows.default,
+    typography: (0, _createTypography.default)(palette, typographyInput),
+    spacing: spacing,
+    shape: _shape.default,
+    transitions: _transitions.default,
+    zIndex: _zIndex.default
+  }, other);
+
+  for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    args[_key - 1] = arguments[_key];
+  }
+
+  muiTheme = args.reduce(function (acc, argument) {
+    return (0, _utils.deepmerge)(acc, argument);
+  }, muiTheme);
+
+  if (true) {
+    var pseudoClasses = ['checked', 'disabled', 'error', 'focused', 'focusVisible', 'required', 'expanded', 'selected'];
+
+    var traverse = function traverse(node, parentKey) {
+      var depth = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+      var key; // eslint-disable-next-line guard-for-in, no-restricted-syntax
+
+      for (key in node) {
+        var child = node[key];
+
+        if (depth === 1) {
+          if (key.indexOf('Mui') === 0 && child) {
+            traverse(child, key, depth + 1);
+          }
+        } else if (pseudoClasses.indexOf(key) !== -1 && Object.keys(child).length > 0) {
+          if (true) {
+            console.error(["Material-UI: The `".concat(parentKey, "` component increases ") + "the CSS specificity of the `".concat(key, "` internal state."), 'You can not override it like this: ', JSON.stringify(node, null, 2), '', 'Instead, you need to use the $ruleName syntax:', JSON.stringify({
+              root: (0, _defineProperty2.default)({}, "&$".concat(key), child)
+            }, null, 2), '', 'https://material-ui.com/r/pseudo-classes-guide'].join('\n'));
+          } // Remove the style to prevent global conflicts.
+
+
+          node[key] = {};
+        }
+      }
+    };
+
+    traverse(muiTheme.overrides);
+  }
+
+  return muiTheme;
+}
+
+var _default = createMuiTheme;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/styles/createPalette.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@material-ui/core/styles/createPalette.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = createPalette;
+exports.dark = exports.light = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+var _utils = __webpack_require__(/*! @material-ui/utils */ "./node_modules/@material-ui/utils/esm/index.js");
+
+var _common = _interopRequireDefault(__webpack_require__(/*! ../colors/common */ "./node_modules/@material-ui/core/colors/common.js"));
+
+var _grey = _interopRequireDefault(__webpack_require__(/*! ../colors/grey */ "./node_modules/@material-ui/core/colors/grey.js"));
+
+var _indigo = _interopRequireDefault(__webpack_require__(/*! ../colors/indigo */ "./node_modules/@material-ui/core/colors/indigo.js"));
+
+var _pink = _interopRequireDefault(__webpack_require__(/*! ../colors/pink */ "./node_modules/@material-ui/core/colors/pink.js"));
+
+var _red = _interopRequireDefault(__webpack_require__(/*! ../colors/red */ "./node_modules/@material-ui/core/colors/red.js"));
+
+var _orange = _interopRequireDefault(__webpack_require__(/*! ../colors/orange */ "./node_modules/@material-ui/core/colors/orange.js"));
+
+var _blue = _interopRequireDefault(__webpack_require__(/*! ../colors/blue */ "./node_modules/@material-ui/core/colors/blue.js"));
+
+var _green = _interopRequireDefault(__webpack_require__(/*! ../colors/green */ "./node_modules/@material-ui/core/colors/green.js"));
+
+var _colorManipulator = __webpack_require__(/*! ./colorManipulator */ "./node_modules/@material-ui/core/styles/colorManipulator.js");
+
+var light = {
+  // The colors used to style the text.
+  text: {
+    // The most important text.
+    primary: 'rgba(0, 0, 0, 0.87)',
+    // Secondary text.
+    secondary: 'rgba(0, 0, 0, 0.54)',
+    // Disabled text have even lower visual prominence.
+    disabled: 'rgba(0, 0, 0, 0.38)',
+    // Text hints.
+    hint: 'rgba(0, 0, 0, 0.38)'
+  },
+  // The color used to divide different elements.
+  divider: 'rgba(0, 0, 0, 0.12)',
+  // The background colors used to style the surfaces.
+  // Consistency between these values is important.
+  background: {
+    paper: _common.default.white,
+    default: _grey.default[50]
+  },
+  // The colors used to style the action elements.
+  action: {
+    // The color of an active action like an icon button.
+    active: 'rgba(0, 0, 0, 0.54)',
+    // The color of an hovered action.
+    hover: 'rgba(0, 0, 0, 0.04)',
+    hoverOpacity: 0.04,
+    // The color of a selected action.
+    selected: 'rgba(0, 0, 0, 0.08)',
+    selectedOpacity: 0.08,
+    // The color of a disabled action.
+    disabled: 'rgba(0, 0, 0, 0.26)',
+    // The background color of a disabled action.
+    disabledBackground: 'rgba(0, 0, 0, 0.12)',
+    disabledOpacity: 0.38,
+    focus: 'rgba(0, 0, 0, 0.12)',
+    focusOpacity: 0.12,
+    activatedOpacity: 0.12
+  }
+};
+exports.light = light;
+var dark = {
+  text: {
+    primary: _common.default.white,
+    secondary: 'rgba(255, 255, 255, 0.7)',
+    disabled: 'rgba(255, 255, 255, 0.5)',
+    hint: 'rgba(255, 255, 255, 0.5)',
+    icon: 'rgba(255, 255, 255, 0.5)'
+  },
+  divider: 'rgba(255, 255, 255, 0.12)',
+  background: {
+    paper: _grey.default[800],
+    default: '#303030'
+  },
+  action: {
+    active: _common.default.white,
+    hover: 'rgba(255, 255, 255, 0.08)',
+    hoverOpacity: 0.08,
+    selected: 'rgba(255, 255, 255, 0.16)',
+    selectedOpacity: 0.16,
+    disabled: 'rgba(255, 255, 255, 0.3)',
+    disabledBackground: 'rgba(255, 255, 255, 0.12)',
+    disabledOpacity: 0.38,
+    focus: 'rgba(255, 255, 255, 0.12)',
+    focusOpacity: 0.12,
+    activatedOpacity: 0.24
+  }
+};
+exports.dark = dark;
+
+function addLightOrDark(intent, direction, shade, tonalOffset) {
+  var tonalOffsetLight = tonalOffset.light || tonalOffset;
+  var tonalOffsetDark = tonalOffset.dark || tonalOffset * 1.5;
+
+  if (!intent[direction]) {
+    if (intent.hasOwnProperty(shade)) {
+      intent[direction] = intent[shade];
+    } else if (direction === 'light') {
+      intent.light = (0, _colorManipulator.lighten)(intent.main, tonalOffsetLight);
+    } else if (direction === 'dark') {
+      intent.dark = (0, _colorManipulator.darken)(intent.main, tonalOffsetDark);
+    }
+  }
+}
+
+function createPalette(palette) {
+  var _palette$primary = palette.primary,
+      primary = _palette$primary === void 0 ? {
+    light: _indigo.default[300],
+    main: _indigo.default[500],
+    dark: _indigo.default[700]
+  } : _palette$primary,
+      _palette$secondary = palette.secondary,
+      secondary = _palette$secondary === void 0 ? {
+    light: _pink.default.A200,
+    main: _pink.default.A400,
+    dark: _pink.default.A700
+  } : _palette$secondary,
+      _palette$error = palette.error,
+      error = _palette$error === void 0 ? {
+    light: _red.default[300],
+    main: _red.default[500],
+    dark: _red.default[700]
+  } : _palette$error,
+      _palette$warning = palette.warning,
+      warning = _palette$warning === void 0 ? {
+    light: _orange.default[300],
+    main: _orange.default[500],
+    dark: _orange.default[700]
+  } : _palette$warning,
+      _palette$info = palette.info,
+      info = _palette$info === void 0 ? {
+    light: _blue.default[300],
+    main: _blue.default[500],
+    dark: _blue.default[700]
+  } : _palette$info,
+      _palette$success = palette.success,
+      success = _palette$success === void 0 ? {
+    light: _green.default[300],
+    main: _green.default[500],
+    dark: _green.default[700]
+  } : _palette$success,
+      _palette$type = palette.type,
+      type = _palette$type === void 0 ? 'light' : _palette$type,
+      _palette$contrastThre = palette.contrastThreshold,
+      contrastThreshold = _palette$contrastThre === void 0 ? 3 : _palette$contrastThre,
+      _palette$tonalOffset = palette.tonalOffset,
+      tonalOffset = _palette$tonalOffset === void 0 ? 0.2 : _palette$tonalOffset,
+      other = (0, _objectWithoutProperties2.default)(palette, ["primary", "secondary", "error", "warning", "info", "success", "type", "contrastThreshold", "tonalOffset"]); // Use the same logic as
+  // Bootstrap: https://github.com/twbs/bootstrap/blob/1d6e3710dd447de1a200f29e8fa521f8a0908f70/scss/_functions.scss#L59
+  // and material-components-web https://github.com/material-components/material-components-web/blob/ac46b8863c4dab9fc22c4c662dc6bd1b65dd652f/packages/mdc-theme/_functions.scss#L54
+
+  function getContrastText(background) {
+    var contrastText = (0, _colorManipulator.getContrastRatio)(background, dark.text.primary) >= contrastThreshold ? dark.text.primary : light.text.primary;
+
+    if (true) {
+      var contrast = (0, _colorManipulator.getContrastRatio)(background, contrastText);
+
+      if (contrast < 3) {
+        console.error(["Material-UI: The contrast ratio of ".concat(contrast, ":1 for ").concat(contrastText, " on ").concat(background), 'falls below the WCAG recommended absolute minimum contrast ratio of 3:1.', 'https://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast'].join('\n'));
+      }
+    }
+
+    return contrastText;
+  }
+
+  var augmentColor = function augmentColor(color) {
+    var mainShade = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 500;
+    var lightShade = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 300;
+    var darkShade = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 700;
+    color = (0, _extends2.default)({}, color);
+
+    if (!color.main && color[mainShade]) {
+      color.main = color[mainShade];
+    }
+
+    if (!color.main) {
+      throw new Error( true ? "Material-UI: The color provided to augmentColor(color) is invalid.\nThe color object needs to have a `main` property or a `".concat(mainShade, "` property.") : 0);
+    }
+
+    if (typeof color.main !== 'string') {
+      throw new Error( true ? "Material-UI: The color provided to augmentColor(color) is invalid.\n`color.main` should be a string, but `".concat(JSON.stringify(color.main), "` was provided instead.\n\nDid you intend to use one of the following approaches?\n\nimport {\xA0green } from \"@material-ui/core/colors\";\n\nconst theme1 = createMuiTheme({ palette: {\n  primary: green,\n} });\n\nconst theme2 = createMuiTheme({ palette: {\n  primary: { main: green[500] },\n} });") : 0);
+    }
+
+    addLightOrDark(color, 'light', lightShade, tonalOffset);
+    addLightOrDark(color, 'dark', darkShade, tonalOffset);
+
+    if (!color.contrastText) {
+      color.contrastText = getContrastText(color.main);
+    }
+
+    return color;
+  };
+
+  var types = {
+    dark: dark,
+    light: light
+  };
+
+  if (true) {
+    if (!types[type]) {
+      console.error("Material-UI: The palette type `".concat(type, "` is not supported."));
+    }
+  }
+
+  var paletteOutput = (0, _utils.deepmerge)((0, _extends2.default)({
+    // A collection of common colors.
+    common: _common.default,
+    // The palette type, can be light or dark.
+    type: type,
+    // The colors used to represent primary interface elements for a user.
+    primary: augmentColor(primary),
+    // The colors used to represent secondary interface elements for a user.
+    secondary: augmentColor(secondary, 'A400', 'A200', 'A700'),
+    // The colors used to represent interface elements that the user should be made aware of.
+    error: augmentColor(error),
+    // The colors used to represent potentially dangerous actions or important messages.
+    warning: augmentColor(warning),
+    // The colors used to present information to the user that is neutral and not necessarily important.
+    info: augmentColor(info),
+    // The colors used to indicate the successful completion of an action that user triggered.
+    success: augmentColor(success),
+    // The grey colors.
+    grey: _grey.default,
+    // Used by `getContrastText()` to maximize the contrast between
+    // the background and the text.
+    contrastThreshold: contrastThreshold,
+    // Takes a background color and returns the text color that maximizes the contrast.
+    getContrastText: getContrastText,
+    // Generate a rich color object.
+    augmentColor: augmentColor,
+    // Used by the functions below to shift a color's luminance by approximately
+    // two indexes within its tonal palette.
+    // E.g., shift from Red 500 to Red 300 or Red 700.
+    tonalOffset: tonalOffset
+  }, types[type]), other);
+  return paletteOutput;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/styles/createSpacing.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@material-ui/core/styles/createSpacing.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = createSpacing;
+
+var _system = __webpack_require__(/*! @material-ui/system */ "./node_modules/@material-ui/system/esm/index.js");
+
+var warnOnce;
+
+function createSpacing() {
+  var spacingInput = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 8;
+
+  // Already transformed.
+  if (spacingInput.mui) {
+    return spacingInput;
+  } // Material Design layouts are visually balanced. Most measurements align to an 8dp grid applied, which aligns both spacing and the overall layout.
+  // Smaller components, such as icons and type, can align to a 4dp grid.
+  // https://material.io/design/layout/understanding-layout.html#usage
+
+
+  var transform = (0, _system.createUnarySpacing)({
+    spacing: spacingInput
+  });
+
+  var spacing = function spacing() {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    if (true) {
+      if (!(args.length <= 4)) {
+        console.error("Material-UI: Too many arguments provided, expected between 0 and 4, got ".concat(args.length));
+      }
+    }
+
+    if (args.length === 0) {
+      return transform(1);
+    }
+
+    if (args.length === 1) {
+      return transform(args[0]);
+    }
+
+    return args.map(function (argument) {
+      if (typeof argument === 'string') {
+        return argument;
+      }
+
+      var output = transform(argument);
+      return typeof output === 'number' ? "".concat(output, "px") : output;
+    }).join(' ');
+  }; // Backward compatibility, to remove in v5.
+
+
+  Object.defineProperty(spacing, 'unit', {
+    get: function get() {
+      if (true) {
+        if (!warnOnce || "development" === 'test') {
+          console.error(['Material-UI: theme.spacing.unit usage has been deprecated.', 'It will be removed in v5.', 'You can replace `theme.spacing.unit * y` with `theme.spacing(y)`.', '', 'You can use the `https://github.com/mui-org/material-ui/tree/master/packages/material-ui-codemod/README.md#theme-spacing-api` migration helper to make the process smoother.'].join('\n'));
+        }
+
+        warnOnce = true;
+      }
+
+      return spacingInput;
+    }
+  });
+  spacing.mui = true;
+  return spacing;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/styles/createTypography.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@material-ui/core/styles/createTypography.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = createTypography;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+var _utils = __webpack_require__(/*! @material-ui/utils */ "./node_modules/@material-ui/utils/esm/index.js");
+
+function round(value) {
+  return Math.round(value * 1e5) / 1e5;
+}
+
+var caseAllCaps = {
+  textTransform: 'uppercase'
+};
+var defaultFontFamily = '"Roboto", "Helvetica", "Arial", sans-serif';
+/**
+ * @see @link{https://material.io/design/typography/the-type-system.html}
+ * @see @link{https://material.io/design/typography/understanding-typography.html}
+ */
+
+function createTypography(palette, typography) {
+  var _ref = typeof typography === 'function' ? typography(palette) : typography,
+      _ref$fontFamily = _ref.fontFamily,
+      fontFamily = _ref$fontFamily === void 0 ? defaultFontFamily : _ref$fontFamily,
+      _ref$fontSize = _ref.fontSize,
+      fontSize = _ref$fontSize === void 0 ? 14 : _ref$fontSize,
+      _ref$fontWeightLight = _ref.fontWeightLight,
+      fontWeightLight = _ref$fontWeightLight === void 0 ? 300 : _ref$fontWeightLight,
+      _ref$fontWeightRegula = _ref.fontWeightRegular,
+      fontWeightRegular = _ref$fontWeightRegula === void 0 ? 400 : _ref$fontWeightRegula,
+      _ref$fontWeightMedium = _ref.fontWeightMedium,
+      fontWeightMedium = _ref$fontWeightMedium === void 0 ? 500 : _ref$fontWeightMedium,
+      _ref$fontWeightBold = _ref.fontWeightBold,
+      fontWeightBold = _ref$fontWeightBold === void 0 ? 700 : _ref$fontWeightBold,
+      _ref$htmlFontSize = _ref.htmlFontSize,
+      htmlFontSize = _ref$htmlFontSize === void 0 ? 16 : _ref$htmlFontSize,
+      allVariants = _ref.allVariants,
+      pxToRem2 = _ref.pxToRem,
+      other = (0, _objectWithoutProperties2.default)(_ref, ["fontFamily", "fontSize", "fontWeightLight", "fontWeightRegular", "fontWeightMedium", "fontWeightBold", "htmlFontSize", "allVariants", "pxToRem"]);
+
+  if (true) {
+    if (typeof fontSize !== 'number') {
+      console.error('Material-UI: `fontSize` is required to be a number.');
+    }
+
+    if (typeof htmlFontSize !== 'number') {
+      console.error('Material-UI: `htmlFontSize` is required to be a number.');
+    }
+  }
+
+  var coef = fontSize / 14;
+
+  var pxToRem = pxToRem2 || function (size) {
+    return "".concat(size / htmlFontSize * coef, "rem");
+  };
+
+  var buildVariant = function buildVariant(fontWeight, size, lineHeight, letterSpacing, casing) {
+    return (0, _extends2.default)({
+      fontFamily: fontFamily,
+      fontWeight: fontWeight,
+      fontSize: pxToRem(size),
+      // Unitless following https://meyerweb.com/eric/thoughts/2006/02/08/unitless-line-heights/
+      lineHeight: lineHeight
+    }, fontFamily === defaultFontFamily ? {
+      letterSpacing: "".concat(round(letterSpacing / size), "em")
+    } : {}, casing, allVariants);
+  };
+
+  var variants = {
+    h1: buildVariant(fontWeightLight, 96, 1.167, -1.5),
+    h2: buildVariant(fontWeightLight, 60, 1.2, -0.5),
+    h3: buildVariant(fontWeightRegular, 48, 1.167, 0),
+    h4: buildVariant(fontWeightRegular, 34, 1.235, 0.25),
+    h5: buildVariant(fontWeightRegular, 24, 1.334, 0),
+    h6: buildVariant(fontWeightMedium, 20, 1.6, 0.15),
+    subtitle1: buildVariant(fontWeightRegular, 16, 1.75, 0.15),
+    subtitle2: buildVariant(fontWeightMedium, 14, 1.57, 0.1),
+    body1: buildVariant(fontWeightRegular, 16, 1.5, 0.15),
+    body2: buildVariant(fontWeightRegular, 14, 1.43, 0.15),
+    button: buildVariant(fontWeightMedium, 14, 1.75, 0.4, caseAllCaps),
+    caption: buildVariant(fontWeightRegular, 12, 1.66, 0.4),
+    overline: buildVariant(fontWeightRegular, 12, 2.66, 1, caseAllCaps)
+  };
+  return (0, _utils.deepmerge)((0, _extends2.default)({
+    htmlFontSize: htmlFontSize,
+    pxToRem: pxToRem,
+    round: round,
+    // TODO v5: remove
+    fontFamily: fontFamily,
+    fontSize: fontSize,
+    fontWeightLight: fontWeightLight,
+    fontWeightRegular: fontWeightRegular,
+    fontWeightMedium: fontWeightMedium,
+    fontWeightBold: fontWeightBold
+  }, variants), other, {
+    clone: false // No need to clone deep
+
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/styles/shadows.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@material-ui/core/styles/shadows.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+var shadowKeyUmbraOpacity = 0.2;
+var shadowKeyPenumbraOpacity = 0.14;
+var shadowAmbientShadowOpacity = 0.12;
+
+function createShadow() {
+  return ["".concat(arguments.length <= 0 ? undefined : arguments[0], "px ").concat(arguments.length <= 1 ? undefined : arguments[1], "px ").concat(arguments.length <= 2 ? undefined : arguments[2], "px ").concat(arguments.length <= 3 ? undefined : arguments[3], "px rgba(0,0,0,").concat(shadowKeyUmbraOpacity, ")"), "".concat(arguments.length <= 4 ? undefined : arguments[4], "px ").concat(arguments.length <= 5 ? undefined : arguments[5], "px ").concat(arguments.length <= 6 ? undefined : arguments[6], "px ").concat(arguments.length <= 7 ? undefined : arguments[7], "px rgba(0,0,0,").concat(shadowKeyPenumbraOpacity, ")"), "".concat(arguments.length <= 8 ? undefined : arguments[8], "px ").concat(arguments.length <= 9 ? undefined : arguments[9], "px ").concat(arguments.length <= 10 ? undefined : arguments[10], "px ").concat(arguments.length <= 11 ? undefined : arguments[11], "px rgba(0,0,0,").concat(shadowAmbientShadowOpacity, ")")].join(',');
+} // Values from https://github.com/material-components/material-components-web/blob/be8747f94574669cb5e7add1a7c54fa41a89cec7/packages/mdc-elevation/_variables.scss
+
+
+var shadows = ['none', createShadow(0, 2, 1, -1, 0, 1, 1, 0, 0, 1, 3, 0), createShadow(0, 3, 1, -2, 0, 2, 2, 0, 0, 1, 5, 0), createShadow(0, 3, 3, -2, 0, 3, 4, 0, 0, 1, 8, 0), createShadow(0, 2, 4, -1, 0, 4, 5, 0, 0, 1, 10, 0), createShadow(0, 3, 5, -1, 0, 5, 8, 0, 0, 1, 14, 0), createShadow(0, 3, 5, -1, 0, 6, 10, 0, 0, 1, 18, 0), createShadow(0, 4, 5, -2, 0, 7, 10, 1, 0, 2, 16, 1), createShadow(0, 5, 5, -3, 0, 8, 10, 1, 0, 3, 14, 2), createShadow(0, 5, 6, -3, 0, 9, 12, 1, 0, 3, 16, 2), createShadow(0, 6, 6, -3, 0, 10, 14, 1, 0, 4, 18, 3), createShadow(0, 6, 7, -4, 0, 11, 15, 1, 0, 4, 20, 3), createShadow(0, 7, 8, -4, 0, 12, 17, 2, 0, 5, 22, 4), createShadow(0, 7, 8, -4, 0, 13, 19, 2, 0, 5, 24, 4), createShadow(0, 7, 9, -4, 0, 14, 21, 2, 0, 5, 26, 4), createShadow(0, 8, 9, -5, 0, 15, 22, 2, 0, 6, 28, 5), createShadow(0, 8, 10, -5, 0, 16, 24, 2, 0, 6, 30, 5), createShadow(0, 8, 11, -5, 0, 17, 26, 2, 0, 6, 32, 5), createShadow(0, 9, 11, -5, 0, 18, 28, 2, 0, 7, 34, 6), createShadow(0, 9, 12, -6, 0, 19, 29, 2, 0, 7, 36, 6), createShadow(0, 10, 13, -6, 0, 20, 31, 3, 0, 8, 38, 7), createShadow(0, 10, 13, -6, 0, 21, 33, 3, 0, 8, 40, 7), createShadow(0, 10, 14, -6, 0, 22, 35, 3, 0, 8, 42, 7), createShadow(0, 11, 14, -7, 0, 23, 36, 3, 0, 9, 44, 8), createShadow(0, 11, 15, -7, 0, 24, 38, 3, 0, 9, 46, 8)];
+var _default = shadows;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/styles/shape.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@material-ui/core/styles/shape.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+var shape = {
+  borderRadius: 4
+};
+var _default = shape;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/styles/transitions.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@material-ui/core/styles/transitions.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = exports.duration = exports.easing = void 0;
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+// Follow https://material.google.com/motion/duration-easing.html#duration-easing-natural-easing-curves
+// to learn the context in which each easing should be used.
+var easing = {
+  // This is the most common easing curve.
+  easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  // Objects enter the screen at full velocity from off-screen and
+  // slowly decelerate to a resting point.
+  easeOut: 'cubic-bezier(0.0, 0, 0.2, 1)',
+  // Objects leave the screen at full velocity. They do not decelerate when off-screen.
+  easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
+  // The sharp curve is used by objects that may return to the screen at any time.
+  sharp: 'cubic-bezier(0.4, 0, 0.6, 1)'
+}; // Follow https://material.io/guidelines/motion/duration-easing.html#duration-easing-common-durations
+// to learn when use what timing
+
+exports.easing = easing;
+var duration = {
+  shortest: 150,
+  shorter: 200,
+  short: 250,
+  // most basic recommended timing
+  standard: 300,
+  // this is to be used in complex animations
+  complex: 375,
+  // recommended when something is entering screen
+  enteringScreen: 225,
+  // recommended when something is leaving screen
+  leavingScreen: 195
+};
+exports.duration = duration;
+
+function formatMs(milliseconds) {
+  return "".concat(Math.round(milliseconds), "ms");
+}
+/**
+ * @param {string|Array} props
+ * @param {object} param
+ * @param {string} param.prop
+ * @param {number} param.duration
+ * @param {string} param.easing
+ * @param {number} param.delay
+ */
+
+
+var _default = {
+  easing: easing,
+  duration: duration,
+  create: function create() {
+    var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ['all'];
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var _options$duration = options.duration,
+        durationOption = _options$duration === void 0 ? duration.standard : _options$duration,
+        _options$easing = options.easing,
+        easingOption = _options$easing === void 0 ? easing.easeInOut : _options$easing,
+        _options$delay = options.delay,
+        delay = _options$delay === void 0 ? 0 : _options$delay,
+        other = (0, _objectWithoutProperties2.default)(options, ["duration", "easing", "delay"]);
+
+    if (true) {
+      var isString = function isString(value) {
+        return typeof value === 'string';
+      };
+
+      var isNumber = function isNumber(value) {
+        return !isNaN(parseFloat(value));
+      };
+
+      if (!isString(props) && !Array.isArray(props)) {
+        console.error('Material-UI: Argument "props" must be a string or Array.');
+      }
+
+      if (!isNumber(durationOption) && !isString(durationOption)) {
+        console.error("Material-UI: Argument \"duration\" must be a number or a string but found ".concat(durationOption, "."));
+      }
+
+      if (!isString(easingOption)) {
+        console.error('Material-UI: Argument "easing" must be a string.');
+      }
+
+      if (!isNumber(delay) && !isString(delay)) {
+        console.error('Material-UI: Argument "delay" must be a number or a string.');
+      }
+
+      if (Object.keys(other).length !== 0) {
+        console.error("Material-UI: Unrecognized argument(s) [".concat(Object.keys(other).join(','), "]."));
+      }
+    }
+
+    return (Array.isArray(props) ? props : [props]).map(function (animatedProp) {
+      return "".concat(animatedProp, " ").concat(typeof durationOption === 'string' ? durationOption : formatMs(durationOption), " ").concat(easingOption, " ").concat(typeof delay === 'string' ? delay : formatMs(delay));
+    }).join(',');
+  },
+  getAutoHeightDuration: function getAutoHeightDuration(height) {
+    if (!height) {
+      return 0;
+    }
+
+    var constant = height / 36; // https://www.wolframalpha.com/input/?i=(4+%2B+15+*+(x+%2F+36+)+**+0.25+%2B+(x+%2F+36)+%2F+5)+*+10
+
+    return Math.round((4 + 15 * Math.pow(constant, 0.25) + constant / 5) * 10);
+  }
+};
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/styles/zIndex.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material-ui/core/styles/zIndex.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+// We need to centralize the zIndex definitions as they work
+// like global values in the browser.
+var zIndex = {
+  mobileStepper: 1000,
+  speedDial: 1050,
+  appBar: 1100,
+  drawer: 1200,
+  modal: 1300,
+  snackbar: 1400,
+  tooltip: 1500
+};
+var _default = zIndex;
+exports.default = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@material-ui/icons/Home.js":
 /*!*************************************************!*\
   !*** ./node_modules/@material-ui/icons/Home.js ***!
@@ -21931,6 +23555,100 @@ if (true) {
 
 /***/ }),
 
+/***/ "./node_modules/@material-ui/styles/esm/ThemeProvider/ThemeProvider.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@material-ui/styles/esm/ThemeProvider/ThemeProvider.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _material_ui_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/utils */ "./node_modules/@material-ui/utils/esm/exactProp.js");
+/* harmony import */ var _useTheme_ThemeContext__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../useTheme/ThemeContext */ "./node_modules/@material-ui/styles/esm/useTheme/ThemeContext.js");
+/* harmony import */ var _useTheme__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../useTheme */ "./node_modules/@material-ui/styles/esm/useTheme/useTheme.js");
+/* harmony import */ var _nested__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./nested */ "./node_modules/@material-ui/styles/esm/ThemeProvider/nested.js");
+
+
+
+
+
+
+ // To support composition of theme.
+
+function mergeOuterLocalTheme(outerTheme, localTheme) {
+  if (typeof localTheme === 'function') {
+    var mergedTheme = localTheme(outerTheme);
+
+    if (true) {
+      if (!mergedTheme) {
+        console.error(['Material-UI: You should return an object from your theme function, i.e.', '<ThemeProvider theme={() => ({})} />'].join('\n'));
+      }
+    }
+
+    return mergedTheme;
+  }
+
+  return (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)({}, outerTheme, localTheme);
+}
+/**
+ * This component takes a `theme` prop.
+ * It makes the `theme` available down the React tree thanks to React context.
+ * This component should preferably be used at **the root of your component tree**.
+ */
+
+
+function ThemeProvider(props) {
+  var children = props.children,
+      localTheme = props.theme;
+  var outerTheme = (0,_useTheme__WEBPACK_IMPORTED_MODULE_3__.default)();
+
+  if (true) {
+    if (outerTheme === null && typeof localTheme === 'function') {
+      console.error(['Material-UI: You are providing a theme function prop to the ThemeProvider component:', '<ThemeProvider theme={outerTheme => outerTheme} />', '', 'However, no outer theme is present.', 'Make sure a theme is already injected higher in the React tree ' + 'or provide a theme object.'].join('\n'));
+    }
+  }
+
+  var theme = react__WEBPACK_IMPORTED_MODULE_1__.useMemo(function () {
+    var output = outerTheme === null ? localTheme : mergeOuterLocalTheme(outerTheme, localTheme);
+
+    if (output != null) {
+      output[_nested__WEBPACK_IMPORTED_MODULE_4__.default] = outerTheme !== null;
+    }
+
+    return output;
+  }, [localTheme, outerTheme]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_useTheme_ThemeContext__WEBPACK_IMPORTED_MODULE_5__.default.Provider, {
+    value: theme
+  }, children);
+}
+
+ true ? ThemeProvider.propTypes = {
+  /**
+   * Your component tree.
+   */
+  children: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().node.isRequired),
+
+  /**
+   * A theme object. You can provide a function to extend the outer theme.
+   */
+  theme: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func)]).isRequired
+} : 0;
+
+if (true) {
+   true ? ThemeProvider.propTypes = (0,_material_ui_utils__WEBPACK_IMPORTED_MODULE_6__.default)(ThemeProvider.propTypes) : 0;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ThemeProvider);
+
+/***/ }),
+
 /***/ "./node_modules/@material-ui/styles/esm/ThemeProvider/nested.js":
 /*!**********************************************************************!*\
   !*** ./node_modules/@material-ui/styles/esm/ThemeProvider/nested.js ***!
@@ -22804,6 +24522,75 @@ var withStyles = function withStyles(stylesOrCreator) {
 
 /***/ }),
 
+/***/ "./node_modules/@material-ui/system/esm/borders.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material-ui/system/esm/borders.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "border": () => (/* binding */ border),
+/* harmony export */   "borderTop": () => (/* binding */ borderTop),
+/* harmony export */   "borderRight": () => (/* binding */ borderRight),
+/* harmony export */   "borderBottom": () => (/* binding */ borderBottom),
+/* harmony export */   "borderLeft": () => (/* binding */ borderLeft),
+/* harmony export */   "borderColor": () => (/* binding */ borderColor),
+/* harmony export */   "borderRadius": () => (/* binding */ borderRadius),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style */ "./node_modules/@material-ui/system/esm/style.js");
+/* harmony import */ var _compose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./compose */ "./node_modules/@material-ui/system/esm/compose.js");
+
+
+
+function getBorder(value) {
+  if (typeof value !== 'number') {
+    return value;
+  }
+
+  return "".concat(value, "px solid");
+}
+
+var border = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'border',
+  themeKey: 'borders',
+  transform: getBorder
+});
+var borderTop = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'borderTop',
+  themeKey: 'borders',
+  transform: getBorder
+});
+var borderRight = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'borderRight',
+  themeKey: 'borders',
+  transform: getBorder
+});
+var borderBottom = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'borderBottom',
+  themeKey: 'borders',
+  transform: getBorder
+});
+var borderLeft = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'borderLeft',
+  themeKey: 'borders',
+  transform: getBorder
+});
+var borderColor = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'borderColor',
+  themeKey: 'palette'
+});
+var borderRadius = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'borderRadius',
+  themeKey: 'shape'
+});
+var borders = (0,_compose__WEBPACK_IMPORTED_MODULE_1__.default)(border, borderTop, borderRight, borderBottom, borderLeft, borderColor, borderRadius);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (borders);
+
+/***/ }),
+
 /***/ "./node_modules/@material-ui/system/esm/breakpoints.js":
 /*!*************************************************************!*\
   !*** ./node_modules/@material-ui/system/esm/breakpoints.js ***!
@@ -22904,6 +24691,438 @@ function breakpoints(styleFunction) {
 
 /***/ }),
 
+/***/ "./node_modules/@material-ui/system/esm/compose.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material-ui/system/esm/compose.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _merge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./merge */ "./node_modules/@material-ui/system/esm/merge.js");
+
+
+
+function compose() {
+  for (var _len = arguments.length, styles = new Array(_len), _key = 0; _key < _len; _key++) {
+    styles[_key] = arguments[_key];
+  }
+
+  var fn = function fn(props) {
+    return styles.reduce(function (acc, style) {
+      var output = style(props);
+
+      if (output) {
+        return (0,_merge__WEBPACK_IMPORTED_MODULE_1__.default)(acc, output);
+      }
+
+      return acc;
+    }, {});
+  }; // Alternative approach that doesn't yield any performance gain.
+  // const handlers = styles.reduce((acc, style) => {
+  //   style.filterProps.forEach(prop => {
+  //     acc[prop] = style;
+  //   });
+  //   return acc;
+  // }, {});
+  // const fn = props => {
+  //   return Object.keys(props).reduce((acc, prop) => {
+  //     if (handlers[prop]) {
+  //       return merge(acc, handlers[prop](props));
+  //     }
+  //     return acc;
+  //   }, {});
+  // };
+
+
+  fn.propTypes =  true ? styles.reduce(function (acc, style) {
+    return (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__.default)(acc, style.propTypes);
+  }, {}) : 0;
+  fn.filterProps = styles.reduce(function (acc, style) {
+    return acc.concat(style.filterProps);
+  }, []);
+  return fn;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (compose);
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/system/esm/css.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@material-ui/system/esm/css.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _merge__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./merge */ "./node_modules/@material-ui/system/esm/merge.js");
+
+
+
+
+
+function omit(input, fields) {
+  var output = {};
+  Object.keys(input).forEach(function (prop) {
+    if (fields.indexOf(prop) === -1) {
+      output[prop] = input[prop];
+    }
+  });
+  return output;
+}
+
+function css(styleFunction) {
+  var newStyleFunction = function newStyleFunction(props) {
+    var output = styleFunction(props);
+
+    if (props.css) {
+      return (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, (0,_merge__WEBPACK_IMPORTED_MODULE_3__.default)(output, styleFunction((0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({
+        theme: props.theme
+      }, props.css))), omit(props.css, [styleFunction.filterProps]));
+    }
+
+    return output;
+  };
+
+  newStyleFunction.propTypes =  true ? (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__.default)({}, styleFunction.propTypes, {
+    css: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().object)
+  }) : 0;
+  newStyleFunction.filterProps = ['css'].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__.default)(styleFunction.filterProps));
+  return newStyleFunction;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (css);
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/system/esm/display.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material-ui/system/esm/display.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "displayPrint": () => (/* binding */ displayPrint),
+/* harmony export */   "displayRaw": () => (/* binding */ displayRaw),
+/* harmony export */   "overflow": () => (/* binding */ overflow),
+/* harmony export */   "textOverflow": () => (/* binding */ textOverflow),
+/* harmony export */   "visibility": () => (/* binding */ visibility),
+/* harmony export */   "whiteSpace": () => (/* binding */ whiteSpace),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style */ "./node_modules/@material-ui/system/esm/style.js");
+/* harmony import */ var _compose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./compose */ "./node_modules/@material-ui/system/esm/compose.js");
+
+
+var displayPrint = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'displayPrint',
+  cssProperty: false,
+  transform: function transform(value) {
+    return {
+      '@media print': {
+        display: value
+      }
+    };
+  }
+});
+var displayRaw = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'display'
+});
+var overflow = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'overflow'
+});
+var textOverflow = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'textOverflow'
+});
+var visibility = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'visibility'
+});
+var whiteSpace = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'whiteSpace'
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_compose__WEBPACK_IMPORTED_MODULE_1__.default)(displayPrint, displayRaw, overflow, textOverflow, visibility, whiteSpace));
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/system/esm/flexbox.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material-ui/system/esm/flexbox.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "flexBasis": () => (/* binding */ flexBasis),
+/* harmony export */   "flexDirection": () => (/* binding */ flexDirection),
+/* harmony export */   "flexWrap": () => (/* binding */ flexWrap),
+/* harmony export */   "justifyContent": () => (/* binding */ justifyContent),
+/* harmony export */   "alignItems": () => (/* binding */ alignItems),
+/* harmony export */   "alignContent": () => (/* binding */ alignContent),
+/* harmony export */   "order": () => (/* binding */ order),
+/* harmony export */   "flex": () => (/* binding */ flex),
+/* harmony export */   "flexGrow": () => (/* binding */ flexGrow),
+/* harmony export */   "flexShrink": () => (/* binding */ flexShrink),
+/* harmony export */   "alignSelf": () => (/* binding */ alignSelf),
+/* harmony export */   "justifyItems": () => (/* binding */ justifyItems),
+/* harmony export */   "justifySelf": () => (/* binding */ justifySelf),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style */ "./node_modules/@material-ui/system/esm/style.js");
+/* harmony import */ var _compose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./compose */ "./node_modules/@material-ui/system/esm/compose.js");
+
+
+var flexBasis = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'flexBasis'
+});
+var flexDirection = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'flexDirection'
+});
+var flexWrap = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'flexWrap'
+});
+var justifyContent = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'justifyContent'
+});
+var alignItems = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'alignItems'
+});
+var alignContent = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'alignContent'
+});
+var order = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'order'
+});
+var flex = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'flex'
+});
+var flexGrow = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'flexGrow'
+});
+var flexShrink = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'flexShrink'
+});
+var alignSelf = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'alignSelf'
+});
+var justifyItems = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'justifyItems'
+});
+var justifySelf = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'justifySelf'
+});
+var flexbox = (0,_compose__WEBPACK_IMPORTED_MODULE_1__.default)(flexBasis, flexDirection, flexWrap, justifyContent, alignItems, alignContent, order, flex, flexGrow, flexShrink, alignSelf, justifyItems, justifySelf);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (flexbox);
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/system/esm/grid.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@material-ui/system/esm/grid.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "gridGap": () => (/* binding */ gridGap),
+/* harmony export */   "gridColumnGap": () => (/* binding */ gridColumnGap),
+/* harmony export */   "gridRowGap": () => (/* binding */ gridRowGap),
+/* harmony export */   "gridColumn": () => (/* binding */ gridColumn),
+/* harmony export */   "gridRow": () => (/* binding */ gridRow),
+/* harmony export */   "gridAutoFlow": () => (/* binding */ gridAutoFlow),
+/* harmony export */   "gridAutoColumns": () => (/* binding */ gridAutoColumns),
+/* harmony export */   "gridAutoRows": () => (/* binding */ gridAutoRows),
+/* harmony export */   "gridTemplateColumns": () => (/* binding */ gridTemplateColumns),
+/* harmony export */   "gridTemplateRows": () => (/* binding */ gridTemplateRows),
+/* harmony export */   "gridTemplateAreas": () => (/* binding */ gridTemplateAreas),
+/* harmony export */   "gridArea": () => (/* binding */ gridArea),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style */ "./node_modules/@material-ui/system/esm/style.js");
+/* harmony import */ var _compose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./compose */ "./node_modules/@material-ui/system/esm/compose.js");
+
+
+var gridGap = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'gridGap'
+});
+var gridColumnGap = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'gridColumnGap'
+});
+var gridRowGap = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'gridRowGap'
+});
+var gridColumn = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'gridColumn'
+});
+var gridRow = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'gridRow'
+});
+var gridAutoFlow = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'gridAutoFlow'
+});
+var gridAutoColumns = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'gridAutoColumns'
+});
+var gridAutoRows = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'gridAutoRows'
+});
+var gridTemplateColumns = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'gridTemplateColumns'
+});
+var gridTemplateRows = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'gridTemplateRows'
+});
+var gridTemplateAreas = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'gridTemplateAreas'
+});
+var gridArea = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'gridArea'
+});
+var grid = (0,_compose__WEBPACK_IMPORTED_MODULE_1__.default)(gridGap, gridColumnGap, gridRowGap, gridColumn, gridRow, gridAutoFlow, gridAutoColumns, gridAutoRows, gridTemplateColumns, gridTemplateRows, gridTemplateAreas, gridArea);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (grid);
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/system/esm/index.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@material-ui/system/esm/index.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "borders": () => (/* reexport safe */ _borders__WEBPACK_IMPORTED_MODULE_0__.default),
+/* harmony export */   "border": () => (/* reexport safe */ _borders__WEBPACK_IMPORTED_MODULE_0__.border),
+/* harmony export */   "borderBottom": () => (/* reexport safe */ _borders__WEBPACK_IMPORTED_MODULE_0__.borderBottom),
+/* harmony export */   "borderColor": () => (/* reexport safe */ _borders__WEBPACK_IMPORTED_MODULE_0__.borderColor),
+/* harmony export */   "borderLeft": () => (/* reexport safe */ _borders__WEBPACK_IMPORTED_MODULE_0__.borderLeft),
+/* harmony export */   "borderRadius": () => (/* reexport safe */ _borders__WEBPACK_IMPORTED_MODULE_0__.borderRadius),
+/* harmony export */   "borderRight": () => (/* reexport safe */ _borders__WEBPACK_IMPORTED_MODULE_0__.borderRight),
+/* harmony export */   "borderTop": () => (/* reexport safe */ _borders__WEBPACK_IMPORTED_MODULE_0__.borderTop),
+/* harmony export */   "breakpoints": () => (/* reexport safe */ _breakpoints__WEBPACK_IMPORTED_MODULE_1__.default),
+/* harmony export */   "compose": () => (/* reexport safe */ _compose__WEBPACK_IMPORTED_MODULE_2__.default),
+/* harmony export */   "css": () => (/* reexport safe */ _css__WEBPACK_IMPORTED_MODULE_3__.default),
+/* harmony export */   "display": () => (/* reexport safe */ _display__WEBPACK_IMPORTED_MODULE_4__.default),
+/* harmony export */   "flexbox": () => (/* reexport safe */ _flexbox__WEBPACK_IMPORTED_MODULE_5__.default),
+/* harmony export */   "alignContent": () => (/* reexport safe */ _flexbox__WEBPACK_IMPORTED_MODULE_5__.alignContent),
+/* harmony export */   "alignItems": () => (/* reexport safe */ _flexbox__WEBPACK_IMPORTED_MODULE_5__.alignItems),
+/* harmony export */   "alignSelf": () => (/* reexport safe */ _flexbox__WEBPACK_IMPORTED_MODULE_5__.alignSelf),
+/* harmony export */   "flex": () => (/* reexport safe */ _flexbox__WEBPACK_IMPORTED_MODULE_5__.flex),
+/* harmony export */   "flexBasis": () => (/* reexport safe */ _flexbox__WEBPACK_IMPORTED_MODULE_5__.flexBasis),
+/* harmony export */   "flexDirection": () => (/* reexport safe */ _flexbox__WEBPACK_IMPORTED_MODULE_5__.flexDirection),
+/* harmony export */   "flexGrow": () => (/* reexport safe */ _flexbox__WEBPACK_IMPORTED_MODULE_5__.flexGrow),
+/* harmony export */   "flexShrink": () => (/* reexport safe */ _flexbox__WEBPACK_IMPORTED_MODULE_5__.flexShrink),
+/* harmony export */   "flexWrap": () => (/* reexport safe */ _flexbox__WEBPACK_IMPORTED_MODULE_5__.flexWrap),
+/* harmony export */   "justifyContent": () => (/* reexport safe */ _flexbox__WEBPACK_IMPORTED_MODULE_5__.justifyContent),
+/* harmony export */   "justifyItems": () => (/* reexport safe */ _flexbox__WEBPACK_IMPORTED_MODULE_5__.justifyItems),
+/* harmony export */   "justifySelf": () => (/* reexport safe */ _flexbox__WEBPACK_IMPORTED_MODULE_5__.justifySelf),
+/* harmony export */   "order": () => (/* reexport safe */ _flexbox__WEBPACK_IMPORTED_MODULE_5__.order),
+/* harmony export */   "grid": () => (/* reexport safe */ _grid__WEBPACK_IMPORTED_MODULE_6__.default),
+/* harmony export */   "gridArea": () => (/* reexport safe */ _grid__WEBPACK_IMPORTED_MODULE_6__.gridArea),
+/* harmony export */   "gridAutoColumns": () => (/* reexport safe */ _grid__WEBPACK_IMPORTED_MODULE_6__.gridAutoColumns),
+/* harmony export */   "gridAutoFlow": () => (/* reexport safe */ _grid__WEBPACK_IMPORTED_MODULE_6__.gridAutoFlow),
+/* harmony export */   "gridAutoRows": () => (/* reexport safe */ _grid__WEBPACK_IMPORTED_MODULE_6__.gridAutoRows),
+/* harmony export */   "gridColumn": () => (/* reexport safe */ _grid__WEBPACK_IMPORTED_MODULE_6__.gridColumn),
+/* harmony export */   "gridColumnGap": () => (/* reexport safe */ _grid__WEBPACK_IMPORTED_MODULE_6__.gridColumnGap),
+/* harmony export */   "gridGap": () => (/* reexport safe */ _grid__WEBPACK_IMPORTED_MODULE_6__.gridGap),
+/* harmony export */   "gridRow": () => (/* reexport safe */ _grid__WEBPACK_IMPORTED_MODULE_6__.gridRow),
+/* harmony export */   "gridRowGap": () => (/* reexport safe */ _grid__WEBPACK_IMPORTED_MODULE_6__.gridRowGap),
+/* harmony export */   "gridTemplateAreas": () => (/* reexport safe */ _grid__WEBPACK_IMPORTED_MODULE_6__.gridTemplateAreas),
+/* harmony export */   "gridTemplateColumns": () => (/* reexport safe */ _grid__WEBPACK_IMPORTED_MODULE_6__.gridTemplateColumns),
+/* harmony export */   "gridTemplateRows": () => (/* reexport safe */ _grid__WEBPACK_IMPORTED_MODULE_6__.gridTemplateRows),
+/* harmony export */   "palette": () => (/* reexport safe */ _palette__WEBPACK_IMPORTED_MODULE_7__.default),
+/* harmony export */   "bgcolor": () => (/* reexport safe */ _palette__WEBPACK_IMPORTED_MODULE_7__.bgcolor),
+/* harmony export */   "color": () => (/* reexport safe */ _palette__WEBPACK_IMPORTED_MODULE_7__.color),
+/* harmony export */   "positions": () => (/* reexport safe */ _positions__WEBPACK_IMPORTED_MODULE_8__.default),
+/* harmony export */   "bottom": () => (/* reexport safe */ _positions__WEBPACK_IMPORTED_MODULE_8__.bottom),
+/* harmony export */   "left": () => (/* reexport safe */ _positions__WEBPACK_IMPORTED_MODULE_8__.left),
+/* harmony export */   "position": () => (/* reexport safe */ _positions__WEBPACK_IMPORTED_MODULE_8__.position),
+/* harmony export */   "right": () => (/* reexport safe */ _positions__WEBPACK_IMPORTED_MODULE_8__.right),
+/* harmony export */   "top": () => (/* reexport safe */ _positions__WEBPACK_IMPORTED_MODULE_8__.top),
+/* harmony export */   "zIndex": () => (/* reexport safe */ _positions__WEBPACK_IMPORTED_MODULE_8__.zIndex),
+/* harmony export */   "shadows": () => (/* reexport safe */ _shadows__WEBPACK_IMPORTED_MODULE_9__.default),
+/* harmony export */   "sizing": () => (/* reexport safe */ _sizing__WEBPACK_IMPORTED_MODULE_10__.default),
+/* harmony export */   "boxSizing": () => (/* reexport safe */ _sizing__WEBPACK_IMPORTED_MODULE_10__.boxSizing),
+/* harmony export */   "height": () => (/* reexport safe */ _sizing__WEBPACK_IMPORTED_MODULE_10__.height),
+/* harmony export */   "maxHeight": () => (/* reexport safe */ _sizing__WEBPACK_IMPORTED_MODULE_10__.maxHeight),
+/* harmony export */   "maxWidth": () => (/* reexport safe */ _sizing__WEBPACK_IMPORTED_MODULE_10__.maxWidth),
+/* harmony export */   "minHeight": () => (/* reexport safe */ _sizing__WEBPACK_IMPORTED_MODULE_10__.minHeight),
+/* harmony export */   "minWidth": () => (/* reexport safe */ _sizing__WEBPACK_IMPORTED_MODULE_10__.minWidth),
+/* harmony export */   "sizeHeight": () => (/* reexport safe */ _sizing__WEBPACK_IMPORTED_MODULE_10__.sizeHeight),
+/* harmony export */   "sizeWidth": () => (/* reexport safe */ _sizing__WEBPACK_IMPORTED_MODULE_10__.sizeWidth),
+/* harmony export */   "width": () => (/* reexport safe */ _sizing__WEBPACK_IMPORTED_MODULE_10__.width),
+/* harmony export */   "spacing": () => (/* reexport safe */ _spacing__WEBPACK_IMPORTED_MODULE_11__.default),
+/* harmony export */   "createUnarySpacing": () => (/* reexport safe */ _spacing__WEBPACK_IMPORTED_MODULE_11__.createUnarySpacing),
+/* harmony export */   "style": () => (/* reexport safe */ _style__WEBPACK_IMPORTED_MODULE_12__.default),
+/* harmony export */   "typography": () => (/* reexport safe */ _typography__WEBPACK_IMPORTED_MODULE_13__.default),
+/* harmony export */   "fontFamily": () => (/* reexport safe */ _typography__WEBPACK_IMPORTED_MODULE_13__.fontFamily),
+/* harmony export */   "fontSize": () => (/* reexport safe */ _typography__WEBPACK_IMPORTED_MODULE_13__.fontSize),
+/* harmony export */   "fontStyle": () => (/* reexport safe */ _typography__WEBPACK_IMPORTED_MODULE_13__.fontStyle),
+/* harmony export */   "fontWeight": () => (/* reexport safe */ _typography__WEBPACK_IMPORTED_MODULE_13__.fontWeight),
+/* harmony export */   "letterSpacing": () => (/* reexport safe */ _typography__WEBPACK_IMPORTED_MODULE_13__.letterSpacing),
+/* harmony export */   "lineHeight": () => (/* reexport safe */ _typography__WEBPACK_IMPORTED_MODULE_13__.lineHeight),
+/* harmony export */   "textAlign": () => (/* reexport safe */ _typography__WEBPACK_IMPORTED_MODULE_13__.textAlign)
+/* harmony export */ });
+/* harmony import */ var _borders__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./borders */ "./node_modules/@material-ui/system/esm/borders.js");
+/* harmony import */ var _breakpoints__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./breakpoints */ "./node_modules/@material-ui/system/esm/breakpoints.js");
+/* harmony import */ var _compose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./compose */ "./node_modules/@material-ui/system/esm/compose.js");
+/* harmony import */ var _css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./css */ "./node_modules/@material-ui/system/esm/css.js");
+/* harmony import */ var _display__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./display */ "./node_modules/@material-ui/system/esm/display.js");
+/* harmony import */ var _flexbox__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./flexbox */ "./node_modules/@material-ui/system/esm/flexbox.js");
+/* harmony import */ var _grid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./grid */ "./node_modules/@material-ui/system/esm/grid.js");
+/* harmony import */ var _palette__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./palette */ "./node_modules/@material-ui/system/esm/palette.js");
+/* harmony import */ var _positions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./positions */ "./node_modules/@material-ui/system/esm/positions.js");
+/* harmony import */ var _shadows__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./shadows */ "./node_modules/@material-ui/system/esm/shadows.js");
+/* harmony import */ var _sizing__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./sizing */ "./node_modules/@material-ui/system/esm/sizing.js");
+/* harmony import */ var _spacing__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./spacing */ "./node_modules/@material-ui/system/esm/spacing.js");
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./style */ "./node_modules/@material-ui/system/esm/style.js");
+/* harmony import */ var _typography__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./typography */ "./node_modules/@material-ui/system/esm/typography.js");
+/** @license Material-UI v4.11.3
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@material-ui/system/esm/memoize.js":
 /*!*********************************************************!*\
   !*** ./node_modules/@material-ui/system/esm/memoize.js ***!
@@ -22957,6 +25176,81 @@ function merge(acc, item) {
 
 /***/ }),
 
+/***/ "./node_modules/@material-ui/system/esm/palette.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material-ui/system/esm/palette.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "color": () => (/* binding */ color),
+/* harmony export */   "bgcolor": () => (/* binding */ bgcolor),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style */ "./node_modules/@material-ui/system/esm/style.js");
+/* harmony import */ var _compose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./compose */ "./node_modules/@material-ui/system/esm/compose.js");
+
+
+var color = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'color',
+  themeKey: 'palette'
+});
+var bgcolor = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'bgcolor',
+  cssProperty: 'backgroundColor',
+  themeKey: 'palette'
+});
+var palette = (0,_compose__WEBPACK_IMPORTED_MODULE_1__.default)(color, bgcolor);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (palette);
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/system/esm/positions.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@material-ui/system/esm/positions.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "position": () => (/* binding */ position),
+/* harmony export */   "zIndex": () => (/* binding */ zIndex),
+/* harmony export */   "top": () => (/* binding */ top),
+/* harmony export */   "right": () => (/* binding */ right),
+/* harmony export */   "bottom": () => (/* binding */ bottom),
+/* harmony export */   "left": () => (/* binding */ left),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style */ "./node_modules/@material-ui/system/esm/style.js");
+/* harmony import */ var _compose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./compose */ "./node_modules/@material-ui/system/esm/compose.js");
+
+
+var position = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'position'
+});
+var zIndex = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'zIndex',
+  themeKey: 'zIndex'
+});
+var top = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'top'
+});
+var right = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'right'
+});
+var bottom = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'bottom'
+});
+var left = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'left'
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_compose__WEBPACK_IMPORTED_MODULE_1__.default)(position, zIndex, top, right, bottom, left));
+
+/***/ }),
+
 /***/ "./node_modules/@material-ui/system/esm/responsivePropType.js":
 /*!********************************************************************!*\
   !*** ./node_modules/@material-ui/system/esm/responsivePropType.js ***!
@@ -22973,6 +25267,98 @@ __webpack_require__.r(__webpack_exports__);
 
 var responsivePropType =  true ? prop_types__WEBPACK_IMPORTED_MODULE_0___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_0___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_0___default().string), (prop_types__WEBPACK_IMPORTED_MODULE_0___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_0___default().array)]) : 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (responsivePropType);
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/system/esm/shadows.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material-ui/system/esm/shadows.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style */ "./node_modules/@material-ui/system/esm/style.js");
+
+var boxShadow = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'boxShadow',
+  themeKey: 'shadows'
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (boxShadow);
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/system/esm/sizing.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@material-ui/system/esm/sizing.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "width": () => (/* binding */ width),
+/* harmony export */   "maxWidth": () => (/* binding */ maxWidth),
+/* harmony export */   "minWidth": () => (/* binding */ minWidth),
+/* harmony export */   "height": () => (/* binding */ height),
+/* harmony export */   "maxHeight": () => (/* binding */ maxHeight),
+/* harmony export */   "minHeight": () => (/* binding */ minHeight),
+/* harmony export */   "sizeWidth": () => (/* binding */ sizeWidth),
+/* harmony export */   "sizeHeight": () => (/* binding */ sizeHeight),
+/* harmony export */   "boxSizing": () => (/* binding */ boxSizing),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style */ "./node_modules/@material-ui/system/esm/style.js");
+/* harmony import */ var _compose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./compose */ "./node_modules/@material-ui/system/esm/compose.js");
+
+
+
+function transform(value) {
+  return value <= 1 ? "".concat(value * 100, "%") : value;
+}
+
+var width = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'width',
+  transform: transform
+});
+var maxWidth = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'maxWidth',
+  transform: transform
+});
+var minWidth = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'minWidth',
+  transform: transform
+});
+var height = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'height',
+  transform: transform
+});
+var maxHeight = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'maxHeight',
+  transform: transform
+});
+var minHeight = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'minHeight',
+  transform: transform
+});
+var sizeWidth = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'size',
+  cssProperty: 'width',
+  transform: transform
+});
+var sizeHeight = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'size',
+  cssProperty: 'height',
+  transform: transform
+});
+var boxSizing = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'boxSizing'
+});
+var sizing = (0,_compose__WEBPACK_IMPORTED_MODULE_1__.default)(width, maxWidth, minWidth, height, maxHeight, minHeight, boxSizing);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (sizing);
 
 /***/ }),
 
@@ -23132,6 +25518,136 @@ spacing.propTypes =  true ? spacingKeys.reduce(function (obj, key) {
 }, {}) : 0;
 spacing.filterProps = spacingKeys;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (spacing);
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/system/esm/style.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@material-ui/system/esm/style.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _responsivePropType__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./responsivePropType */ "./node_modules/@material-ui/system/esm/responsivePropType.js");
+/* harmony import */ var _breakpoints__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./breakpoints */ "./node_modules/@material-ui/system/esm/breakpoints.js");
+
+
+
+
+function getPath(obj, path) {
+  if (!path || typeof path !== 'string') {
+    return null;
+  }
+
+  return path.split('.').reduce(function (acc, item) {
+    return acc && acc[item] ? acc[item] : null;
+  }, obj);
+}
+
+function style(options) {
+  var prop = options.prop,
+      _options$cssProperty = options.cssProperty,
+      cssProperty = _options$cssProperty === void 0 ? options.prop : _options$cssProperty,
+      themeKey = options.themeKey,
+      transform = options.transform;
+
+  var fn = function fn(props) {
+    if (props[prop] == null) {
+      return null;
+    }
+
+    var propValue = props[prop];
+    var theme = props.theme;
+    var themeMapping = getPath(theme, themeKey) || {};
+
+    var styleFromPropValue = function styleFromPropValue(propValueFinal) {
+      var value;
+
+      if (typeof themeMapping === 'function') {
+        value = themeMapping(propValueFinal);
+      } else if (Array.isArray(themeMapping)) {
+        value = themeMapping[propValueFinal] || propValueFinal;
+      } else {
+        value = getPath(themeMapping, propValueFinal) || propValueFinal;
+
+        if (transform) {
+          value = transform(value);
+        }
+      }
+
+      if (cssProperty === false) {
+        return value;
+      }
+
+      return (0,_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)({}, cssProperty, value);
+    };
+
+    return (0,_breakpoints__WEBPACK_IMPORTED_MODULE_1__.handleBreakpoints)(props, propValue, styleFromPropValue);
+  };
+
+  fn.propTypes =  true ? (0,_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)({}, prop, _responsivePropType__WEBPACK_IMPORTED_MODULE_2__.default) : 0;
+  fn.filterProps = [prop];
+  return fn;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (style);
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/system/esm/typography.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@material-ui/system/esm/typography.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fontFamily": () => (/* binding */ fontFamily),
+/* harmony export */   "fontSize": () => (/* binding */ fontSize),
+/* harmony export */   "fontStyle": () => (/* binding */ fontStyle),
+/* harmony export */   "fontWeight": () => (/* binding */ fontWeight),
+/* harmony export */   "letterSpacing": () => (/* binding */ letterSpacing),
+/* harmony export */   "lineHeight": () => (/* binding */ lineHeight),
+/* harmony export */   "textAlign": () => (/* binding */ textAlign),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style */ "./node_modules/@material-ui/system/esm/style.js");
+/* harmony import */ var _compose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./compose */ "./node_modules/@material-ui/system/esm/compose.js");
+
+
+var fontFamily = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'fontFamily',
+  themeKey: 'typography'
+});
+var fontSize = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'fontSize',
+  themeKey: 'typography'
+});
+var fontStyle = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'fontStyle',
+  themeKey: 'typography'
+});
+var fontWeight = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'fontWeight',
+  themeKey: 'typography'
+});
+var letterSpacing = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'letterSpacing'
+});
+var lineHeight = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'lineHeight'
+});
+var textAlign = (0,_style__WEBPACK_IMPORTED_MODULE_0__.default)({
+  prop: 'textAlign'
+});
+var typography = (0,_compose__WEBPACK_IMPORTED_MODULE_1__.default)(fontFamily, fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textAlign);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (typography);
 
 /***/ }),
 
@@ -23391,6 +25907,42 @@ function exactProp(propTypes) {
 
 /***/ }),
 
+/***/ "./node_modules/@material-ui/utils/esm/formatMuiErrorMessage.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@material-ui/utils/esm/formatMuiErrorMessage.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ formatMuiErrorMessage)
+/* harmony export */ });
+/**
+ * WARNING: Don't import this directly.
+ * Use `MuiError` from `@material-ui/utils/macros/MuiError.macro` instead.
+ * @param {number} code
+ */
+function formatMuiErrorMessage(code) {
+  // Apply babel-plugin-transform-template-literals in loose mode
+  // loose mode is safe iff we're concatenating primitives
+  // see https://babeljs.io/docs/en/babel-plugin-transform-template-literals#loose
+
+  /* eslint-disable prefer-template */
+  var url = 'https://material-ui.com/production-error/?code=' + code;
+
+  for (var i = 1; i < arguments.length; i += 1) {
+    // rest params over-transpile for this case
+    // eslint-disable-next-line prefer-rest-params
+    url += '&args[]=' + encodeURIComponent(arguments[i]);
+  }
+
+  return 'Minified Material-UI error #' + code + '; visit ' + url + ' for the full message.';
+  /* eslint-enable prefer-template */
+}
+
+/***/ }),
+
 /***/ "./node_modules/@material-ui/utils/esm/getDisplayName.js":
 /*!***************************************************************!*\
   !*** ./node_modules/@material-ui/utils/esm/getDisplayName.js ***!
@@ -23468,6 +26020,71 @@ function getDisplayName(Component) {
 
   return undefined;
 }
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/utils/esm/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@material-ui/utils/esm/index.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "chainPropTypes": () => (/* reexport safe */ _chainPropTypes__WEBPACK_IMPORTED_MODULE_0__.default),
+/* harmony export */   "deepmerge": () => (/* reexport safe */ _deepmerge__WEBPACK_IMPORTED_MODULE_1__.default),
+/* harmony export */   "elementAcceptingRef": () => (/* reexport safe */ _elementAcceptingRef__WEBPACK_IMPORTED_MODULE_2__.default),
+/* harmony export */   "elementTypeAcceptingRef": () => (/* reexport safe */ _elementTypeAcceptingRef__WEBPACK_IMPORTED_MODULE_3__.default),
+/* harmony export */   "exactProp": () => (/* reexport safe */ _exactProp__WEBPACK_IMPORTED_MODULE_4__.default),
+/* harmony export */   "formatMuiErrorMessage": () => (/* reexport safe */ _formatMuiErrorMessage__WEBPACK_IMPORTED_MODULE_5__.default),
+/* harmony export */   "getDisplayName": () => (/* reexport safe */ _getDisplayName__WEBPACK_IMPORTED_MODULE_6__.default),
+/* harmony export */   "HTMLElementType": () => (/* reexport safe */ _HTMLElementType__WEBPACK_IMPORTED_MODULE_7__.default),
+/* harmony export */   "ponyfillGlobal": () => (/* reexport safe */ _ponyfillGlobal__WEBPACK_IMPORTED_MODULE_8__.default),
+/* harmony export */   "refType": () => (/* reexport safe */ _refType__WEBPACK_IMPORTED_MODULE_9__.default)
+/* harmony export */ });
+/* harmony import */ var _chainPropTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chainPropTypes */ "./node_modules/@material-ui/utils/esm/chainPropTypes.js");
+/* harmony import */ var _deepmerge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./deepmerge */ "./node_modules/@material-ui/utils/esm/deepmerge.js");
+/* harmony import */ var _elementAcceptingRef__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./elementAcceptingRef */ "./node_modules/@material-ui/utils/esm/elementAcceptingRef.js");
+/* harmony import */ var _elementTypeAcceptingRef__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./elementTypeAcceptingRef */ "./node_modules/@material-ui/utils/esm/elementTypeAcceptingRef.js");
+/* harmony import */ var _exactProp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./exactProp */ "./node_modules/@material-ui/utils/esm/exactProp.js");
+/* harmony import */ var _formatMuiErrorMessage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./formatMuiErrorMessage */ "./node_modules/@material-ui/utils/esm/formatMuiErrorMessage.js");
+/* harmony import */ var _getDisplayName__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./getDisplayName */ "./node_modules/@material-ui/utils/esm/getDisplayName.js");
+/* harmony import */ var _HTMLElementType__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./HTMLElementType */ "./node_modules/@material-ui/utils/esm/HTMLElementType.js");
+/* harmony import */ var _ponyfillGlobal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./ponyfillGlobal */ "./node_modules/@material-ui/utils/esm/ponyfillGlobal.js");
+/* harmony import */ var _refType__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./refType */ "./node_modules/@material-ui/utils/esm/refType.js");
+/** @license Material-UI v4.11.2
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/utils/esm/ponyfillGlobal.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@material-ui/utils/esm/ponyfillGlobal.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* eslint-disable */
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (typeof window != 'undefined' && window.Math == Math ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')());
 
 /***/ }),
 
@@ -25374,15 +27991,15 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.withCredentials = true;
-var token = document.head.querySelector('meta[name="csrf-token"]');
+window.axios.defaults.withCredentials = true; // let token = document.head.querySelector('meta[name="csrf-token"]');
+// if (token) {
+//     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+//     //window.location.replace('/dashboard');
+// } else {
+//     //window.location.replace('/login');
+//     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+// }
 
-if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content; //window.location.replace('/dashboard');
-} else {
-  //window.location.replace('/login');
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-}
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -25412,9 +28029,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _context_GlobalState__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./context/GlobalState */ "./resources/js/src/context/GlobalState.js");
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/styles/esm/ThemeProvider/ThemeProvider.js");
+/* harmony import */ var _material_ui_core_styles_createMuiTheme__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/styles/createMuiTheme */ "./node_modules/@material-ui/core/styles/createMuiTheme.js");
 /* harmony import */ var _utils_AuthRoute__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/AuthRoute */ "./resources/js/src/utils/AuthRoute.js");
 /* harmony import */ var _screens_Dashboard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./screens/Dashboard */ "./resources/js/src/screens/Dashboard.js");
 /* harmony import */ var _screens_ForgotPassPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./screens/ForgotPassPage */ "./resources/js/src/screens/ForgotPassPage.js");
@@ -25435,31 +28054,58 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+var theme = (0,_material_ui_core_styles_createMuiTheme__WEBPACK_IMPORTED_MODULE_10__.default)({
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        html: {
+          backgroundColor: 'white'
+        }
+      }
+    }
+  },
+  typography: {
+    button: {
+      textTransform: "none"
+    }
+  },
+  palette: {
+    primary: {
+      // Purple and green play nicely together.
+      main: '#dd7c12'
+    }
+  }
+});
+
 var App = function App() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_context_GlobalState__WEBPACK_IMPORTED_MODULE_2__.UserContextProvider, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.BrowserRouter, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Switch, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
-          exact: true,
-          path: "/",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_screens_HomePage__WEBPACK_IMPORTED_MODULE_6__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
-          path: "/dashboard/:routeName",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_screens_Dashboard__WEBPACK_IMPORTED_MODULE_4__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
-          path: "/dashboard",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_screens_Dashboard__WEBPACK_IMPORTED_MODULE_4__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
-          path: "/forgot-password",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_screens_ForgotPassPage__WEBPACK_IMPORTED_MODULE_5__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
-          path: "/reset-password/:token",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_screens_ResetPassPage__WEBPACK_IMPORTED_MODULE_8__.default, {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_utils_AuthRoute__WEBPACK_IMPORTED_MODULE_3__.default, {
-          path: "/login",
-          exact: true,
-          component: _screens_LoginPage__WEBPACK_IMPORTED_MODULE_7__.default
-        })]
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_11__.default, {
+    theme: theme,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_context_GlobalState__WEBPACK_IMPORTED_MODULE_2__.UserContextProvider, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.BrowserRouter, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Switch, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+            exact: true,
+            path: "/",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_screens_HomePage__WEBPACK_IMPORTED_MODULE_6__.default, {})
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+            path: "/dashboard/:routeName",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_screens_Dashboard__WEBPACK_IMPORTED_MODULE_4__.default, {})
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+            path: "/dashboard",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_screens_Dashboard__WEBPACK_IMPORTED_MODULE_4__.default, {})
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+            path: "/forgot-password",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_screens_ForgotPassPage__WEBPACK_IMPORTED_MODULE_5__.default, {})
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+            path: "/reset-password/:token",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_screens_ResetPassPage__WEBPACK_IMPORTED_MODULE_8__.default, {})
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_utils_AuthRoute__WEBPACK_IMPORTED_MODULE_3__.default, {
+            path: "/login",
+            exact: true,
+            component: _screens_LoginPage__WEBPACK_IMPORTED_MODULE_7__.default
+          })]
+        })
       })
     })
   });
@@ -25596,7 +28242,7 @@ var AddUserForm = function AddUserForm() {
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    _utils_utils__WEBPACK_IMPORTED_MODULE_2__.axios.post("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_2__.BASE_URL, "/api/users"), data).then(function (res) {
+    _utils_utils__WEBPACK_IMPORTED_MODULE_2__.axios.post("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_2__.BASE_URL, "/users"), data).then(function (res) {
       setLoading(false);
       setMsg(res.data.msg);
       setData({
@@ -25816,7 +28462,7 @@ var useStyles = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__.default
       minHeight: HEIGHT
     },
     innerContainer: {
-      minHeight: HEIGHT - 50,
+      margin: theme.spacing(5, 0),
       display: 'flex',
       flexDirection: 'column' //justifyContent: 'center'
 
@@ -25828,7 +28474,7 @@ function AppContainer(_ref) {
   var children = _ref.children;
   var classes = useStyles();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: classes.container,
+    className: "container-fluid",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_4__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: classes.innerContainer,
       children: children
@@ -25945,7 +28591,7 @@ var ChangePasswordForm = function ChangePasswordForm() {
     e.preventDefault();
     setLoading(true); //console.log({newPassword, confirmNewPassword});
 
-    _utils_utils__WEBPACK_IMPORTED_MODULE_2__.axios.put("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_2__.BASE_URL, "/api/change_password"), {
+    _utils_utils__WEBPACK_IMPORTED_MODULE_2__.axios.put("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_2__.BASE_URL, "/change_password"), {
       password: currentPassword,
       new_password: newPassword,
       new_password_confirmation: confirmNewPassword
@@ -26180,7 +28826,8 @@ var drawerWidth = 260;
 var useStyles = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__.default)(function (theme) {
   return {
     root: {
-      display: 'flex'
+      display: 'flex',
+      backgroundColor: 'white'
     },
     drawer: _defineProperty({}, theme.breakpoints.up('lg'), {
       width: drawerWidth,
@@ -26263,7 +28910,7 @@ function DrawerMenu(_ref) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_13__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_AppBar__WEBPACK_IMPORTED_MODULE_14__.default, {
       position: "fixed",
       className: classes.appBar,
-      color: "transparent",
+      color: "inherit",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_material_ui_core_Toolbar__WEBPACK_IMPORTED_MODULE_15__.default, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_16__.default, {
           color: "inherit",
@@ -26616,7 +29263,7 @@ function MainFooter() {
       align: "center",
       children: ['Copyright © ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_material_ui_core_Link__WEBPACK_IMPORTED_MODULE_5__.default, {
         color: "inherit",
-        href: "https://material-ui.com/",
+        href: "#",
         children: "Tritek Consulting Ltd"
       }), ' ', new Date().getFullYear(), '.']
     })]
@@ -26641,16 +29288,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/makeStyles.js");
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/withStyles.js");
-/* harmony import */ var _material_ui_core_Table__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/core/Table */ "./node_modules/@material-ui/core/esm/Table/Table.js");
-/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/Button.js");
-/* harmony import */ var _material_ui_core_TableBody__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @material-ui/core/TableBody */ "./node_modules/@material-ui/core/esm/TableBody/TableBody.js");
+/* harmony import */ var _material_ui_core_Table__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @material-ui/core/Table */ "./node_modules/@material-ui/core/esm/Table/Table.js");
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/Button.js");
+/* harmony import */ var _material_ui_core_TableBody__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @material-ui/core/TableBody */ "./node_modules/@material-ui/core/esm/TableBody/TableBody.js");
 /* harmony import */ var _material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/TableCell */ "./node_modules/@material-ui/core/esm/TableCell/TableCell.js");
-/* harmony import */ var _material_ui_core_TableContainer__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/TableContainer */ "./node_modules/@material-ui/core/esm/TableContainer/TableContainer.js");
-/* harmony import */ var _material_ui_core_TableHead__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @material-ui/core/TableHead */ "./node_modules/@material-ui/core/esm/TableHead/TableHead.js");
+/* harmony import */ var _material_ui_core_TableContainer__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @material-ui/core/TableContainer */ "./node_modules/@material-ui/core/esm/TableContainer/TableContainer.js");
+/* harmony import */ var _material_ui_core_TableHead__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @material-ui/core/TableHead */ "./node_modules/@material-ui/core/esm/TableHead/TableHead.js");
 /* harmony import */ var _material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/TableRow */ "./node_modules/@material-ui/core/esm/TableRow/TableRow.js");
-/* harmony import */ var _material_ui_core_TableFooter__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @material-ui/core/TableFooter */ "./node_modules/@material-ui/core/esm/TableFooter/TableFooter.js");
-/* harmony import */ var _material_ui_core_TablePagination__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @material-ui/core/TablePagination */ "./node_modules/@material-ui/core/esm/TablePagination/TablePagination.js");
-/* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/Paper */ "./node_modules/@material-ui/core/esm/Paper/Paper.js");
+/* harmony import */ var _material_ui_core_TableFooter__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @material-ui/core/TableFooter */ "./node_modules/@material-ui/core/esm/TableFooter/TableFooter.js");
+/* harmony import */ var _material_ui_core_TablePagination__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @material-ui/core/TablePagination */ "./node_modules/@material-ui/core/esm/TablePagination/TablePagination.js");
+/* harmony import */ var _material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/Dialog */ "./node_modules/@material-ui/core/esm/Dialog/Dialog.js");
+/* harmony import */ var _material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @material-ui/core/DialogActions */ "./node_modules/@material-ui/core/esm/DialogActions/DialogActions.js");
+/* harmony import */ var _material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/DialogContent */ "./node_modules/@material-ui/core/esm/DialogContent/DialogContent.js");
+/* harmony import */ var _material_ui_core_DialogContentText__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/core/DialogContentText */ "./node_modules/@material-ui/core/esm/DialogContentText/DialogContentText.js");
+/* harmony import */ var _material_ui_core_DialogTitle__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/DialogTitle */ "./node_modules/@material-ui/core/esm/DialogTitle/DialogTitle.js");
+/* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @material-ui/core/Paper */ "./node_modules/@material-ui/core/esm/Paper/Paper.js");
 /* harmony import */ var _AppContainer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AppContainer */ "./resources/js/src/components/AppContainer.js");
 /* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/utils */ "./resources/js/src/utils/utils.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -26671,6 +29323,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
 
 
 
@@ -26719,23 +29376,102 @@ var StyledTableRow = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__.de
   };
 })(_material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_7__.default);
 
+var RenderDeleteConfirmationDialog = function RenderDeleteConfirmationDialog(_ref) {
+  var open = _ref.open,
+      user = _ref.user,
+      handleClose = _ref.handleClose,
+      handleDelete = _ref.handleDelete;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_8__.default, {
+    open: open,
+    onClose: handleClose,
+    "aria-labelledby": "alert-dialog-title",
+    "aria-describedby": "alert-dialog-description",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_DialogTitle__WEBPACK_IMPORTED_MODULE_9__.default, {
+      id: "alert-dialog-title",
+      children: "Delete Confirmation"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_10__.default, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_material_ui_core_DialogContentText__WEBPACK_IMPORTED_MODULE_11__.default, {
+        id: "alert-dialog-description",
+        children: ["You are about to delete ", "".concat(user && user.name), " from the platform, click DELETE if you wish to continue or CANCEL to cancel"]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_12__.default, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_13__.default, {
+        onClick: handleClose,
+        color: "primary",
+        children: "Cancel"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_13__.default, {
+        onClick: handleDelete,
+        color: "primary",
+        autoFocus: true,
+        children: "Delete"
+      })]
+    })]
+  });
+};
+
 var UsersTable = function UsersTable() {
   var classes = useStyles();
 
-  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState({
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState(false),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      open = _React$useState2[0],
+      setOpen = _React$useState2[1];
+
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0__.useState(null),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      user = _React$useState4[0],
+      setUser = _React$useState4[1];
+
+  var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_0__.useState(0),
+      _React$useState6 = _slicedToArray(_React$useState5, 2),
+      page = _React$useState6[0],
+      setPage = _React$useState6[1];
+
+  var _React$useState7 = react__WEBPACK_IMPORTED_MODULE_0__.useState({
     rows: [],
     loading: false,
-    error: null
+    error: null,
+    msg: null
   }),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      state = _React$useState2[0],
-      setState = _React$useState2[1];
+      _React$useState8 = _slicedToArray(_React$useState7, 2),
+      state = _React$useState8[0],
+      setState = _React$useState8[1];
+
+  var handleDelete = function handleDelete() {
+    handleClose();
+    _utils_utils__WEBPACK_IMPORTED_MODULE_2__.axios.delete("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_2__.BASE_URL, "/users/").concat(user.id)).then(function () {
+      setState(_objectSpread(_objectSpread({}, state), {}, {
+        msg: 'User removed successfully',
+        loading: false
+      }));
+      var newRows = state.rows.filter(function (row) {
+        return row.id !== user.id;
+      });
+      setState(_objectSpread(_objectSpread({}, state), {}, {
+        rows: newRows
+      }));
+      setUser(null);
+    });
+  };
+
+  var handleOpen = function handleOpen(currentUser) {
+    setUser(currentUser);
+    setOpen(true);
+  };
+
+  var handleClose = function handleClose() {
+    setOpen(false);
+  };
+
+  var handleChangePage = function handleChangePage(event, newPage) {
+    setPage(newPage);
+  };
 
   react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
     setState(_objectSpread(_objectSpread({}, state), {}, {
       loading: true
     }));
-    _utils_utils__WEBPACK_IMPORTED_MODULE_2__.axios.get("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_2__.BASE_URL, "/api/users")).then(function (res) {
+    _utils_utils__WEBPACK_IMPORTED_MODULE_2__.axios.get("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_2__.BASE_URL, "/users")).then(function (res) {
       console.log(res.data);
       setState(_objectSpread(_objectSpread({}, state), {}, {
         rows: res.data,
@@ -26749,25 +29485,30 @@ var UsersTable = function UsersTable() {
       }));
     });
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_AppContainer__WEBPACK_IMPORTED_MODULE_1__.default, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_8__.default, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_AppContainer__WEBPACK_IMPORTED_MODULE_1__.default, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(RenderDeleteConfirmationDialog, {
+      open: open,
+      user: user,
+      handleClose: handleClose,
+      handleDelete: handleDelete
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_14__.default, {
       variant: "outlined",
       className: classes.paper,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: classes.btnContainer,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_9__.default, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_13__.default, {
           variant: "contained",
           color: "primary",
           size: "large",
           href: "/dashboard/add_user",
           children: "Add User"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_TableContainer__WEBPACK_IMPORTED_MODULE_10__.default, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_TableContainer__WEBPACK_IMPORTED_MODULE_15__.default, {
         variant: "outlined",
-        component: _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_8__.default,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_material_ui_core_Table__WEBPACK_IMPORTED_MODULE_11__.default, {
+        component: _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_14__.default,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_material_ui_core_Table__WEBPACK_IMPORTED_MODULE_16__.default, {
           "aria-label": "customized table",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_TableHead__WEBPACK_IMPORTED_MODULE_12__.default, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_TableHead__WEBPACK_IMPORTED_MODULE_17__.default, {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_7__.default, {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(StyledTableCell, {
                 children: "Name"
@@ -26785,7 +29526,7 @@ var UsersTable = function UsersTable() {
                 children: "Actions"
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_TableBody__WEBPACK_IMPORTED_MODULE_13__.default, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_TableBody__WEBPACK_IMPORTED_MODULE_18__.default, {
             children: state.loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_7__.default, {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(StyledTableCell, {
                 scope: "row",
@@ -26811,18 +29552,32 @@ var UsersTable = function UsersTable() {
                   align: "left",
                   children: row.roles[0] && row.roles[0].name
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(StyledTableCell, {
-                  align: "center"
+                  align: "center",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_13__.default, {
+                    variant: "contained",
+                    color: "secondary",
+                    size: "small",
+                    onClick: function onClick() {
+                      return handleOpen(row);
+                    },
+                    children: "Delete"
+                  })
                 })]
               }, row.email);
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_TableFooter__WEBPACK_IMPORTED_MODULE_14__.default, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_TableFooter__WEBPACK_IMPORTED_MODULE_19__.default, {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_7__.default, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_TablePagination__WEBPACK_IMPORTED_MODULE_15__.default, {})
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_TablePagination__WEBPACK_IMPORTED_MODULE_20__.default, {
+                rowsPerPage: state.rows.length,
+                count: state.rows.length,
+                page: page,
+                onChangePage: handleChangePage
+              })
             })
           })]
         })
       })]
-    })
+    })]
   });
 };
 
@@ -26867,10 +29622,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var UserContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext(null);
 var UserContextProvider = function UserContextProvider(_ref) {
   var children = _ref.children;
+  var token = localStorage.getItem('DEV-ARENA-TOKEN');
   var initialState = {
     loading: false,
     error: false,
-    isAuthenticated: false
+    isAuthenticated: Boolean(token),
+    token: token
   };
 
   var _React$useReducer = react__WEBPACK_IMPORTED_MODULE_0__.useReducer(_reducers__WEBPACK_IMPORTED_MODULE_2__.userReducer, initialState),
@@ -26899,15 +29656,16 @@ var UserContextProvider = function UserContextProvider(_ref) {
     });
   };
 
-  react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
+  react__WEBPACK_IMPORTED_MODULE_0__.useMemo(function () {
     dispatch({
       type: _types__WEBPACK_IMPORTED_MODULE_3__.LOADING
     });
     (0,_actions__WEBPACK_IMPORTED_MODULE_1__.getUser)().then(function (res) {
-      return dispatch({
+      dispatch({
         type: _types__WEBPACK_IMPORTED_MODULE_3__.LOAD_USER,
         payload: res
       });
+      console.log(res);
     });
   }, []);
 
@@ -26949,6 +29707,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/utils */ "./resources/js/src/utils/utils.js");
 
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -26970,25 +29734,42 @@ var loginUser = /*#__PURE__*/function () {
 
           case 4:
             res = _context.sent;
-            return _context.abrupt("return", {
-              user: res.data,
+            console.log(res.data);
+            localStorage.setItem('DEV-ARENA-TOKEN', res.data.token);
+            (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.setAuthToken)(res.data.token);
+            return _context.abrupt("return", _objectSpread(_objectSpread({}, res.data), {}, {
               isAuthenticated: true
-            });
+            }));
 
-          case 8:
-            _context.prev = 8;
+          case 11:
+            _context.prev = 11;
             _context.t0 = _context["catch"](1);
             console.log(_context.t0.response);
+
+            if (!(_context.t0.response.status == 500)) {
+              _context.next = 16;
+              break;
+            }
+
             return _context.abrupt("return", {
-              error: _context.t0.response.data
+              error: 'Server errror, please try again.',
+              isAuthenticated: false,
+              token: null
             });
 
-          case 12:
+          case 16:
+            return _context.abrupt("return", {
+              error: _context.t0.response.data,
+              isAuthenticated: false,
+              token: null
+            });
+
+          case 17:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[1, 8]]);
+    }, _callee, null, [[1, 11]]);
   }));
 
   return function loginUser(_x) {
@@ -26997,6 +29778,7 @@ var loginUser = /*#__PURE__*/function () {
 }();
 var logoutUser = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+    var res;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -27006,26 +29788,39 @@ var logoutUser = /*#__PURE__*/function () {
             return _utils_utils__WEBPACK_IMPORTED_MODULE_1__.axios.post("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_1__.BASE_URL, "/logout"));
 
           case 3:
-            return _context2.abrupt("return", {
-              isAuthenticated: false,
-              user: null
-            });
-
-          case 6:
-            _context2.prev = 6;
-            _context2.t0 = _context2["catch"](0);
-            console.log(_context2.t0.response);
-            return _context2.abrupt("return", {
-              error: _context2.t0.response.data,
-              isAuthenticated: false
-            });
+            res = _context2.sent;
+            console.log(res.data);
+            localStorage.removeItem('DEV-ARENA-TOKEN');
+            (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.setAuthToken)();
+            window.location.reload();
+            _context2.next = 16;
+            break;
 
           case 10:
+            _context2.prev = 10;
+            _context2.t0 = _context2["catch"](0);
+            console.log(_context2.t0.response);
+
+            if (!(_context2.t0.response.status == 500)) {
+              _context2.next = 15;
+              break;
+            }
+
+            return _context2.abrupt("return", {
+              error: 'Server errror, please try again.'
+            });
+
+          case 15:
+            return _context2.abrupt("return", {
+              error: _context2.t0.response.data
+            });
+
+          case 16:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[0, 6]]);
+    }, _callee2, null, [[0, 10]]);
   }));
 
   return function logoutUser() {
@@ -27034,37 +29829,55 @@ var logoutUser = /*#__PURE__*/function () {
 }();
 var getUser = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-    var res;
+    var token, res;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.prev = 0;
-            _context3.next = 3;
-            return _utils_utils__WEBPACK_IMPORTED_MODULE_1__.axios.get("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_1__.BASE_URL, "/api/me"));
+            token = localStorage.getItem('DEV-ARENA-TOKEN');
+            (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.setAuthToken)(token);
+            _context3.next = 5;
+            return _utils_utils__WEBPACK_IMPORTED_MODULE_1__.axios.get("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_1__.BASE_URL, "/me"));
 
-          case 3:
+          case 5:
             res = _context3.sent;
+            console.log(res.data);
             return _context3.abrupt("return", {
               user: res.data,
               isAuthenticated: true
             });
 
-          case 7:
-            _context3.prev = 7;
+          case 10:
+            _context3.prev = 10;
             _context3.t0 = _context3["catch"](0);
             console.log(_context3.t0.response);
+
+            if (!(_context3.t0.response.status == 500)) {
+              _context3.next = 15;
+              break;
+            }
+
             return _context3.abrupt("return", {
-              error: _context3.t0.response.data,
-              isAuthenticated: false
+              error: 'Server errror, please try again.',
+              isAuthenticated: false,
+              token: null
             });
 
-          case 11:
+          case 15:
+            localStorage.removeItem('DEV-ARENA-TOKEN');
+            (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.setAuthToken)();
+            return _context3.abrupt("return", {
+              isAuthenticated: false,
+              token: null
+            });
+
+          case 18:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[0, 7]]);
+    }, _callee3, null, [[0, 10]]);
   }));
 
   return function getUser() {
@@ -27080,7 +29893,7 @@ var getAllUsers = /*#__PURE__*/function () {
           case 0:
             _context4.prev = 0;
             _context4.next = 3;
-            return _utils_utils__WEBPACK_IMPORTED_MODULE_1__.axios.get("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_1__.BASE_URL, "/api/users"));
+            return _utils_utils__WEBPACK_IMPORTED_MODULE_1__.axios.get("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_1__.BASE_URL, "/users"));
 
           case 3:
             res = _context4.sent;
@@ -27244,7 +30057,9 @@ function Dashboard(_ref) {
   var renderComponent = function renderComponent(param) {
     switch (param) {
       case 'users':
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_UsersTable__WEBPACK_IMPORTED_MODULE_2__.default, {});
+        return state.user && state.user.roles[0].name === 'developer' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Redirect, {
+          to: "/dashboard"
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_UsersTable__WEBPACK_IMPORTED_MODULE_2__.default, {});
 
       case 'change_password':
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ChangePasswordForm__WEBPACK_IMPORTED_MODULE_3__.default, {});
@@ -27258,7 +30073,7 @@ function Dashboard(_ref) {
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_components_DrawerMenu__WEBPACK_IMPORTED_MODULE_1__.default, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_11__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_InfoDialog__WEBPACK_IMPORTED_MODULE_7__.default, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_11__.default, {}), !state.loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_InfoDialog__WEBPACK_IMPORTED_MODULE_7__.default, {
       email_verified_at: state.user && state.user.email_verified_at
     }), renderComponent(routeName)]
   });
@@ -27368,7 +30183,7 @@ function ForgotPassPage() {
   var handleOnSubmit = function handleOnSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    _utils_utils__WEBPACK_IMPORTED_MODULE_2__.axios.post("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_2__.BASE_URL, "/api/forgot-password"), {
+    _utils_utils__WEBPACK_IMPORTED_MODULE_2__.axios.post("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_2__.BASE_URL, "/forgot-password"), {
       email: email
     }).then(function (res) {
       setLoading(false);
@@ -27709,15 +30524,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ ResetPassPage)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/Button.js");
-/* harmony import */ var _material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/CssBaseline */ "./node_modules/@material-ui/core/esm/CssBaseline/CssBaseline.js");
-/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/TextField */ "./node_modules/@material-ui/core/esm/TextField/TextField.js");
-/* harmony import */ var _material_ui_core_Link__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/Link */ "./node_modules/@material-ui/core/esm/Link/Link.js");
-/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/esm/Typography/Typography.js");
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/makeStyles.js");
-/* harmony import */ var _material_ui_core_Container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/Container */ "./node_modules/@material-ui/core/esm/Container/Container.js");
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/Button.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/CssBaseline */ "./node_modules/@material-ui/core/esm/CssBaseline/CssBaseline.js");
+/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/core/TextField */ "./node_modules/@material-ui/core/esm/TextField/TextField.js");
+/* harmony import */ var _material_ui_core_Link__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @material-ui/core/Link */ "./node_modules/@material-ui/core/esm/Link/Link.js");
+/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/esm/Typography/Typography.js");
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/makeStyles.js");
+/* harmony import */ var _material_ui_core_Container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/Container */ "./node_modules/@material-ui/core/esm/Container/Container.js");
 /* harmony import */ var _components_AppContainer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/AppContainer */ "./resources/js/src/components/AppContainer.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/utils */ "./resources/js/src/utils/utils.js");
+/* harmony import */ var _material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/Snackbar */ "./node_modules/@material-ui/core/esm/Snackbar/Snackbar.js");
+/* harmony import */ var _material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/lab/Alert */ "./node_modules/@material-ui/lab/esm/Alert/Alert.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -27729,7 +30565,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var useStyles = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__.default)(function (theme) {
+
+
+
+
+
+var useStyles = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__.default)(function (theme) {
   return {
     paper: {
       margin: theme.spacing(3, 0),
@@ -27754,26 +30595,112 @@ var useStyles = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__.default
 });
 function ResetPassPage() {
   var classes = useStyles();
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_AppContainer__WEBPACK_IMPORTED_MODULE_1__.default, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_material_ui_core_Container__WEBPACK_IMPORTED_MODULE_4__.default, {
+
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useParams)(),
+      token = _useParams.token;
+
+  var search = new URLSearchParams((0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useLocation)().search);
+
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState({
+    email: search.get('email'),
+    password: '',
+    password_confirmation: ''
+  }),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      data = _React$useState2[0],
+      setData = _React$useState2[1];
+
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0__.useState(false),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      loading = _React$useState4[0],
+      setLoading = _React$useState4[1];
+
+  var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_0__.useState(null),
+      _React$useState6 = _slicedToArray(_React$useState5, 2),
+      error = _React$useState6[0],
+      setError = _React$useState6[1];
+
+  var _React$useState7 = react__WEBPACK_IMPORTED_MODULE_0__.useState(null),
+      _React$useState8 = _slicedToArray(_React$useState7, 2),
+      msg = _React$useState8[0],
+      setMsg = _React$useState8[1];
+
+  var handleSubmit = function handleSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+    _utils_utils__WEBPACK_IMPORTED_MODULE_2__.axios.post("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_2__.BASE_URL, "/reset-password"), _objectSpread({
+      token: token
+    }, data)).then(function () {
+      setLoading(false);
+      setData({
+        password: '',
+        password_confirmation: ''
+      });
+      setMsg('Your password had been updated successfully.');
+    })["catch"](function (err) {
+      console.log(err.response);
+      setLoading(false);
+
+      if (err.response.status === 500) {
+        setError({
+          message: 'Server Error, Please try again.'
+        });
+        return;
+      }
+
+      setError(err.response.data);
+    });
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_AppContainer__WEBPACK_IMPORTED_MODULE_1__.default, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_material_ui_core_Container__WEBPACK_IMPORTED_MODULE_6__.default, {
       component: "main",
       maxWidth: "xs",
       className: "card",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_5__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_7__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_8__.default, {
+        open: Boolean(msg),
+        anchorOrigin: {
+          vertical: 'top',
+          horizontal: 'right'
+        },
+        autoHideDuration: 8000,
+        onClose: function onClose() {
+          return setMsg(null);
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_9__.default, {
+          onClose: function onClose() {
+            return setMsg(null);
+          },
+          severity: "success",
+          variant: "filled",
+          children: msg
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: classes.paper,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6__.default, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_10__.default, {
           component: "h1",
           variant: "h4",
           className: classes.headerText,
           children: "Reset your password?"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_6__.default, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_10__.default, {
           component: "h1",
           variant: "body2",
           children: "Please enter your new password and confirm your new password to reset your password."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
           className: classes.form,
           noValidate: true,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_7__.default, {
+          children: [error ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_9__.default, {
+            onClose: function onClose() {
+              return setError(null);
+            },
+            severity: "error",
+            children: error.message
+          }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_10__.default, {
+            component: "h1",
+            variant: "h6",
+            className: classes.headerText,
+            children: data.email
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_11__.default, {
             variant: "outlined",
             margin: "normal",
             required: true,
@@ -27782,26 +30709,38 @@ function ResetPassPage() {
             label: "Password",
             type: "password",
             id: "password",
-            autoComplete: "current-password"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_7__.default, {
+            autoComplete: "current-password",
+            onChange: function onChange(e) {
+              return setData(_objectSpread(_objectSpread({}, data), {}, {
+                password: e.target.value
+              }));
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_11__.default, {
             variant: "outlined",
             margin: "normal",
             required: true,
             fullWidth: true,
             name: "password",
-            label: "Password",
+            label: "Password Confirmation",
             type: "password",
-            id: "password",
-            autoComplete: "current-password"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_8__.default, {
+            id: "password_confirmation",
+            autoComplete: "current-password",
+            onChange: function onChange(e) {
+              return setData(_objectSpread(_objectSpread({}, data), {}, {
+                password_confirmation: e.target.value
+              }));
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_12__.default, {
             type: "submit",
             fullWidth: true,
             variant: "contained",
             color: "primary",
             size: "large",
             className: classes.submit,
+            disabled: loading || !data.password || data.password !== data.password_confirmation,
+            onClick: handleSubmit,
             children: "Submit"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core_Link__WEBPACK_IMPORTED_MODULE_9__.default, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core_Link__WEBPACK_IMPORTED_MODULE_13__.default, {
             href: "/login",
             variant: "body1",
             children: "Login"
@@ -27871,10 +30810,13 @@ var AuthRoute = function AuthRoute(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "generatePassword": () => (/* binding */ generatePassword),
 /* harmony export */   "axios": () => (/* binding */ axios),
-/* harmony export */   "BASE_URL": () => (/* binding */ BASE_URL)
+/* harmony export */   "BASE_URL": () => (/* binding */ BASE_URL),
+/* harmony export */   "generatePassword": () => (/* binding */ generatePassword),
+/* harmony export */   "setAuthToken": () => (/* binding */ setAuthToken)
 /* harmony export */ });
+var axios = window.axios;
+var BASE_URL = "http://127.0.0.1:8000/api";
 var generatePassword = function generatePassword(len) {
   var result = [];
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@-%$#!&+?';
@@ -27886,8 +30828,13 @@ var generatePassword = function generatePassword(len) {
 
   return result.join('');
 };
-var axios = window.axios;
-var BASE_URL = "http://127.0.0.1:8000";
+var setAuthToken = function setAuthToken(token) {
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = "Bearer ".concat(token);
+  } else {
+    delete axios.defaults.headers.common['Authorization'];
+  }
+};
 
 /***/ }),
 

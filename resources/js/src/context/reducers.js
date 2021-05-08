@@ -1,4 +1,4 @@
-import { LOADING, LOAD_USER, LOGIN, LOGOUT, REMOVE_ALERT } from "./types";
+import { LOADING, LOAD_USER, LOGIN, LOGIN_FAIL, LOGOUT, REMOVE_ALERT } from "./types";
 
 
 export const userReducer = (state, action) => {

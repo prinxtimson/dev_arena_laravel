@@ -1,3 +1,5 @@
+export const axios = window.axios;
+export const BASE_URL = "http://127.0.0.1:8000/api";
 
 export const generatePassword = (len) => {
     let result = [];
@@ -9,5 +11,10 @@ export const generatePassword = (len) => {
     return result.join('');
 }
 
-export const axios = window.axios;
-export const BASE_URL = "http://127.0.0.1:8000";
+export const setAuthToken = (token) => {
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    } else {
+      delete axios.defaults.headers.common['Authorization'];
+    }
+  };

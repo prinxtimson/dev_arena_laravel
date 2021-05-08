@@ -57,7 +57,7 @@ const AddUserForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    axios.post(`${BASE_URL}/api/users`, data)
+    axios.post(`${BASE_URL}/users`, data)
         .then(res => {
             setLoading(false);
             setMsg(res.data.msg);

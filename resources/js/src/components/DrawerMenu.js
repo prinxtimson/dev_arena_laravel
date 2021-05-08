@@ -28,6 +28,7 @@ const drawerWidth = 260;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    backgroundColor: 'white'
   },
   drawer: {
     [theme.breakpoints.up('lg')]: {
@@ -104,7 +105,7 @@ function DrawerMenu({ window, children }) {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar} color="transparent">
+        <AppBar position="fixed" className={classes.appBar} color="inherit">
           <Toolbar>
             <IconButton
               color="inherit"

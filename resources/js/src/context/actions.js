@@ -3,7 +3,7 @@ import {axios, BASE_URL, setAuthToken} from '../utils/utils';
 export const loginUser = async (data) => {
 
     try {
-        const res = await axios.post(`http://127.0.0.1:8000/login`, data);
+        const res = await axios.post(`https://tritekdevarena.herokuapp.com/login`, data);
         location.replace('/dashboard')
         return {...res.data, isAuthenticated: true};
 
@@ -18,7 +18,7 @@ export const loginUser = async (data) => {
 
 export const logoutUser = async () => {
     try {
-        await axios.post(`http://127.0.0.1:8000/logout`);
+        await axios.post(`https://tritekdevarena.herokuapp.com/logout`);
         location.replace('/login');
         return {isAuthenticated: false};
     } catch (err) {

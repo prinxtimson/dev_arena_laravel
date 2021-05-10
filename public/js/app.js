@@ -30038,9 +30038,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @material-ui/core/CssBaseline */ "./node_modules/@material-ui/core/esm/CssBaseline/CssBaseline.js");
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/makeStyles.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/core/CssBaseline */ "./node_modules/@material-ui/core/esm/CssBaseline/CssBaseline.js");
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/makeStyles.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _components_DrawerMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/DrawerMenu */ "./resources/js/src/components/DrawerMenu.js");
 /* harmony import */ var _components_UsersTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/UsersTable */ "./resources/js/src/components/UsersTable.js");
 /* harmony import */ var _components_ChangePasswordForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/ChangePasswordForm */ "./resources/js/src/components/ChangePasswordForm.js");
@@ -30048,8 +30048,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_DashboardIndex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/DashboardIndex */ "./resources/js/src/components/DashboardIndex.js");
 /* harmony import */ var _context_GlobalState__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../context/GlobalState */ "./resources/js/src/context/GlobalState.js");
 /* harmony import */ var _components_InfoDialog__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/InfoDialog */ "./resources/js/src/components/InfoDialog.js");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../utils/AccessRoute'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -30063,8 +30062,7 @@ Object(function webpackMissingModule() { var e = new Error("Cannot find module '
 
 
 
-
-var useStyles = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_10__.default)(function (theme) {
+var useStyles = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__.default)(function (theme) {
   return {};
 });
 
@@ -30072,7 +30070,7 @@ function Dashboard(_ref) {
   var match = _ref.match;
   var classes = useStyles();
 
-  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useParams)(),
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_10__.useParams)(),
       routeName = _useParams.routeName;
 
   var _React$useContext = react__WEBPACK_IMPORTED_MODULE_0__.useContext(_context_GlobalState__WEBPACK_IMPORTED_MODULE_6__.UserContext),
@@ -30081,21 +30079,21 @@ function Dashboard(_ref) {
   var renderComponent = function renderComponent(param) {
     switch (param) {
       case 'users':
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_UsersTable__WEBPACK_IMPORTED_MODULE_2__.default, {});
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_UsersTable__WEBPACK_IMPORTED_MODULE_2__.default, {});
 
       case 'change-password':
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ChangePasswordForm__WEBPACK_IMPORTED_MODULE_3__.default, {});
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ChangePasswordForm__WEBPACK_IMPORTED_MODULE_3__.default, {});
 
       case 'add-user':
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_AddUserForm__WEBPACK_IMPORTED_MODULE_4__.default, {});
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_AddUserForm__WEBPACK_IMPORTED_MODULE_4__.default, {});
 
       default:
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_DashboardIndex__WEBPACK_IMPORTED_MODULE_5__.default, {});
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_DashboardIndex__WEBPACK_IMPORTED_MODULE_5__.default, {});
     }
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_components_DrawerMenu__WEBPACK_IMPORTED_MODULE_1__.default, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_12__.default, {}), !state.loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_InfoDialog__WEBPACK_IMPORTED_MODULE_7__.default, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_components_DrawerMenu__WEBPACK_IMPORTED_MODULE_1__.default, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_11__.default, {}), !state.loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_InfoDialog__WEBPACK_IMPORTED_MODULE_7__.default, {
       email_verified_at: state.user && state.user.email_verified_at
     }), renderComponent(routeName)]
   });

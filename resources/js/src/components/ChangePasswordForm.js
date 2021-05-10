@@ -43,7 +43,7 @@ const ChangePasswordForm = () => {
     if(!passwordValidation.test(newPassword)){
         return;
     }
-    axios.put(`${BASE_URL}/change_password`, {
+    axios.put(`${BASE_URL}/change-password`, {
         password: currentPassword,
         new_password: newPassword,
         new_password_confirmation: confirmNewPassword

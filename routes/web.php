@@ -16,24 +16,41 @@ use App\Http\Controllers\LoginController;
 
 Route::get('/', function () {
     return view('welcome');
+})->name('home');
+
+//Route::post('/login', [LoginController::class, 'authenticate']);
+// Route::middleware('auth:sanctum');
+
+// Route::get('/dashboard/{name?}', ['as' => 'dashboard', function ($name = null) {
+//     return view('welcome');
+// }])->middleware('auth');
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/logout', [LoginController::class, 'logout']);
+    Route::get('/dashboard/{name?}', ['as' => 'dashboard', function ($name = null) {
+        return view('welcome');
+    }]);
 });
 
-Route::post('/login', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
-
-Route::get('/dashboard/{name?}', ['as' => 'dashboard', function ($name = null) {
-    return view('welcome');
-}])->middleware('auth');
+Route::middleware(['auth', 'role:admin|super-admin'])->group(function () {
+    Route::get('dashboard/users', function () {
+        return view('welcome');
+    })->name('dashboard.users');
+    Route::get('dashboard/add-user', function () {
+        return view('welcome');
+    })->name('dashboard.add-user');
+});
 
 Route::middleware(['guest'])->group(function () {
     //
-    Route::get('/login', function () {
+    Route::post('/login', [LoginController::class, 'authenticate']);
+    Route::get('login', function () {
         return view('welcome');
     })->name('login');
-    Route::get('/reset-password/{token}', function () {
+    Route::get('reset-password/{token}', function () {
         return view('welcome');
     })->name('password.reset');
-    Route::get('/forgot-password', function () {
+    Route::get('forgot-password', function () {
         return view('welcome');
     });
 });

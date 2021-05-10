@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
 
 class LoginController extends Controller
 {
@@ -28,9 +29,9 @@ class LoginController extends Controller
             return auth()->user();
         }
 
-        return back()->withErrors([
-            'message' => 'Invalid credentials.',
-        ]);
+        return response([
+            'message' => 'invalid credentials'
+        ], 401);
     }
 
     public function logout(Request $request)

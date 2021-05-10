@@ -1,21 +1,16 @@
 import {axios, BASE_URL, setAuthToken} from '../utils/utils';
 
 export const loginUser = async (data) => {
-    const config = {
-        'Accept': 'applicatio/json',
-    }
 
     try {
-        const res = await axios.post(`${BASE_URL}/login`, data, config);
-        console.log(res.data)
-        localStorage.setItem('DEV-ARENA-TOKEN', res.data.token);
-        setAuthToken(res.data.token);
+        const res = await axios.post(`http://127.0.0.1:8000/login`, data);
+        location.replace('/dashboard')
         return {...res.data, isAuthenticated: true};
 
     } catch (err) {
         console.log(err.response);
         if (err.response.status == 500){
-            return {error: 'Server errror, please try again.', isAuthenticated: false, token: null};
+            return {error: {message: 'Server errror, please try again.'}, isAuthenticated: false, token: null};
         }
         return {error: err.response.data, isAuthenticated: false, token: null};
     }
@@ -23,15 +18,13 @@ export const loginUser = async (data) => {
 
 export const logoutUser = async () => {
     try {
-        const res = await axios.post(`${BASE_URL}/logout`);
-        console.log(res.data)
-        localStorage.removeItem('DEV-ARENA-TOKEN');
-        setAuthToken();
-        window.location.reload()
+        await axios.post(`http://127.0.0.1:8000/logout`);
+        location.replace('/login');
+        return {isAuthenticated: false};
     } catch (err) {
         console.log(err.response);
         if (err.response.status == 500){
-            return {error: 'Server errror, please try again.'};
+            return {error: {message: 'Server errror, please try again.'}};
         }
         return {error: err.response.data};
     }
@@ -39,21 +32,16 @@ export const logoutUser = async () => {
 
 export const getUser = async () => {
     try {
-        const token = localStorage.getItem('DEV-ARENA-TOKEN');
-
-        setAuthToken(token);
-
         const res = await axios.get(`${BASE_URL}/me`);
-        console.log(res.data)
+
         return {user: res.data, isAuthenticated: true};
 
     } catch (err) {
         console.log(err.response);
         if (err.response.status == 500){
-            return {error: 'Server errror, please try again.', isAuthenticated: false, token: null};
+            return {error: {message: 'Server errror, please try again.'}, isAuthenticated: false, token: null};
         }
-        localStorage.removeItem('DEV-ARENA-TOKEN');
-        setAuthToken();
+        
         return {isAuthenticated: false, token: null};
     }
 }

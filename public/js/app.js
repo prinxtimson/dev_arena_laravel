@@ -27991,15 +27991,15 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.withCredentials = true; // let token = document.head.querySelector('meta[name="csrf-token"]');
-// if (token) {
-//     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-//     //window.location.replace('/dashboard');
-// } else {
-//     //window.location.replace('/login');
-//     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-// }
+window.axios.defaults.withCredentials = true;
+var token = document.head.querySelector('meta[name="csrf-token"]');
 
+if (token) {
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content; //window.location.replace('/dashboard');
+} else {
+  //window.location.replace('/login');
+  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -28101,10 +28101,10 @@ var App = function App() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
             path: "/reset-password/:token",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_screens_ResetPassPage__WEBPACK_IMPORTED_MODULE_8__.default, {})
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_utils_AuthRoute__WEBPACK_IMPORTED_MODULE_3__.default, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
             path: "/login",
             exact: true,
-            component: _screens_LoginPage__WEBPACK_IMPORTED_MODULE_7__.default
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_screens_LoginPage__WEBPACK_IMPORTED_MODULE_7__.default, {})
           })]
         })
       })
@@ -28598,7 +28598,7 @@ var ChangePasswordForm = function ChangePasswordForm() {
       return;
     }
 
-    _utils_utils__WEBPACK_IMPORTED_MODULE_2__.axios.put("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_2__.BASE_URL, "/change_password"), {
+    _utils_utils__WEBPACK_IMPORTED_MODULE_2__.axios.put("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_2__.BASE_URL, "/change-password"), {
       password: currentPassword,
       new_password: newPassword,
       new_password_confirmation: confirmNewPassword
@@ -28964,7 +28964,7 @@ function DrawerMenu(_ref) {
       "aria-label": "mailbox folders",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_material_ui_core_Hidden__WEBPACK_IMPORTED_MODULE_22__.default, {
         lgUp: true,
-        implementation: "css",
+        implementation: "js",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_material_ui_core_Drawer__WEBPACK_IMPORTED_MODULE_23__.default, {
           container: container,
           variant: "temporary",
@@ -29125,7 +29125,7 @@ function DropDownMenu(_ref) {
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_8__.default, {
         component: react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Link,
-        to: "/dashboard/change_password",
+        to: "/dashboard/change-password",
         onClick: handleClose,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_core_ListItemIcon__WEBPACK_IMPORTED_MODULE_9__.default, {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_material_ui_icons_Lock__WEBPACK_IMPORTED_MODULE_13__.default, {
@@ -29493,7 +29493,6 @@ var UsersTable = function UsersTable() {
       loading: true
     }));
     _utils_utils__WEBPACK_IMPORTED_MODULE_2__.axios.get("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_2__.BASE_URL, "/users")).then(function (res) {
-      console.log(res.data);
       setState(_objectSpread(_objectSpread({}, state), {}, {
         rows: res.data,
         loading: false
@@ -29751,56 +29750,53 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var loginUser = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(data) {
-    var config, res;
+    var res;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            config = {
-              'Accept': 'applicatio/json'
-            };
-            _context.prev = 1;
-            _context.next = 4;
-            return _utils_utils__WEBPACK_IMPORTED_MODULE_1__.axios.post("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_1__.BASE_URL, "/login"), data, config);
+            _context.prev = 0;
+            _context.next = 3;
+            return _utils_utils__WEBPACK_IMPORTED_MODULE_1__.axios.post("http://127.0.0.1:8000/login", data);
 
-          case 4:
+          case 3:
             res = _context.sent;
-            console.log(res.data);
-            localStorage.setItem('DEV-ARENA-TOKEN', res.data.token);
-            (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.setAuthToken)(res.data.token);
+            location.replace('/dashboard');
             return _context.abrupt("return", _objectSpread(_objectSpread({}, res.data), {}, {
               isAuthenticated: true
             }));
 
-          case 11:
-            _context.prev = 11;
-            _context.t0 = _context["catch"](1);
+          case 8:
+            _context.prev = 8;
+            _context.t0 = _context["catch"](0);
             console.log(_context.t0.response);
 
             if (!(_context.t0.response.status == 500)) {
-              _context.next = 16;
+              _context.next = 13;
               break;
             }
 
             return _context.abrupt("return", {
-              error: 'Server errror, please try again.',
+              error: {
+                message: 'Server errror, please try again.'
+              },
               isAuthenticated: false,
               token: null
             });
 
-          case 16:
+          case 13:
             return _context.abrupt("return", {
               error: _context.t0.response.data,
               isAuthenticated: false,
               token: null
             });
 
-          case 17:
+          case 14:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[1, 11]]);
+    }, _callee, null, [[0, 8]]);
   }));
 
   return function loginUser(_x) {
@@ -29809,49 +29805,47 @@ var loginUser = /*#__PURE__*/function () {
 }();
 var logoutUser = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-    var res;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.prev = 0;
             _context2.next = 3;
-            return _utils_utils__WEBPACK_IMPORTED_MODULE_1__.axios.post("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_1__.BASE_URL, "/logout"));
+            return _utils_utils__WEBPACK_IMPORTED_MODULE_1__.axios.post("http://127.0.0.1:8000/logout");
 
           case 3:
-            res = _context2.sent;
-            console.log(res.data);
-            localStorage.removeItem('DEV-ARENA-TOKEN');
-            (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.setAuthToken)();
-            window.location.reload();
-            _context2.next = 16;
-            break;
+            location.replace('/login');
+            return _context2.abrupt("return", {
+              isAuthenticated: false
+            });
 
-          case 10:
-            _context2.prev = 10;
+          case 7:
+            _context2.prev = 7;
             _context2.t0 = _context2["catch"](0);
             console.log(_context2.t0.response);
 
             if (!(_context2.t0.response.status == 500)) {
-              _context2.next = 15;
+              _context2.next = 12;
               break;
             }
 
             return _context2.abrupt("return", {
-              error: 'Server errror, please try again.'
+              error: {
+                message: 'Server errror, please try again.'
+              }
             });
 
-          case 15:
+          case 12:
             return _context2.abrupt("return", {
               error: _context2.t0.response.data
             });
 
-          case 16:
+          case 13:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[0, 10]]);
+    }, _callee2, null, [[0, 7]]);
   }));
 
   return function logoutUser() {
@@ -29860,55 +29854,52 @@ var logoutUser = /*#__PURE__*/function () {
 }();
 var getUser = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-    var token, res;
+    var res;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.prev = 0;
-            token = localStorage.getItem('DEV-ARENA-TOKEN');
-            (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.setAuthToken)(token);
-            _context3.next = 5;
+            _context3.next = 3;
             return _utils_utils__WEBPACK_IMPORTED_MODULE_1__.axios.get("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_1__.BASE_URL, "/me"));
 
-          case 5:
+          case 3:
             res = _context3.sent;
-            console.log(res.data);
             return _context3.abrupt("return", {
               user: res.data,
               isAuthenticated: true
             });
 
-          case 10:
-            _context3.prev = 10;
+          case 7:
+            _context3.prev = 7;
             _context3.t0 = _context3["catch"](0);
             console.log(_context3.t0.response);
 
             if (!(_context3.t0.response.status == 500)) {
-              _context3.next = 15;
+              _context3.next = 12;
               break;
             }
 
             return _context3.abrupt("return", {
-              error: 'Server errror, please try again.',
+              error: {
+                message: 'Server errror, please try again.'
+              },
               isAuthenticated: false,
               token: null
             });
 
-          case 15:
-            localStorage.removeItem('DEV-ARENA-TOKEN');
-            (0,_utils_utils__WEBPACK_IMPORTED_MODULE_1__.setAuthToken)();
+          case 12:
             return _context3.abrupt("return", {
               isAuthenticated: false,
               token: null
             });
 
-          case 18:
+          case 13:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[0, 10]]);
+    }, _callee3, null, [[0, 7]]);
   }));
 
   return function getUser() {
@@ -30047,9 +30038,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/core/CssBaseline */ "./node_modules/@material-ui/core/esm/CssBaseline/CssBaseline.js");
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/makeStyles.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @material-ui/core/CssBaseline */ "./node_modules/@material-ui/core/esm/CssBaseline/CssBaseline.js");
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/makeStyles.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _components_DrawerMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/DrawerMenu */ "./resources/js/src/components/DrawerMenu.js");
 /* harmony import */ var _components_UsersTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/UsersTable */ "./resources/js/src/components/UsersTable.js");
 /* harmony import */ var _components_ChangePasswordForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/ChangePasswordForm */ "./resources/js/src/components/ChangePasswordForm.js");
@@ -30057,7 +30048,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_DashboardIndex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/DashboardIndex */ "./resources/js/src/components/DashboardIndex.js");
 /* harmony import */ var _context_GlobalState__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../context/GlobalState */ "./resources/js/src/context/GlobalState.js");
 /* harmony import */ var _components_InfoDialog__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/InfoDialog */ "./resources/js/src/components/InfoDialog.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+Object(function webpackMissingModule() { var e = new Error("Cannot find module '../utils/AccessRoute'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -30071,7 +30063,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var useStyles = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__.default)(function (theme) {
+
+var useStyles = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_10__.default)(function (theme) {
   return {};
 });
 
@@ -30079,7 +30072,7 @@ function Dashboard(_ref) {
   var match = _ref.match;
   var classes = useStyles();
 
-  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_10__.useParams)(),
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useParams)(),
       routeName = _useParams.routeName;
 
   var _React$useContext = react__WEBPACK_IMPORTED_MODULE_0__.useContext(_context_GlobalState__WEBPACK_IMPORTED_MODULE_6__.UserContext),
@@ -30088,23 +30081,21 @@ function Dashboard(_ref) {
   var renderComponent = function renderComponent(param) {
     switch (param) {
       case 'users':
-        return state.user && state.user.roles[0].name === 'developer' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Redirect, {
-          to: "/dashboard"
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_UsersTable__WEBPACK_IMPORTED_MODULE_2__.default, {});
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_UsersTable__WEBPACK_IMPORTED_MODULE_2__.default, {});
 
-      case 'change_password':
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_ChangePasswordForm__WEBPACK_IMPORTED_MODULE_3__.default, {});
+      case 'change-password':
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ChangePasswordForm__WEBPACK_IMPORTED_MODULE_3__.default, {});
 
-      case 'add_user':
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_AddUserForm__WEBPACK_IMPORTED_MODULE_4__.default, {});
+      case 'add-user':
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_AddUserForm__WEBPACK_IMPORTED_MODULE_4__.default, {});
 
       default:
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_DashboardIndex__WEBPACK_IMPORTED_MODULE_5__.default, {});
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_DashboardIndex__WEBPACK_IMPORTED_MODULE_5__.default, {});
     }
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_components_DrawerMenu__WEBPACK_IMPORTED_MODULE_1__.default, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_11__.default, {}), !state.loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_InfoDialog__WEBPACK_IMPORTED_MODULE_7__.default, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_components_DrawerMenu__WEBPACK_IMPORTED_MODULE_1__.default, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_12__.default, {}), !state.loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_InfoDialog__WEBPACK_IMPORTED_MODULE_7__.default, {
       email_verified_at: state.user && state.user.email_verified_at
     }), renderComponent(routeName)]
   });

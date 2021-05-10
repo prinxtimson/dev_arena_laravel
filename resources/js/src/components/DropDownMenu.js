@@ -73,7 +73,7 @@ function DropDownMenu({handleClose, anchorE1}) {
                 </MenuItem>
                 <MenuItem
                   component={Link}
-                  to="/dashboard/change_password"
+                  to="/dashboard/change-password"
                   onClick={handleClose}
                 >
                     <ListItemIcon>

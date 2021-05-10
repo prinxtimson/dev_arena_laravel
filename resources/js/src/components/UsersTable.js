@@ -118,7 +118,7 @@ const UsersTable = () => {
         setState({...state, loading: true});
         axios.get(`${BASE_URL}/users`)
             .then(res => {
-                console.log(res.data)
+                
                 setState({...state, rows: res.data, loading: false});
             })
             .catch(err => {

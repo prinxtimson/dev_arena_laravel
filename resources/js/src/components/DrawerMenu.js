@@ -143,7 +143,7 @@ function DrawerMenu({ window, children }) {
         </AppBar>
         <nav className={classes.drawer} aria-label="mailbox folders">
           {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Hidden lgUp implementation="css">
+          <Hidden lgUp implementation="js">
             <Drawer
               container={container}
               variant="temporary"

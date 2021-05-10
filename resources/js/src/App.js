@@ -62,7 +62,9 @@ const App = () => {
                         <Route path="/reset-password/:token">
                             <ResetPassPage />
                         </Route>
-                        <AuthRoute path="/login" exact component={LoginPage} />
+                        <Route path="/login" exact>
+                            <LoginPage />
+                        </Route> 
                     </Switch>
                 </Router>
             </UserContextProvider>

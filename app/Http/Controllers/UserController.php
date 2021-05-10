@@ -42,11 +42,13 @@ class UserController extends Controller
             'password' => 'required|string'
         ]);
 
+        $hash = md5(strtolower(trim($fields['email'])));
+
         $user = User::create([
             'name' =>  $fields['firstname'].' '.$fields['lastname'],
             'email' => $fields['email'],
             'username' => strtolower($fields['firstname'].$fields['lastname']),
-            'avatar' => 'myavatar.com',
+            'avatar' => 'https://www.gravatar.com/avatar/'.$hash,
             'password' => bcrypt($fields['password'])
         ]);
 

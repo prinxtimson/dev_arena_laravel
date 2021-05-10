@@ -17,11 +17,11 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $hash = md5(strtolower('john.doe@example.com'));
         $user = User::create([
             'name' => 'John Doe',
             'username' => 'johndoe',
-            'avatar' => 'https://avatar.com',
+            'avatar' => 'https://www.gravatar.com/avatar/'.$hash,
             'email' => 'john.doe@example.com',
             'password' => Hash::make('123456'),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),

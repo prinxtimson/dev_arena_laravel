@@ -9,7 +9,6 @@ import AddUserForm from '../components/AddUserForm';
 import DashboardIndex from '../components/DashboardIndex';
 import { UserContext } from '../context/GlobalState';
 import InfoDialog from '../components/InfoDialog';
-import AccessRoute from '../utils/AccessRoute';
 
 const useStyles = makeStyles((theme) => ({
 

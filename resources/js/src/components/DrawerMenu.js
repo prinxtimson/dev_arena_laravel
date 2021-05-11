@@ -131,7 +131,7 @@ function DrawerMenu({ window, children }) {
               color="inherit"
               onClick={handleClick}
             >
-                <Avatar alt="Remy Sharp" src={state.user.avatar}>
+                <Avatar alt="Remy Sharp" src={state.user && state.user.avatar}>
                     RS
                 </Avatar>
             </IconButton>

@@ -8,6 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AppContainer from '../components/AppContainer';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
 import { axios, BASE_URL } from '../utils/utils';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
@@ -47,6 +51,8 @@ export default function ResetPassPage() {
   const [error, setError] = React.useState(null);
   const [msg, setMsg] = React.useState(null);
   const passwordValidation = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+  const [show, setShow] = React.useState(false);
+  const [show2, setShow2] = React.useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,7 +60,7 @@ export default function ResetPassPage() {
         return;
     }
     setLoading(true);
-    axios.post(`${BASE_URL}/reset-password`, {token, ...data})
+    axios.post(`${BASE_URL}/api/reset-password`, {token, ...data})
         .then(() => {
           setLoading(false);
           setData({password: '', password_confirmation: ''});
@@ -70,6 +76,19 @@ export default function ResetPassPage() {
           setError(err.response.data);
       })
   }
+
+  const handleClickShow = () => {
+    setShow(!show);
+  };
+
+  const handleClickShow2 = () => {
+    setShow2(!show2);
+  };
+
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+  };
+
 
   return (
     <AppContainer>
@@ -121,11 +140,24 @@ export default function ResetPassPage() {
                         name="password"
                         error={data.password && !passwordValidation.test(data.password)}
                         label="Password"
-                        type="password"
+                        type={show ? 'text' : 'password'}
                         id="password"
                         autoComplete="current-password"
                         helperText="Must contain at least one of each sets A-Z,a-z,0-9 and minimum of 8 characters."
                         onChange={e => setData({...data, password: e.target.value})}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShow}
+                                        onMouseDown={handleMouseDown}
+                                    >
+                                        {show ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }}
                     /> 
                     <TextField
                         variant="outlined"
@@ -134,10 +166,23 @@ export default function ResetPassPage() {
                         fullWidth
                         name="password"
                         label="Password Confirmation"
-                        type="password"
+                        type={show2 ? 'text' : 'password'}
                         id="password_confirmation"
                         autoComplete="current-password"
                         onChange={e => setData({...data, password_confirmation: e.target.value})}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShow2}
+                                        onMouseDown={handleMouseDown}
+                                    >
+                                        {show2 ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }}
                     />
                     <Button
                         type="submit"

@@ -1,5 +1,6 @@
 export const axios = window.axios;
-export const BASE_URL = "https://tritekdevarena.herokuapp.com/api";
+//export const BASE_URL = 'http://127.0.0.1:8000' 
+export const BASE_URL = 'https://tritekdevarena.herokuapp.com';
 
 export const generatePassword = (len) => {
     let result = [];

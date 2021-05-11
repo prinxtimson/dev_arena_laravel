@@ -3,6 +3,10 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AppContainer from './AppContainer';
@@ -36,6 +40,9 @@ const ChangePasswordForm = () => {
     const [newPassword, setNewPassword] = React.useState('');
     const [confirmNewPassword, setConfirmNewPassword] = React.useState('');
     const passwordValidation = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+    const [show, setShow] = React.useState(false);
+    const [show2, setShow2] = React.useState(false);
+    const [show3, setShow3] = React.useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +50,7 @@ const ChangePasswordForm = () => {
     if(!passwordValidation.test(newPassword)){
         return;
     }
-    axios.put(`${BASE_URL}/change-password`, {
+    axios.put(`${BASE_URL}/api/change-password`, {
         password: currentPassword,
         new_password: newPassword,
         new_password_confirmation: confirmNewPassword
@@ -64,6 +71,22 @@ const ChangePasswordForm = () => {
         setError(err.response.data);
     })
   }
+
+  const handleClickShow = () => {
+    setShow(!show);
+  };
+
+  const handleClickShow2 = () => {
+    setShow2(!show2);
+  };
+
+  const handleClickShow3 = () => {
+    setShow3(!show3);
+  };
+
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+  };
 
     return (
     <AppContainer>
@@ -100,11 +123,24 @@ const ChangePasswordForm = () => {
                         fullWidth
                         name="current_password"
                         label="Current Password"
-                        type="password"
+                        type={show ? 'text' : 'password'}
                         id="current_password"
                         autoComplete="current-password"
                         value={currentPassword}
                         onChange={e => setCurrentPassword(e.target.value)}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShow}
+                                        onMouseDown={handleMouseDown}
+                                    >
+                                        {show ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }}
                     />  
                     <TextField
                         variant="outlined"
@@ -115,11 +151,24 @@ const ChangePasswordForm = () => {
                         error={newPassword && !passwordValidation.test(newPassword)}
                         helperText="Must contain at least one of each sets A-Z,a-z,0-9 and minimum of 8 characters."
                         label="New Password"
-                        type="password"
+                        type={show2 ? 'text' : 'password'}
                         id="new_password"
                         autoComplete="current-password"
                         value={newPassword}
                         onChange={e => setNewPassword(e.target.value)}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShow2}
+                                        onMouseDown={handleMouseDown}
+                                    >
+                                        {show2 ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }}
                     />  
                     <TextField
                         variant="outlined"
@@ -128,11 +177,24 @@ const ChangePasswordForm = () => {
                         fullWidth
                         name="confirm_new_password"
                         label="Confirm New Password"
-                        type="password"
+                        type={show3 ? 'text' : 'password'}
                         id="confirm_new_password"
                         autoComplete="current-password"
                         value={confirmNewPassword}
                         onChange={e => setConfirmNewPassword(e.target.value)}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShow3}
+                                        onMouseDown={handleMouseDown}
+                                    >
+                                        {show3 ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }}
                     />  
                     <Button
                         type="submit"

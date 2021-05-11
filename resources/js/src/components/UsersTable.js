@@ -88,7 +88,7 @@ const UsersTable = () => {
 
     const handleDelete = () => {
         handleClose();
-        axios.delete(`${BASE_URL}/users/${user.id}`)
+        axios.delete(`${BASE_URL}/api/users/${user.id}`)
             .then(() => {
                 setState({
                     ...state,
@@ -116,7 +116,7 @@ const UsersTable = () => {
 
     React.useEffect(() => {
         setState({...state, loading: true});
-        axios.get(`${BASE_URL}/users`)
+        axios.get(`${BASE_URL}/api/users`)
             .then(res => {
                 
                 setState({...state, rows: res.data, loading: false});

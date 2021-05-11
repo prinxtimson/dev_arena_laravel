@@ -8,6 +8,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -45,11 +49,20 @@ export default function SignIn() {
   const context = React.useContext(UserContext);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [show, setShow] = React.useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     context.login({email, password})
   }
+
+  const handleClickShowPassword = () => {
+    setShow(!show);
+  };
+
+  const handleMouseDownPassword = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <AppContainer>
@@ -89,11 +102,24 @@ export default function SignIn() {
                         fullWidth
                         name="password"
                         label="Password"
-                        type="password"
+                        type={show ? 'text' : 'password'}
                         id="password"
                         autoComplete="current-password"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
+                        InputProps={{
+                          endAdornment: (
+                              <InputAdornment position="end">
+                                  <IconButton
+                                      aria-label="toggle password visibility"
+                                      onClick={handleClickShowPassword}
+                                      onMouseDown={handleMouseDownPassword}
+                                  >
+                                      {show ? <Visibility /> : <VisibilityOff />}
+                                  </IconButton>
+                              </InputAdornment>
+                          )
+                      }}
                     />  
                     <Grid container alignItems="center">
                         <Grid item xs>

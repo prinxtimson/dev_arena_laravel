@@ -6,7 +6,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AppContainer from './AppContainer';
@@ -57,7 +57,7 @@ const AddUserForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    axios.post(`${BASE_URL}/users`, data)
+    axios.post(`${BASE_URL}/api/users`, data)
         .then(res => {
             setLoading(false);
             setMsg(res.data.msg);

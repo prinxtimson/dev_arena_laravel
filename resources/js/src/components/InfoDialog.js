@@ -38,7 +38,8 @@ const InfoDialog = ({email_verified_at}) => {
           <Button
             onClick={handleClose}
             color="primary"
-            href="/dashboard/change_password"
+            href="/dashboard/change-password"
+            variant="outlined"
             autoFocus
           >
             Change Password

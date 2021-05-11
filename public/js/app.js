@@ -29301,7 +29301,8 @@ var InfoDialog = function InfoDialog(_ref) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_8__.default, {
           onClick: handleClose,
           color: "primary",
-          href: "/dashboard/change_password",
+          href: "/dashboard/change-password",
+          variant: "outlined",
           autoFocus: true,
           children: "Change Password"
         })]

@@ -31057,9 +31057,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "generatePassword": () => (/* binding */ generatePassword),
 /* harmony export */   "setAuthToken": () => (/* binding */ setAuthToken)
 /* harmony export */ });
-var axios = window.axios;
-var BASE_URL = 'http://127.0.0.1:8000'; //export const BASE_URL = 'https://tritekdevarena.herokuapp.com';
+var axios = window.axios; //export const BASE_URL = 'http://127.0.0.1:8000' 
 
+var BASE_URL = 'https://tritekdevarena.herokuapp.com';
 var generatePassword = function generatePassword(len) {
   var result = [];
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@-%$#!&+?';

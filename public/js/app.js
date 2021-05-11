@@ -29023,7 +29023,7 @@ function DrawerMenu(_ref) {
           onClick: handleClick,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_material_ui_core_Avatar__WEBPACK_IMPORTED_MODULE_21__.default, {
             alt: "Remy Sharp",
-            src: state.user.avatar,
+            src: state.user && state.user.avatar,
             children: "RS"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_DropDownMenu__WEBPACK_IMPORTED_MODULE_2__.default, {
@@ -29729,6 +29729,7 @@ var UserContextProvider = function UserContextProvider(_ref) {
     loading: false,
     error: false,
     isAuthenticated: Boolean(token),
+    user: null,
     token: token
   };
 
@@ -29807,7 +29808,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/utils */ "./resources/js/src/utils/utils.js");
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -29830,22 +29830,26 @@ var loginUser = /*#__PURE__*/function () {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return _utils_utils__WEBPACK_IMPORTED_MODULE_1__.axios.post("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_1__.BASE_URL, "/login"), data);
+            return _utils_utils__WEBPACK_IMPORTED_MODULE_1__.axios.get("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_1__.BASE_URL, "/sanctum/csrf-cookie"));
 
           case 3:
+            _context.next = 5;
+            return _utils_utils__WEBPACK_IMPORTED_MODULE_1__.axios.post("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_1__.BASE_URL, "/login"), data);
+
+          case 5:
             res = _context.sent;
             location.replace('/dashboard');
             return _context.abrupt("return", _objectSpread(_objectSpread({}, res.data), {}, {
               isAuthenticated: true
             }));
 
-          case 8:
-            _context.prev = 8;
+          case 10:
+            _context.prev = 10;
             _context.t0 = _context["catch"](0);
             console.log(_context.t0.response);
 
             if (!(_context.t0.response.status == 500)) {
-              _context.next = 13;
+              _context.next = 15;
               break;
             }
 
@@ -29857,19 +29861,19 @@ var loginUser = /*#__PURE__*/function () {
               token: null
             });
 
-          case 13:
+          case 15:
             return _context.abrupt("return", {
               error: _context.t0.response.data,
               isAuthenticated: false,
               token: null
             });
 
-          case 14:
+          case 16:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 8]]);
+    }, _callee, null, [[0, 10]]);
   }));
 
   return function loginUser(_x) {
@@ -29933,24 +29937,23 @@ var getUser = /*#__PURE__*/function () {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.prev = 0;
-            console.log(process.env.APP_ENV);
-            _context3.next = 4;
+            _context3.next = 3;
             return _utils_utils__WEBPACK_IMPORTED_MODULE_1__.axios.get("".concat(_utils_utils__WEBPACK_IMPORTED_MODULE_1__.BASE_URL, "/api/me"));
 
-          case 4:
+          case 3:
             res = _context3.sent;
             return _context3.abrupt("return", {
               user: res.data,
               isAuthenticated: true
             });
 
-          case 8:
-            _context3.prev = 8;
+          case 7:
+            _context3.prev = 7;
             _context3.t0 = _context3["catch"](0);
             console.log(_context3.t0.response);
 
             if (!(_context3.t0.response.status == 500)) {
-              _context3.next = 13;
+              _context3.next = 12;
               break;
             }
 
@@ -29962,18 +29965,18 @@ var getUser = /*#__PURE__*/function () {
               token: null
             });
 
-          case 13:
+          case 12:
             return _context3.abrupt("return", {
               isAuthenticated: false,
               token: null
             });
 
-          case 14:
+          case 13:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[0, 8]]);
+    }, _callee3, null, [[0, 7]]);
   }));
 
   return function getUser() {
@@ -30392,14 +30395,66 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/makeStyles.js");
+/* harmony import */ var _material_ui_core_AppBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/AppBar */ "./node_modules/@material-ui/core/esm/AppBar/AppBar.js");
+/* harmony import */ var _material_ui_core_Toolbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/Toolbar */ "./node_modules/@material-ui/core/esm/Toolbar/Toolbar.js");
+/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/esm/Typography/Typography.js");
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/Button.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _material_ui_core_Container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/Container */ "./node_modules/@material-ui/core/esm/Container/Container.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
+
+
+
+
+
+
+
+
+
+var useStyles = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__.default)(function (theme) {
+  return {
+    root: {
+      flexGrow: 1
+    },
+    menuButton: {
+      margint: theme.spacing(2)
+    },
+    title: {
+      flexGrow: 1
+    }
+  };
+});
+
 function HomePage() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: "container",
-    children: "This is Home page"
+  var classes = useStyles();
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: classes.root,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_material_ui_core_AppBar__WEBPACK_IMPORTED_MODULE_3__.default, {
+      position: "static",
+      elevation: 0,
+      color: "inherit",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_material_ui_core_Toolbar__WEBPACK_IMPORTED_MODULE_4__.default, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_5__.default, {
+          variant: "h6",
+          className: classes.title,
+          children: "Dev Arena"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_6__.default, {
+          color: "primary",
+          variant: "outlined",
+          component: react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link,
+          to: "/login",
+          children: "Login"
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_material_ui_core_Container__WEBPACK_IMPORTED_MODULE_8__.default, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+        children: "Home page"
+      })
+    })]
   });
 }
 
@@ -31002,9 +31057,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "generatePassword": () => (/* binding */ generatePassword),
 /* harmony export */   "setAuthToken": () => (/* binding */ setAuthToken)
 /* harmony export */ });
-var axios = window.axios; //export const BASE_URL = 'http://127.0.0.1:8000' 
+var axios = window.axios;
+var BASE_URL = 'http://127.0.0.1:8000'; //export const BASE_URL = 'https://tritekdevarena.herokuapp.com';
 
-var BASE_URL = 'https://tritekdevarena.herokuapp.com';
 var generatePassword = function generatePassword(len) {
   var result = [];
   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@-%$#!&+?';

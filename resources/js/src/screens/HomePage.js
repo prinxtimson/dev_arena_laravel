@@ -26,7 +26,7 @@ function HomePage() {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static" elevation={0}>
+            <AppBar position="static" elevation={0} color="inherit">
                 <Toolbar>
                     <Typography variant="h6" className={classes.title}>
                         Dev Arena

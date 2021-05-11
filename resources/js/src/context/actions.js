@@ -32,7 +32,7 @@ export const logoutUser = async () => {
 
 export const getUser = async () => {
     try {
-        const res = await axios.get(`https://tritekdevarena.herokuapp.com/api/me`);
+        const res = await axios.get(`/api/me`);
 
         return {user: res.data, isAuthenticated: true};
 

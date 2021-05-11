@@ -142,7 +142,7 @@ const UsersTable = () => {
                         color="primary"
                         size="large"
                         component={Link}
-                        to="/dashboard/add_user"
+                        to="/dashboard/add-user"
                     >
                         Add User
                     </Button>

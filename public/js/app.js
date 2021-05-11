@@ -28731,7 +28731,7 @@ var ChangePasswordForm = function ChangePasswordForm() {
             required: true,
             fullWidth: true,
             name: "new_password",
-            error: newPassword && !passwordValidation.test(newPassword),
+            error: Boolean(newPassword && !passwordValidation.test(newPassword)),
             helperText: "Must contain at least one of each sets A-Z,a-z,0-9 and minimum of 8 characters.",
             label: "New Password",
             type: show2 ? 'text' : 'password',
@@ -29593,7 +29593,7 @@ var UsersTable = function UsersTable() {
           color: "primary",
           size: "large",
           component: react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Link,
-          to: "/dashboard/add_user",
+          to: "/dashboard/add-user",
           children: "Add User"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_material_ui_core_TableContainer__WEBPACK_IMPORTED_MODULE_17__.default, {

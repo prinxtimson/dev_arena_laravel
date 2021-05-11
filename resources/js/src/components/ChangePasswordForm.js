@@ -148,7 +148,7 @@ const ChangePasswordForm = () => {
                         required
                         fullWidth
                         name="new_password"
-                        error={newPassword && !passwordValidation.test(newPassword)}
+                        error={Boolean(newPassword && !passwordValidation.test(newPassword))}
                         helperText="Must contain at least one of each sets A-Z,a-z,0-9 and minimum of 8 characters."
                         label="New Password"
                         type={show2 ? 'text' : 'password'}

@@ -3,6 +3,7 @@ import {axios, BASE_URL, setAuthToken} from '../utils/utils';
 export const loginUser = async (data) => {
 
     try {
+        await axios.get(`${BASE_URL}/sanctum/csrf-cookie`)
         const res = await axios.post(`${BASE_URL}/login`, data);
         location.replace('/dashboard')
         return {...res.data, isAuthenticated: true};
@@ -32,7 +33,7 @@ export const logoutUser = async () => {
 
 export const getUser = async () => {
     try {
-        console.log(process.env.APP_ENV)
+        
         const res = await axios.get(`${BASE_URL}/api/me`);
 
         return {user: res.data, isAuthenticated: true};

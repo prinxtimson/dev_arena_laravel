@@ -12,6 +12,7 @@ export const UserContextProvider = ({children}) => {
         loading: false,
         error: false,
         isAuthenticated: Boolean(token),
+        user: null,
         token
     }
     const [state, dispatch] = React.useReducer(userReducer, initialState);

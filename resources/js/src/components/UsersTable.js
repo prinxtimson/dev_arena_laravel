@@ -26,13 +26,16 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         padding: theme.spacing(3)
+    },
+    table: {
+        borderWidth: 0
     }
 }));
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
+      backgroundColor: theme.palette.common.white,
+      color: theme.palette.common.black,
     },
     body: {
       fontSize: 14,
@@ -147,8 +150,8 @@ const UsersTable = () => {
                         Add User
                     </Button>
                 </div>
-                <TableContainer variant="outlined" component={Paper}>
-                    <Table aria-label="customized table">
+                <TableContainer variant="elevation" elevation={0} component={Paper}>
+                    <Table aria-label="customized table" >
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell>

@@ -1,4 +1,4 @@
-import {axios, BASE_URL, setAuthToken} from '../utils/utils';
+import {axios, BASE_URL} from '../utils/utils';
 
 export const loginUser = async (data) => {
 

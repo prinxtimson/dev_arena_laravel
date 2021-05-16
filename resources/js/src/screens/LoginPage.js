@@ -18,6 +18,7 @@ import Container from '@material-ui/core/Container';
 import AppContainer from '../components/AppContainer';
 import { UserContext } from '../context/GlobalState';
 import Alert from '@material-ui/lab/Alert';
+import AppNavBar from '../components/AppNavBar';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -66,6 +67,7 @@ export default function SignIn() {
 
   return (
     <AppContainer>
+      <AppNavBar />
         <Container component="main" maxWidth="xs" className="card">
             <CssBaseline />
             <div className={classes.paper}>

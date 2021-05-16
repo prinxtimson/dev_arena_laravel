@@ -5,14 +5,19 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-    
+    footer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '110px'
+    }
   }));
 
 function MainFooter() {
     const classes = useStyles();
 
     return (
-        <div>
+        <div className={classes.footer}>
             <CssBaseline />
             <Typography variant="body2" color="textSecondary" align="center">
                 {'Copyright © '}

@@ -9,7 +9,6 @@ import { UserContextProvider } from './context/GlobalState';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
-import AuthRoute from './utils/AuthRoute';
 import Dashboard from './screens/Dashboard';
 import ForgotPassPage from './screens/ForgotPassPage';
 import HomePage from './screens/HomePage';
@@ -25,6 +24,11 @@ const theme = createMuiTheme({
           },
         },
       },
+      MuiButton: {
+        text: {
+          color: 'white'
+        }
+      }
     },
     typography: {
       button: {
@@ -35,9 +39,10 @@ const theme = createMuiTheme({
     palette: {
       primary: {
         // Purple and green play nicely together.
-        main: '#c7a936'
+        main: '#c7a936',
+        text: 'white'
       },
-    },
+    },    
   })
 
 const App = () => {

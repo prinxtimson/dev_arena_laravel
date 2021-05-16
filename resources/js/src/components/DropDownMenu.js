@@ -65,7 +65,11 @@ function DropDownMenu({handleClose, anchorE1}) {
                     </ListItemIcon>
                     <ListItemText primary="Home" />
                 </MenuItem>
-                <MenuItem>
+                <MenuItem
+                  component={Link}
+                  to="/dashboard/profile"
+                  onClick={handleClose}
+                >
                     <ListItemIcon>
                         <PersonIcon fontSize="small" />
                     </ListItemIcon>

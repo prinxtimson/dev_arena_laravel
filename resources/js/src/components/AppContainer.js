@@ -23,9 +23,7 @@ function AppContainer({children}) {
     return (
         <div className="container-fluid">
             <CssBaseline />
-            <div className={classes.innerContainer}>
-                {children}
-            </div>
+            {children}
             <MainFooter />
         </div>
     )

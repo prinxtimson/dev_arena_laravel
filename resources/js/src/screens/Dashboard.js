@@ -9,6 +9,7 @@ import AddUserForm from '../components/AddUserForm';
 import DashboardIndex from '../components/DashboardIndex';
 import { UserContext } from '../context/GlobalState';
 import InfoDialog from '../components/InfoDialog';
+import Profile from '../components/Profile';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -28,6 +29,8 @@ function Dashboard({match}) {
                 return <ChangePasswordForm />;
             case 'add-user':
                 return <AddUserForm />;
+            case 'profile':
+                return <Profile />;
             default:
                 return <DashboardIndex />;
         }

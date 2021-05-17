@@ -37,7 +37,7 @@ class ProjectController extends Controller
         $project = Project::create($request->all());
 
         $response = [
-            'user' => $project,
+            'project' => $project,
             'msg' => 'Project added successfully.'
         ];
 
@@ -68,7 +68,13 @@ class ProjectController extends Controller
         //
         $project = Project::find($id);
         $project->update($request->all());
-        return $project;
+
+        $response = [
+            'project' => $project,
+            'msg' => 'Project updated successfully.'
+        ];
+
+        return $response;
     }
 
     /**

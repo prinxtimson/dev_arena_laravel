@@ -126,7 +126,6 @@ const AddProjectForm = () => {
                         InputLabelProps={{
                           shrink: true,
                         }}
-                        value={data.start}
                         onChange={e => setData({...data, start: e.target.value})}
                     />
                     <TextField
@@ -142,7 +141,6 @@ const AddProjectForm = () => {
                         InputLabelProps={{
                           shrink: true,
                         }}
-                        value={data.end}
                         onChange={e => setData({...data, end: e.target.value})}
                     />
                     <Button

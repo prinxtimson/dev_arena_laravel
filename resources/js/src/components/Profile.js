@@ -9,7 +9,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -18,7 +18,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Skeleton from '@material-ui/lab/Skeleton';
-import ProjectsTable from './ProjectsTable';
+import UserProjects from './UserProjects';
 import ResoucesTable from './ResoucesTable';
 import ProfileForm from './ProfileForm';
 import {UserContext} from '../context/GlobalState';
@@ -60,6 +60,26 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const TabPanel = (props) => {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`scrollable-prevent-tabpanel-${index}`}
+        aria-labelledby={`scrollable-prevent-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box>
+            {children}
+          </Box>
+        )}
+      </div>
+    );
+  }
+
 const AntTab = withStyles((theme) => ({
     root: {
       textTransform: 'none',
@@ -73,12 +93,21 @@ const AntTab = withStyles((theme) => ({
     selected: {},
   }))((props) => <Tab disableRipple {...props} />);
 
+  function a11yProps(index) {
+    return {
+      id: `scrollable-prevent-tab-${index}`,
+      'aria-controls': `scrollable-prevent-tabpanel-${index}`,
+    };
+  }
+
 const Profile = () => {
 const classes = useStyles();
 const {state} = React.useContext(UserContext)
 const [value, setValue] = React.useState(0);
 
-const handleChange = () => {}
+const handleChange = (e, newValue) => {
+    setValue(newValue);
+}
 
     return (
         <AppContainer>
@@ -123,9 +152,9 @@ const handleChange = () => {}
                         textColor="primary"
                         
                     >
-                        <AntTab label="Projects" />
-                        <AntTab label="Resouces" />
-                        <AntTab label="Edit Profile" />
+                        <AntTab label="Projects" {...a11yProps(0)} />
+                        <AntTab label="Resouces" {...a11yProps(1)} />
+                        <AntTab label="Edit Profile" {...a11yProps(2)} />
                     </Tabs>
                 </CardActions>
             </Card>
@@ -211,7 +240,17 @@ const handleChange = () => {}
                             <div style={{ paddingTop: '57%' }} />
                           </Skeleton>
                         ) : (
-                            <ProfileForm user={state.user} />
+                            <>
+                                <TabPanel value={value} index={0}>
+                                    <UserProjects projects={state.user.projects} />
+                                </TabPanel>
+                                <TabPanel value={value} index={1}>
+                                    <ResoucesTable />
+                                </TabPanel>
+                                <TabPanel value={value} index={2}>
+                                    <ProfileForm user={state.user} />
+                                </TabPanel>
+                            </>
                         )}                      
                     </Grid>
                 </Grid>

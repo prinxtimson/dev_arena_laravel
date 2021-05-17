@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
+import Alert from '@material-ui/lab/Alert';
+import moment from 'moment';
 
 const styles = (theme) => ({
   root: {
@@ -70,8 +72,19 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-const ProjectDailog = ({isEdit, open, handleClose, handleEdit}) => {
-  console.log(isEdit)
+const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading, handleSaveEdit, error}) => {
+  const [data, setData] = React.useState({
+    name: project ? project.name : '',
+    start: project ? project.start : '',
+    end: project ? project.end : '',
+  });
+  let a = moment(project.end);
+  let b = moment.now();
+
+  const handleSaveChanges = () => {
+    handleSaveEdit(data);
+  }
+
   return (
     <div>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
@@ -79,6 +92,16 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit}) => {
           Modal title
         </DialogTitle>
         <DialogContent>
+          {!isEdit && (
+          <ListItemText
+          primary="Status"
+          secondary={a.diff(b) <= 0 ? 'Completed' : 'In progress'}/>
+          )}
+          {error ? (
+            <Alert onClose={() => setError(null)} severity="error">
+                {error.message}
+            </Alert>
+            ) : null}
           <Grid container spacing={2}>
             <Grid item xs={12}>
               {isEdit ? (
@@ -91,11 +114,13 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit}) => {
                   label="Name"
                   name="name"
                   autoFocus
-                  //value={data.firstname}
-                  //onChange={e => setData({...data, firstname: e.target.value})}
+                  value={data.name}
+                  onChange={e => setData({...data, name: e.target.value})}
                 />
               ) : (
-                <ListItemText primary="Name" secondary="project" />
+                <ListItemText
+                  primary="Name"
+                  secondary={project.name} />
               )}
             </Grid>
             <Grid item xs={12}>
@@ -109,8 +134,8 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit}) => {
                   label="Developer"
                   name="developer"
                   autoFocus
-                  //value={data.firstname}
-                  //onChange={e => setData({...data, firstname: e.target.value})}
+                  value={data.name}
+                  onChange={e => setData({...data, name: e.target.value})}
                 />
               ) : (
                 <ListItemText primary="Developer" secondary="project" />
@@ -126,12 +151,19 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit}) => {
                   id="start_date"
                   label="Start Date"
                   name="start_date"
+                  type=""
                   autoFocus
-                  //value={data.firstname}
-                  //onChange={e => setData({...data, firstname: e.target.value})}
+                  defaultValue={moment(data.start).format('L')}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={e => setData({...data, start: e.target.value})}
                 />
               ) : (
-                <ListItemText primary="Start" secondary="project" />
+                <ListItemText
+                  primary="Start"
+                  secondary={moment(project.start).format('MMM Do YYYY')} 
+                />
               )}
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -144,19 +176,28 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit}) => {
                   id="end_date"
                   label="End Date"
                   name="end_date"
+                  type="date"
                   autoFocus
-                  //value={data.firstname}
-                  //onChange={e => setData({...data, firstname: e.target.value})}
+                  defaultValue={moment(data.end).format('L')}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={e => setData({...data, end: e.target.value})}
                 />
               ) : (
-                <ListItemText primary="End" secondary="project" />
+                <ListItemText
+                  primary="End"
+                  secondary={moment(project.end).format('MMM Do YYYY')}/>
               )}
             </Grid>
           </Grid>
         </DialogContent>
         {isEdit ? (
           <DialogActions>
-            <Button autoFocus onClick={handleClose} color="primary">
+            <Button
+              onClick={handleSaveChanges}
+              color="primary"
+              disabled={loading}>
               Save changes
             </Button>
           </DialogActions>

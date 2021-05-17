@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import moment from 'moment';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -36,7 +37,7 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-const UserProjects = () => {
+const UserProjects = ({projects}) => {
   const classes = useStyles();
 
   return (
@@ -52,26 +53,40 @@ const UserProjects = () => {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell align="left">Project Owner</TableCell>
+            <TableCell align="left">Developer</TableCell>
             <TableCell align="left">Start</TableCell>
             <TableCell align="left">End</TableCell>
             <TableCell align="left">Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="left">{row.calories}</TableCell>
-              <TableCell align="left">{row.fat}</TableCell>
-              <TableCell align="left">{row.carbs}</TableCell>
-              <TableCell align="left">
-                <Chip color="primary" label="Completed" />
-              </TableCell>
-            </TableRow>
-          ))}
+          {projects.length === 0 ? (
+              <TableRow>
+                  <TableCell scope="row">
+                      No assign project available yet.
+                  </TableCell>
+              </TableRow>
+            ) : projects.map((project) => {
+                  let a = moment(project.end);
+                  let b = moment.now();
+                  return (
+                    <TableRow key={project.name}>
+                      <TableCell component="th" scope="row">
+                        {project.name}
+                      </TableCell>
+                      <TableCell align="left">{row.calories}</TableCell>
+                      <TableCell align="left">
+                        {moment(project.start).format('MMM Do YYYY')}
+                      </TableCell>
+                      <TableCell align="left">
+                        {moment(project.end).format('MMM Do YYYY')}
+                      </TableCell>
+                      <TableCell align="left">
+                        <Chip color="primary" label={a.diff(b) <= 0 ? 'Completed' : 'In progress'} />
+                      </TableCell>
+                    </TableRow>
+                  )
+          })}
         </TableBody>
       </Table>
     </TableContainer>

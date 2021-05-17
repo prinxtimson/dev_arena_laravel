@@ -21,6 +21,8 @@ import { Link } from 'react-router-dom';
 import { axios, BASE_URL } from '../utils/utils';
 import ProjectDailog from './ProjectDailog';
 import Skeleton from '@material-ui/lab/Skeleton';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,9 +46,13 @@ const useStyles = makeStyles((theme) => ({
 const Row = ({row}) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [project, setProject] = React.useState(row);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+  const [msg, setMsg] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState(false);
-  let a = moment(row.end);
+  let a = moment(project.end);
   let b = moment.now();
 
   const handleDialogOpen = () => {
@@ -71,23 +77,58 @@ const Row = ({row}) => {
     setAnchorEl(null);
   };
 
+  const handleSaveEdit = (data) => {
+    //e.preventDefault();
+    setLoading(true);
+    axios.put(`${BASE_URL}/api/projects/${project.id}`, data)
+        .then(res => {
+            setLoading(false);
+            setMsg(res.data.msg);
+            setProject(res.data.project);
+            setIsEdit(false);
+        })
+        .catch(err => {
+            console.log(err.response);
+            setLoading(false);
+            setError(err.response.data);
+        })
+  }
+
   return (
     <>
       <ProjectDailog
         open={open}
         handleClose={handleDialogClose}
+        handleSaveEdit={handleSaveEdit}
         isEdit={isEdit}
         handleEdit={handleEdit}
+        project={project}
+        loading={loading}
+        error={error}
       />
+      <Snackbar
+          open={Boolean(msg)}
+          anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+          autoHideDuration={8000} 
+          onClose={() => setMsg(null)}
+      >
+          <Alert
+              onClose={() => setMsg(null)} 
+              severity="success"
+              variant="filled"
+          >
+              {msg}
+          </Alert>
+      </Snackbar>
       <StyledTableRow>
         <StyledTableCell component="th" scope="row" onClick={handleDialogOpen}>
-          {row.name}
+          {project.name}
         </StyledTableCell>
         <StyledTableCell align="left">
-          {moment(row.start).format('MMM Do YYYY')}
+          {moment(project.start).format('MMM Do YYYY')}
         </StyledTableCell>
         <StyledTableCell align="left">
-          {moment(row.end).format('MMM Do YYYY')}
+          {moment(project.end).format('MMM Do YYYY')}
         </StyledTableCell>
         <StyledTableCell align="left">
           {a.diff(b) <= 0 ? 'Completed' : 'In progress'}
@@ -162,7 +203,7 @@ const ProjectsTable = () => {
     setState({...state, loading: true});
     axios.get(`${BASE_URL}/api/projects`)
         .then(res => {
-            //console.log(res.data)
+            //console.log(res.data.data)
             setState({...state, rows: res.data.data, loading: false});
         })
         .catch(err => {

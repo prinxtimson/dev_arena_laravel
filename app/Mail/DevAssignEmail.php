@@ -18,7 +18,7 @@ class DevAssignEmail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
         //
         $this->data = $data;
@@ -34,10 +34,9 @@ class DevAssignEmail extends Mailable
         $address = 'noreply@dev-arena.com';
         $subject = 'Project Assignment';
         $name = 'Admin';
+        $address = 'noreply@dev-arena.com';
 
-        return $this->view('view.name')
-                    ->from($address, $name)
-                    ->subject($subject)
-                    ->with([ 'message' => $this->data['message']]);
+        return $this->markdown('emails.dev_assign')
+                    ->subject($subject);
     }
 }

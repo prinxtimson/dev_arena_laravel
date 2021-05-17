@@ -29,16 +29,18 @@ Route::get('/users', [UserController::class, 'index']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::get('/users/{id}', [UserController::class, 'show']);
+    Route::get('/developers', [UserController::class, 'dev']);
     Route::put('/change-password', [AuthController::class, 'changePass']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+Route::group(['middleware' => ['auth:sanctum', 'role:admin|super-admin']], function () {
     //
     Route::post('/projects', [ProjectController::class, 'store']);
     Route::put('/projects/{id}', [ProjectController::class, 'update']);
     Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
-    Route::put('/projects', [ProjectController::class, 'update']);
+    //Route::put('/projects', [ProjectController::class, 'update']);
+    Route::put('/assign-dev/{id}/{dev}', [ProjectController::class, 'assign_dev']);
     Route::post('/users', [UserController::class, 'store']);
     Route::put('/users/{id}', [UserController::class, 'update']);
     Route::delete('users/{id}', [UserController::class, 'destroy']);

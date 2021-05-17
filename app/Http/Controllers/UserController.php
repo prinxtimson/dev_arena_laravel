@@ -26,6 +26,17 @@ class UserController extends Controller
         return $users;
     }
 
+    public function dev()
+    {
+        $users = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'developer');
+            }
+        )->get();
+
+        return $users;
+    }
+
     /**
      * Store a newly created resource in storage.
      *

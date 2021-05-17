@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Project; 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\DevAssignEmail;
 
 class ProjectController extends Controller
 {
@@ -16,7 +18,7 @@ class ProjectController extends Controller
     public function index()
     {
         //
-        return Project::paginate(20);
+        return Project::with('developers')->paginate(20);
     }
 
     /**
@@ -89,15 +91,22 @@ class ProjectController extends Controller
         return  Project::destroy($id);
     }
 
-    public function assign_dev($project_id, $dev_id)
+    public function assign_dev(Request $request, $id, $dev)
     {
-        $user = User::find($dev_id)->where();
+        $user = User::find($dev);
 
-        $project = Project::find($project_id);
+        $project = Project::find($id)->load('developers');
 
-        $project->users()->attach($dev_id);
+        $project->developers()->attach($dev);
 
-        $project->refresh();
+        $project->refresh()->load('developers');
+
+        $fields = [
+            'project' => $project,
+            'user' => $user
+        ];
+
+        Mail::to($user)->send(new DevAssignEmail($fields));
 
         return $project;
     }

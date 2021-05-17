@@ -77,6 +77,10 @@ const Row = ({row}) => {
     setAnchorEl(null);
   };
 
+  const handleUpdate = (data) => {
+    setProject(data);
+  }
+
   const handleSaveEdit = (data) => {
     //e.preventDefault();
     setLoading(true);
@@ -102,6 +106,7 @@ const Row = ({row}) => {
         handleSaveEdit={handleSaveEdit}
         isEdit={isEdit}
         handleEdit={handleEdit}
+        handleUpdate={handleUpdate}
         project={project}
         loading={loading}
         error={error}

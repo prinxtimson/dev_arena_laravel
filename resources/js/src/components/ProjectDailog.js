@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -7,12 +7,27 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import DoneIcon from '@material-ui/icons/Done';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import Alert from '@material-ui/lab/Alert';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Chip from '@material-ui/core/Chip';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import moment from 'moment';
+import { BASE_URL, axios } from '../utils/utils';
+
+const useStyles = makeStyles((theme) => ({
+  btn: {
+    // position: 'absolute',
+    // right: theme.spacing(1),
+    // top: theme.spacing(1),
+    color: theme.palette.grey[500],
+    marginRight: 2
+  },
+}));
 
 const styles = (theme) => ({
   root: {
@@ -32,6 +47,82 @@ const styles = (theme) => ({
     color: theme.palette.grey[500],
   }
 });
+
+const CustomTextField = ({project, handleClick, handleUpdate}) => {
+  const classes = useStyles();
+  const [loading, setLoading] = React.useState(false);
+  const [options, setOptions] = React.useState([]);
+  const [selected, setSelected] = React.useState(project.developers[0]);
+
+  const handleFocus = () => {
+    if(options.length === 0){
+      axios.get(`${BASE_URL}/api/developers`).then(res => {
+        console.log(res.data)
+        setOptions(res.data);
+      })
+    }
+  }
+
+  const handleSave = () => {
+    setLoading(true);
+    // const developers = selected.map(val => val.id);
+    // console.log(developers)
+    axios.put(`${BASE_URL}/api/assign-dev/${project.id}/${selected.id}`).then(res => {
+      //console.log(res.data)
+      handleUpdate(res.data)
+      setLoading(false);
+      handleClick();
+    }).catch(err => {
+      console.log(err.response);
+      setLoading(false);
+    })
+  }
+
+  return (
+    <Grid container spacing={1}>
+      <Grid item xs={9}>
+        <Autocomplete
+          //multiple
+          id="tags-outlined"
+          onFocus={handleFocus}
+          options={options}
+          getOptionLabel={(option) => option.name}
+          value={selected}
+          onChange={(e, newInput) => setSelected(newInput)}
+          filterSelectedOptions
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="outlined"
+              label="Developers"
+            />
+          )}
+        />
+      </Grid>
+      <Grid item xs={3}>
+        {loading ? (
+          <CircularProgress className={classes.btn} />
+        ) : (
+          <div style={{display: 'flex'}}>
+            <IconButton
+              aria-label="submit" 
+              className={classes.btn}
+              onClick={handleSave}
+            >
+              <DoneIcon />
+            </IconButton>
+            <IconButton
+              aria-label="close" 
+              className={classes.btn}
+              onClick={handleClick}>
+              <CloseIcon />
+            </IconButton>
+          </div>
+        )}
+      </Grid>
+    </Grid>
+  )
+}
 
 const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, handleEdit, ...other } = props;
@@ -72,7 +163,9 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading, handleSaveEdit, error}) => {
+const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading, handleSaveEdit, error, handleUpdate}) => {
+  const [editDev, setEditDev] = React.useState(false);
+  const classes = useStyles();
   const [data, setData] = React.useState({
     name: project ? project.name : '',
     start: project ? project.start : '',
@@ -83,6 +176,10 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
 
   const handleSaveChanges = () => {
     handleSaveEdit(data);
+  }
+
+  const handleClick = () => {
+    setEditDev(false)
   }
 
   return (
@@ -124,21 +221,17 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
               )}
             </Grid>
             <Grid item xs={12}>
-              {isEdit ? (
-                <TextField
-                  variant="outlined"
-                  margin="dense"
-                  required
-                  fullWidth
-                  id="name"
-                  label="Developer"
-                  name="developer"
-                  autoFocus
-                  value={data.name}
-                  onChange={e => setData({...data, name: e.target.value})}
+              {isEdit ? null : editDev ? (
+                <CustomTextField
+                  project={project}
+                  handleClick={handleClick}
+                  handleUpdate={handleUpdate}
                 />
               ) : (
-                <ListItemText primary="Developer" secondary="project" />
+                <ListItemText
+                  onClick={() => setEditDev(true)} 
+                  primary="Developer"
+                  secondary={project.developers.length > 0 && project.developers.map(dev => dev.name).join(', ')} />
               )}
             </Grid>
             <Grid item xs={12} sm={6}>

@@ -25,8 +25,8 @@ class Project extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function users(): BelongsToMany
+    public function developers()
     {
-        return $this->belongsToMany(User::class, 'user_project_table', 'user_id', 'project_id')->withTimestamos();
+        return $this->belongsToMany(User::class, 'user_projects', 'user_id', 'project_id')->withTimestamps();
     }
 }

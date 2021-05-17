@@ -17,7 +17,11 @@ import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Skeleton from '@material-ui/lab/Skeleton';
 import ProjectsTable from './ProjectsTable';
+import ResoucesTable from './ResoucesTable';
+import ProfileForm from './ProfileForm';
+import {UserContext} from '../context/GlobalState';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -71,12 +75,18 @@ const AntTab = withStyles((theme) => ({
 
 const Profile = () => {
 const classes = useStyles();
+const {state} = React.useContext(UserContext)
 const [value, setValue] = React.useState(0);
 
 const handleChange = () => {}
 
     return (
         <AppContainer>
+            {state.loading ? (
+                <Skeleton variant="rect" width="100%">
+                <div style={{ paddingTop: '30%' }} />
+                </Skeleton>
+            ) : ( 
             <Card className={classes.root}>
                 <CardActionArea>
                     <CardMedia
@@ -86,19 +96,21 @@ const handleChange = () => {}
                     />
                     <CardContent className={classes.content}>
                         <Avatar
-                            alt={'John Doe'}
-                            src={'/static/images/cards/contemplative-reptile.jpg'}
+                            alt={state.user && state.user.name}
+                            src={state.user && state.user.avatar}
                             className={classes.avatar}
-                        />
+                        >
+                            {state.user && `${state.user.profile.firstname.charAt(0)}${state.user.profile.lastname.charAt(0)}`}
+                        </Avatar>
                         <div>
                             <Typography variant="h6">
-                                John Doe
+                                {state.user && state.user.name}
                             </Typography>
                             <Typography 
                                 component="caption"
                                 className={classes.caption}
                             >
-                                Developer
+                                {state.user && state.user.roles[0].name}
                             </Typography>
                         </div>
                     </CardContent>
@@ -117,18 +129,24 @@ const handleChange = () => {}
                     </Tabs>
                 </CardActions>
             </Card>
-            <div className={classes.clear} />
+            )}
+            <div className={classes.clear} style={{margin: state.loading ? 20 : 0}} />
             <Container >
                 <Grid container spacing={5} justify="flex-start">
                     <Grid item sm={12} md={4}>
+                        {state.loading ? (
+                          <Skeleton variant="rect" width="100%">
+                            <div style={{ paddingTop: '70%' }} />
+                          </Skeleton>
+                        ) : ( 
                         <Paper className={classes.paper}>
                             <List>
                                 <ListItem>
                                     <ListItemText
                                         primary="Firstname" 
-                                        secondary=""
+                                        secondary={state.user && state.user.profile.firstname}
                                         primaryTypographyProps={{
-                                            variant: 'p',
+                                            variant: 'subtitle2',
                                             component: 'h6'
                                         }}
                                     />
@@ -136,9 +154,9 @@ const handleChange = () => {}
                                 <ListItem>
                                     <ListItemText
                                         primary="Lastname"
-                                        secondary=""
+                                        secondary={state.user && state.user.profile.lastname}
                                         primaryTypographyProps={{
-                                            variant: 'p',
+                                            variant: 'subtitle2',
                                             component: 'h6'
                                         }}
                                     />
@@ -146,9 +164,9 @@ const handleChange = () => {}
                                 <ListItem>
                                     <ListItemText
                                         primary="Email Address"
-                                        secondary=""
+                                        secondary={state.user && state.user.email}
                                         primaryTypographyProps={{
-                                            variant: 'p',
+                                            variant: 'subtitle2',
                                             component: 'h6'
                                         }}
                                     />
@@ -156,9 +174,9 @@ const handleChange = () => {}
                                 <ListItem>
                                     <ListItemText 
                                         primary="Phone Number" 
-                                        secondary=""
+                                        secondary={state.user && state.user.profile.phone}
                                         primaryTypographyProps={{
-                                            variant: 'p',
+                                            variant: 'subtitle2',
                                             component: 'h6'
                                         }}
                                     />
@@ -166,9 +184,9 @@ const handleChange = () => {}
                                 <ListItem>
                                     <ListItemText
                                         primary="Github"
-                                        secondary=""
+                                        secondary={state.user && state.user.profile.github}
                                         primaryTypographyProps={{
-                                            variant: 'p',
+                                            variant: 'subtitle2',
                                             component: 'h6'
                                         }}
                                     />
@@ -176,18 +194,25 @@ const handleChange = () => {}
                                 <ListItem>
                                     <ListItemText
                                         primary="Dev Stack"
-                                        secondary=""
+                                        secondary={state.user && state.user.profile.dev_stack}
                                         primaryTypographyProps={{
-                                            variant: 'p',
+                                            variant: 'subtitle2',
                                             component: 'h6'
                                         }}
                                     />
                                 </ListItem>
                             </List>
                         </Paper>
+                        )}
                     </Grid>
                     <Grid item sm={12} md={8}>
-                        <ProjectsTable />
+                        {state.loading ? (
+                          <Skeleton variant="rect" width="100%">
+                            <div style={{ paddingTop: '57%' }} />
+                          </Skeleton>
+                        ) : (
+                            <ProfileForm user={state.user} />
+                        )}                      
                     </Grid>
                 </Grid>
             </Container>

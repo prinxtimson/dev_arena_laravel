@@ -10,6 +10,8 @@ import DashboardIndex from '../components/DashboardIndex';
 import { UserContext } from '../context/GlobalState';
 import InfoDialog from '../components/InfoDialog';
 import Profile from '../components/Profile';
+import ProjectsTable from '../components/ProjectsTable';
+import AddProjectForm from '../components/AddProjectForm';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -25,12 +27,16 @@ function Dashboard({match}) {
         switch(param) {
             case 'users':
                 return <UsersTable />
+            case 'projects':
+                return <ProjectsTable />
             case 'change-password':
                 return <ChangePasswordForm />;
             case 'add-user':
                 return <AddUserForm />;
             case 'profile':
                 return <Profile />;
+            case 'add-project':
+                return <AddProjectForm />
             default:
                 return <DashboardIndex />;
         }

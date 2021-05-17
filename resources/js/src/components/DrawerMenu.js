@@ -13,7 +13,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
-import MailIcon from '@material-ui/icons/Mail';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -89,16 +89,28 @@ function DrawerMenu({ window, children }) {
         <Divider />
         <List>
           {state.user && state.user.roles[0].name === 'developer' ? null : (
-            <MenuItem
-              component={Link}
-              to="/dashboard/users"
-              onClick={handleDrawerToggle}
-            >
-              <ListItemIcon>
-                <PersonIcon />
-              </ListItemIcon>
-              <ListItemText primary="User" />
-            </MenuItem>
+            <>
+              <MenuItem
+                component={Link}
+                to="/dashboard/users"
+                onClick={handleDrawerToggle}
+              >
+                <ListItemIcon>
+                  <PersonIcon />
+                </ListItemIcon>
+                <ListItemText primary="Users" />
+              </MenuItem>
+              <MenuItem
+                component={Link}
+                to="/dashboard/projects"
+                onClick={handleDrawerToggle}
+              >
+                <ListItemIcon>
+                  <BusinessCenterIcon />
+                </ListItemIcon>
+                <ListItemText primary="Projects" />
+              </MenuItem>
+            </>
           )}   
         </List>
       </div>
@@ -131,8 +143,8 @@ function DrawerMenu({ window, children }) {
               color="inherit"
               onClick={handleClick}
             >
-                <Avatar alt="Remy Sharp" src={state.user && state.user.avatar}>
-                    RS
+                <Avatar alt={state.user && state.user.name} src={state.user && state.user.avatar}>
+                {state.user && `${state.user.profile.firstname.charAt(0)}${state.user.profile.lastname.charAt(0)}`}
                 </Avatar>
             </IconButton>
             <DropDownMenu

@@ -34,7 +34,14 @@ class ProjectController extends Controller
             'end' => 'required'
         ]);
 
-        return Project::create($request->all());
+        $project = Project::create($request->all());
+
+        $response = [
+            'user' => $project,
+            'msg' => 'Project added successfully.'
+        ];
+
+        return response($response, 201);
     }
 
     /**

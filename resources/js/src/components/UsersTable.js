@@ -121,8 +121,8 @@ const UsersTable = () => {
         setState({...state, loading: true});
         axios.get(`${BASE_URL}/api/users`)
             .then(res => {
-                
-                setState({...state, rows: res.data, loading: false});
+                //console.log(res.data)
+                setState({...state, rows: res.data.data, loading: false});
             })
             .catch(err => {
                 console.log(err.response);

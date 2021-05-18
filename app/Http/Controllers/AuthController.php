@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Http\UploadedFile;
 
 class AuthController extends Controller
 {
@@ -40,7 +41,17 @@ class AuthController extends Controller
     }
 
     public function me(Request $request) {
-        return auth()->user()->load(['profile', 'projects', 'roles']);
+        $user = auth()->user()->load(['profile', 'projects', 'roles']);
+        $notifications = auth()->user()->notifications;
+        $count = auth()->user()->unreadNotifications->count();
+        $response = [
+            'user' => $user,
+            'notifications' => [
+                'data' => $notifications,
+                'count' => $count
+            ]
+            ];
+        return $response;
     }
 
     public function logout(Request $request) {
@@ -131,5 +142,45 @@ class AuthController extends Controller
         return $status == Password::PASSWORD_RESET
                     ? redirect()->route('login')->with('status', __($status))
                     : back()->withErrors(['email' => [__($status)]]);
+    }
+
+    public function upload(Request $request)
+    {
+        $user = auth()->user();
+        // $filenameWithExt = $request->file('avatar')->getClientOriginalName();
+        // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        // $extension = $request->avatar->extension();
+        // $fileNameToStore = $filename.'_'. time().'.'.$extension;
+        // $request->file('avatar')->storeAs('public/image', $fileNameToStore);
+
+        $path = $request->file('avatar')->store('images');
+
+        $user->update([
+            'avatar' => asset($path),
+        ]);
+
+        $user->refresh()->load(['profile', 'projects', 'roles']);
+
+        $response = [
+            'user' => $user,
+            'msg' => 'Image uploaded successfuly',
+        ];
+
+        return response($response, 200);
+
+    }
+
+    public function markNotification()
+    {
+        $user = auth()->user();
+
+        $user->unreadNotifications->markAsRead();
+
+        $response = [
+            'data' => $user->notifications,
+            'count' => $user->unreadNotifications->count(),
+        ];
+
+        return $response;
     }
 }

@@ -1,4 +1,4 @@
-import { LOADING, LOAD_USER, LOGIN, LOGIN_FAIL, LOGOUT, REMOVE_ALERT } from "./types";
+import { LOADING, LOAD_USER, LOGIN, LOGIN_FAIL, LOGOUT, ON_NEW_NOTIFICATION, ON_READ_NOTIFICATION, REMOVE_ALERT } from "./types";
 
 
 export const userReducer = (state, action) => {
@@ -13,6 +13,12 @@ export const userReducer = (state, action) => {
             return {...state, ...payload, loading: false};
         case LOAD_USER:
             return {...state, ...payload, loading: false};
+        case ON_NEW_NOTIFICATION:
+            const data = [payload, ...state.notifications.data];
+            const count = state.notifications.count + 1;
+            return {...state, notifications: {data, count}};
+        case ON_READ_NOTIFICATION:
+            return {...state, notifications: payload};
         case REMOVE_ALERT:
             return {...state, error: false, loading: false};
         default:

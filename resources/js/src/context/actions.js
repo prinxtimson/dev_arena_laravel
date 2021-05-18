@@ -35,8 +35,8 @@ export const getUser = async () => {
     try {
         
         const res = await axios.get(`${BASE_URL}/api/me`);
-
-        return {user: res.data, isAuthenticated: true};
+        
+        return {...res.data, isAuthenticated: true};
 
     } catch (err) {
         console.log(err.response);

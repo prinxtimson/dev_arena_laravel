@@ -18,7 +18,7 @@ import Paper from '@material-ui/core/Paper';
 import AppContainer from './AppContainer';
 import { axios, BASE_URL } from '../utils/utils';
 import { UserContext } from '../context/GlobalState';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     btnContainer: {
@@ -109,6 +109,10 @@ const UsersTable = () => {
         setOpen(true)
     }
 
+    const handleOnClick = (id) => {
+        history.pushState(`/profile/${id}`)
+    }
+
     const handleClose = () => {
         setOpen(false)
     }
@@ -186,8 +190,13 @@ const UsersTable = () => {
                                 </TableRow>
                             ) : state.rows.map((row) => (
                                 <StyledTableRow key={row.email}>
-                                    <StyledTableCell scope="row">
-                                        {row.name}
+                                    <StyledTableCell
+                                        scope="row"
+                                        //component={NavLink}
+                                        //to={`profile/${row.id}`}
+                                        //onClick={() => handleOnClick(row.id)}
+                                        >
+                                        <NavLink to={`profile/${row.id}`}>{row.name}</NavLink>
                                     </StyledTableCell>
                                     <StyledTableCell align="left">
                                         {row.username}

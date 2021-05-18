@@ -10,6 +10,7 @@ import DashboardIndex from '../components/DashboardIndex';
 import { UserContext } from '../context/GlobalState';
 import InfoDialog from '../components/InfoDialog';
 import Profile from '../components/Profile';
+import UserProfile from '../components/UserProfile';
 import ProjectsTable from '../components/ProjectsTable';
 import AddProjectForm from '../components/AddProjectForm';
 
@@ -19,12 +20,12 @@ const useStyles = makeStyles((theme) => ({
 
 function Dashboard({match}) {
     const classes = useStyles();
-    const {routeName} = useParams();
+    const {routeName, userId} = useParams();
     const {state} = React.useContext(UserContext);
     
 
-    const renderComponent = (param) => {
-        switch(param) {
+    const renderComponent = (param1, param2) => {
+        switch(param1) {
             case 'users':
                 return <UsersTable />
             case 'projects':
@@ -34,7 +35,11 @@ function Dashboard({match}) {
             case 'add-user':
                 return <AddUserForm />;
             case 'profile':
-                return <Profile />;
+                if(param2){
+                    return <UserProfile /> 
+                }else {
+                    return <Profile />
+                };
             case 'add-project':
                 return <AddProjectForm />
             default:
@@ -48,7 +53,7 @@ function Dashboard({match}) {
             {!state.loading && (
                 <InfoDialog email_verified_at={state.user && state.user.email_verified_at} />
             )}
-            {renderComponent(routeName)}
+            {renderComponent(routeName, userId)}
         </DrawerMenu>
     )
 }

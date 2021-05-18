@@ -92,7 +92,7 @@ class UserController extends Controller
     {
         //
         return User::find($id)
-                    ->load(['profiles', 'roles', 'projects']);
+                    ->load(['profile', 'roles', 'projects']);
     }
 
     /**

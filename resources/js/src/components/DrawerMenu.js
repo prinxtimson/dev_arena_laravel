@@ -16,6 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
+import Skeleton from '@material-ui/lab/Skeleton';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -23,6 +24,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import DropDownMenu from './DropDownMenu';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../context/GlobalState';
+import NotificationsMenu from './NotificationsMenu';
+import { axios, BASE_URL } from '../utils/utils';
 
 const drawerWidth = 260;
 
@@ -66,10 +69,30 @@ const useStyles = makeStyles((theme) => ({
 
 function DrawerMenu({ window, children }) {
     const classes = useStyles();
-    const {state} = React.useContext(UserContext);
+    const {state, onNotificationRead} = React.useContext(UserContext);
     const theme = useTheme();
     const [anchorE1, setAnchorE1] = React.useState(null);
+    const [anchorE2, setAnchorE2] = React.useState(null);
     const [mobileOpen, setMobileOpen] = React.useState(false);
+
+    const handleNotificationClick = (event) => {
+      setAnchorE2(event.currentTarget);
+    };
+  
+    const handleNotificationClose = () => {
+      setAnchorE2(null);
+    };
+
+    const handleOnFocus = () => {
+      axios.get(`${BASE_URL}/api/mark-notification`)
+          .then(res => {
+            //console.log(res.data)
+            onNotificationRead(res.data);
+          })
+          .catch(err => {
+            console.log(err.response);
+         });
+    }    
   
     const handleDrawerToggle = () => {
       setMobileOpen(!mobileOpen);
@@ -133,20 +156,38 @@ function DrawerMenu({ window, children }) {
               <MenuIcon />
             </IconButton>
             <div className={classes.grow} />
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={2} color="secondary">
+
+            <IconButton
+              aria-label="notifications"
+              color="inherit"
+              onClick={handleNotificationClick}
+              >
+              <Badge badgeContent={state.notifications && state.notifications.count} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton 
-              aria-label="avatar"
-              color="inherit"
-              onClick={handleClick}
-            >
-                <Avatar alt={state.user && state.user.name} src={state.user && state.user.avatar}>
-                {state.user && `${state.user.profile.firstname.charAt(0)}${state.user.profile.lastname.charAt(0)}`}
-                </Avatar>
-            </IconButton>
+            {state.loading ? (
+              <Skeleton variant="circle" width={40} height={40} />
+            ) : (
+              <IconButton 
+                aria-label="avatar"
+                color="inherit"
+                onClick={handleClick}
+              >
+                  <Avatar alt={state.user && state.user.name} src={state.user && state.user.avatar}>
+                  {state.user && `${state.user.profile.firstname.charAt(0)}${state.user.profile.lastname.charAt(0)}`}
+                  </Avatar>
+              </IconButton>
+            )}
+            {!state.loading && (
+              <NotificationsMenu
+              notifications={state.notifications && state.notifications.data}
+              anchorE2={anchorE2}
+              handleClose={handleNotificationClose}
+              handleOnFocus={handleOnFocus}
+            />
+            )}
+            
             <DropDownMenu
               handleClose={handleClose}
               anchorE1={anchorE1}

@@ -52,12 +52,11 @@ const CustomTextField = ({project, handleClick, handleUpdate}) => {
   const classes = useStyles();
   const [loading, setLoading] = React.useState(false);
   const [options, setOptions] = React.useState([]);
-  const [selected, setSelected] = React.useState(project.developers[0]);
+  const [selected, setSelected] = React.useState({});
 
   const handleFocus = () => {
     if(options.length === 0){
       axios.get(`${BASE_URL}/api/developers`).then(res => {
-        console.log(res.data)
         setOptions(res.data);
       })
     }
@@ -65,8 +64,7 @@ const CustomTextField = ({project, handleClick, handleUpdate}) => {
 
   const handleSave = () => {
     setLoading(true);
-    // const developers = selected.map(val => val.id);
-    // console.log(developers)
+
     axios.put(`${BASE_URL}/api/assign-dev/${project.id}/${selected.id}`).then(res => {
       //console.log(res.data)
       handleUpdate(res.data)
@@ -87,7 +85,6 @@ const CustomTextField = ({project, handleClick, handleUpdate}) => {
           onFocus={handleFocus}
           options={options}
           getOptionLabel={(option) => option.name}
-          value={selected}
           onChange={(e, newInput) => setSelected(newInput)}
           filterSelectedOptions
           renderInput={(params) => (
@@ -130,7 +127,7 @@ const DialogTitle = withStyles(styles)((props) => {
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
       <Typography variant="caption">{children}</Typography>
       {onClose ? (
-        <div>
+        <>
           <Button
             type="submit"
             variant="text"
@@ -144,7 +141,7 @@ const DialogTitle = withStyles(styles)((props) => {
           <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
             <CloseIcon />
           </IconButton>
-        </div>
+        </>
       ) : null}
     </MuiDialogTitle>
   );
@@ -183,7 +180,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
   }
 
   return (
-    <div>
+    <>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose} handleEdit={handleEdit}>
           Modal title
@@ -296,7 +293,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
           </DialogActions>
         ) : null}
       </Dialog>
-    </div>
+    </>
   )
 }
 

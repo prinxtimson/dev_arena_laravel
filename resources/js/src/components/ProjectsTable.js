@@ -99,7 +99,7 @@ const Row = ({row}) => {
   }
 
   return (
-    <>
+    <React.Fragment>
       <ProjectDailog
         open={open}
         handleClose={handleDialogClose}
@@ -152,7 +152,7 @@ const Row = ({row}) => {
           />
         </StyledTableCell>
       </StyledTableRow>
-    </>
+    </React.Fragment>
   )
 }
 
@@ -163,9 +163,13 @@ const DropMenu = ({anchorEl, handleClose, handleEdit}) => {
       id="menu"
       anchorEl={anchorEl}
       keepMounted
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
       transformOrigin={{
         vertical: 'top',
-        horizontal: 'center',
+        horizontal: 'right',
       }}
       open={Boolean(anchorEl)}
       onClose={handleClose}

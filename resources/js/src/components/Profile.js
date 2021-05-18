@@ -22,6 +22,7 @@ import UserProjects from './UserProjects';
 import ResoucesTable from './ResoucesTable';
 import ProfileForm from './ProfileForm';
 import {UserContext} from '../context/GlobalState';
+import { axios, BASE_URL } from '../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -107,6 +108,21 @@ const [value, setValue] = React.useState(0);
 
 const handleChange = (e, newValue) => {
     setValue(newValue);
+}
+
+const handleUploadAvatar = (img) => {
+    const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }; 
+      const file = new FormData(); 
+      file.append('avatar', img);
+
+      axios.put(`${BASE_URL}/me/upload`, file, config)
+            .then(res => {
+                console.log(res.data)
+            })
 }
 
     return (

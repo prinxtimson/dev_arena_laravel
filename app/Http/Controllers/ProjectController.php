@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Project; 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Notifications\AssignDev;
+use App\Notifications\AcceptProject;
+use App\Notifications\DeclineProject;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DevAssignEmail;
 
@@ -95,6 +98,8 @@ class ProjectController extends Controller
     {
         $user = User::find($dev);
 
+        $assign_by = auth()->user();
+
         $project = Project::find($id)->load('developers');
 
         $project->developers()->attach($dev);
@@ -106,8 +111,33 @@ class ProjectController extends Controller
             'user' => $user
         ];
 
-        Mail::to($user)->send(new DevAssignEmail($fields));
+        $user->notify(new AssignDev($assign_by, $project));
+        //Mail::to($user)->send(new DevAssignEmail($fields));
 
         return $project;
+    }
+
+    public function accept_project(Request $request)
+    {
+        $admin = User::find($request->user_id);
+
+        $user = auth()->user();
+
+        $project = Project::find($request->project_id);
+
+        $admin->notify(new AcceptProject($user, $project));
+    }
+
+    public function decline_project(Request $request)
+    {
+        $user = auth()->user();
+
+        $admin = User::find($request->user_id);
+
+        $project = Project::find($request->project_id);
+
+        $project->developers()->detach($user->id);
+
+        $admin->notify(new DeclineProject($user, $project));
     }
 }

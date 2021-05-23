@@ -105,24 +105,23 @@ React.useEffect(() => {
                         title="Contemplative Reptile"
                     />
                     <CardContent className={classes.content}>
-                        <Avatar
-                            alt={user && user.name}
-                            src={user && user.avatar}
-                            className={classes.avatar}
-                        >
-                            {user && user.profile && `${user.profile.firstname.charAt(0)}${user.profile.lastname.charAt(0)}`}
-                        </Avatar>
-                        <div>
-                            <Typography variant="h6">
-                                {user && user.name}
-                            </Typography>
-                            <Typography 
-                                component="caption"
-                                className={classes.caption}
+                        <>
+                            <Avatar
+                                alt={user && user.name}
+                                src={user && user.avatar}
+                                className={classes.avatar}
                             >
-                                {user && user.roles && user.roles[0].name}
-                            </Typography>
-                        </div>
+                                {user && user.profile && `${user.profile.firstname.charAt(0)}${user.profile.lastname.charAt(0)}`}
+                            </Avatar>
+                        </>
+                        <ListItemText
+                            primary={user && user.name}
+                            secondary={user && user.roles && user.roles[0].name}
+                            primaryTypographyProps={{
+                                variant: 'h6',
+                                component: 'h6'
+                            }}
+                        />
                     </CardContent>
                 </CardActionArea>
             </Card>

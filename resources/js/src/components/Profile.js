@@ -10,8 +10,10 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
@@ -48,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
         width: theme.spacing(16),
         height: theme.spacing(16),
         marginRight: theme.spacing(2)
-      },
+    },
     caption: {
         padding: 0,
     },
@@ -58,6 +60,22 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         padding: theme.spacing(2),
         borderRadius: 15,
+    },
+    edit: {
+        position: 'absolute',
+        bottom: '15px',
+        left: '110px',
+        zIndex: 1000,
+        borderRadius: 50,
+        height: 30,
+        width: 30,
+        backgroundColor: theme.palette.grey[500],
+        alignItems: 'center',
+        justifyContent: 'center',
+        display: 'flex'
+    },
+    fileInput: {
+       display: 'none', 
     }
 }));
 
@@ -103,30 +121,35 @@ const AntTab = withStyles((theme) => ({
 
 const Profile = () => {
 const classes = useStyles();
-const {state} = React.useContext(UserContext)
+const {state, updateUser} = React.useContext(UserContext)
 const [value, setValue] = React.useState(0);
+const [inputRef, setInputRef] = React.useState(null);
 
 const handleChange = (e, newValue) => {
     setValue(newValue);
 }
 
 const handleUploadAvatar = (img) => {
-    const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }; 
+
       const file = new FormData(); 
       file.append('avatar', img);
 
-      axios.put(`${BASE_URL}/me/upload`, file, config)
+      axios.post(`${BASE_URL}/api/upload-avatar`, file)
             .then(res => {
+                updateUser({user: res.data.user})
                 console.log(res.data)
             })
 }
 
     return (
         <AppContainer>
+            <input
+                id="avatar"
+                name="avatar"
+                className={classes.fileInput}
+                onChange={(e) => handleUploadAvatar(e.target.files[0])}
+                type="file"
+                accept="image/*" ref={ref => setInputRef(ref)} />
             {state.loading ? (
                 <Skeleton variant="rect" width="100%">
                 <div style={{ paddingTop: '30%' }} />
@@ -140,24 +163,29 @@ const handleUploadAvatar = (img) => {
                         title="Contemplative Reptile"
                     />
                     <CardContent className={classes.content}>
-                        <Avatar
-                            alt={state.user && state.user.name}
-                            src={state.user && state.user.avatar}
-                            className={classes.avatar}
-                        >
-                            {state.user && `${state.user.profile.firstname.charAt(0)}${state.user.profile.lastname.charAt(0)}`}
-                        </Avatar>
                         <div>
-                            <Typography variant="h6">
-                                {state.user && state.user.name}
-                            </Typography>
-                            <Typography 
-                                component="caption"
-                                className={classes.caption}
+                            <Avatar
+                                alt={state.user && state.user.name}
+                                src={state.user && state.user.avatar}
+                                className={classes.avatar}
                             >
-                                {state.user && state.user.roles[0].name}
-                            </Typography>
+                                {state.user && `${state.user.profile.firstname.charAt(0)}${state.user.profile.lastname.charAt(0)}`}
+                            </Avatar>
+                            <div 
+                                className={classes.edit} 
+                                onClick={() => inputRef.click()}
+                            >
+                                <EditIcon />
+                            </div>
                         </div>
+                        <ListItemText
+                            primary={state.user && state.user.name}
+                            secondary={state.user && state.user.roles[0].name}
+                            primaryTypographyProps={{
+                                variant: 'h6',
+                                component: 'h6'
+                            }}
+                        />
                     </CardContent>
                 </CardActionArea>
                 <CardActions className={classes.actions}>

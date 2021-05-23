@@ -37,6 +37,10 @@ export const UserContextProvider = ({children}) => {
         dispatch({type: ON_NEW_NOTIFICATION, payload: notification})
     }
 
+    const updateUser = user => {
+        dispatch({type: LOAD_USER, payload: user})
+    }
+
     React.useMemo(() => {
         dispatch({type: LOADING});
         getUser().then(res => {
@@ -46,7 +50,7 @@ export const UserContextProvider = ({children}) => {
 
     }, [])
 
-    React.useEffect(() => {
+    
         Echo.private(`App.Models.User.${state.user && state.user.id}`)
         .notification((notification) => {
           //
@@ -61,9 +65,7 @@ export const UserContextProvider = ({children}) => {
         //     notifications: [newNotification, ...notifications.notifications],
         //     count: notifications.count + 1,
         //   })
-          console.log(notification);
         });
-    }, [])
 
     const clearError = () => {
         dispatch({type: REMOVE_ALERT});
@@ -77,7 +79,8 @@ export const UserContextProvider = ({children}) => {
                 logout,
                 clearError,
                 onNotificationRead,
-                onNewNotification
+                onNewNotification,
+                updateUser
             }}
         >
             {children}

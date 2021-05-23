@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -147,16 +148,11 @@ class AuthController extends Controller
     public function upload(Request $request)
     {
         $user = auth()->user();
-        // $filenameWithExt = $request->file('avatar')->getClientOriginalName();
-        // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-        // $extension = $request->avatar->extension();
-        // $fileNameToStore = $filename.'_'. time().'.'.$extension;
-        // $request->file('avatar')->storeAs('public/image', $fileNameToStore);
 
-        $path = $request->file('avatar')->store('images');
+        $path = $request->file('avatar')->store('images', 'public');
 
         $user->update([
-            'avatar' => asset($path),
+            'avatar' => asset('storage/'.$path),
         ]);
 
         $user->refresh()->load(['profile', 'projects', 'roles']);
@@ -166,7 +162,7 @@ class AuthController extends Controller
             'msg' => 'Image uploaded successfuly',
         ];
 
-        return response($response, 200);
+        return $response;
 
     }
 

@@ -111,7 +111,7 @@ function DrawerMenu({ window, children }) {
         <div className={classes.toolbar} />
         <Divider />
         <List>
-          {state.user && state.user.roles[0].name === 'developer' ? null : (
+          {state.loading ? null : state.user && state.user.roles[0].name === 'developer' ? null : (
             <>
               <MenuItem
                 component={Link}

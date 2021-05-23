@@ -29,7 +29,7 @@ Route::get('/users', [UserController::class, 'index']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::get('/mark-notification', [AuthController::class, 'markNotification']);
-    Route::put('/me/upload', [AuthController::class, 'upload']);
+    Route::post('/upload-avatar', [AuthController::class, 'upload']);
     Route::get('/users/{id}', [UserController::class, 'show']);
     Route::get('/developers', [UserController::class, 'dev']);
     Route::put('/change-password', [AuthController::class, 'changePass']);

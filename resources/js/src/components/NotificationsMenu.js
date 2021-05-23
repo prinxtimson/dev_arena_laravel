@@ -123,14 +123,14 @@ const NotificationsMenu = ({notifications, anchorE2, handleClose, handleOnFocus}
           <ListItem button>
               <ListItemText secondary='No notification yet' />
             </ListItem>
-        ) : notifications && notifications.map(notification => {
+        ) : notifications && notifications.map((notification, index) => {
           if(notification.type === "App\\Notifications\\AssignDev"){
             return (
             <div key={notification.id}>
             <ListItem button onClick={() => handleDialogOpen(notification)}>
               <ListItemText primary="New Project Assign" secondary={`project ${notification && notification.data.project} had been assign to you`} />
             </ListItem>
-            <Divider />
+            {notifications.length-1 < index &&  <Divider />} 
             </div>
             )
           }
@@ -140,7 +140,7 @@ const NotificationsMenu = ({notifications, anchorE2, handleClose, handleOnFocus}
             <ListItem button>
               <ListItemText primary="Project Accepted" secondary={`${notification && notification.data.name} had accepted Project ${notification && notification.data.project}`} />
             </ListItem>
-            <Divider />
+            {notifications.length-1 < index &&  <Divider />} 
             </div>
             )
           }
@@ -150,7 +150,7 @@ const NotificationsMenu = ({notifications, anchorE2, handleClose, handleOnFocus}
             <ListItem button>
               <ListItemText primary="Project Declined" secondary={`${notification && notification.data.name} had declined Project ${notification && notification.data.project}`} />
             </ListItem>
-            <Divider />
+            {notifications.length-1 < index &&  <Divider />} 
             </div>
             )
           }

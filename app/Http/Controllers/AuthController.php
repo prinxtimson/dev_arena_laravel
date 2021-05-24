@@ -68,15 +68,30 @@ class AuthController extends Controller
         $user = auth()->user();
 
         $fields = $request->validate([
-            'name' => 'string'
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'dev_stack' => 'required|string',
+            'phone' => 'required|string',
         ]);
 
         //$user = User::find($user);
         $user->update([
-            empty($fields['name'])? null : 'name' => $fields['name'],
+            'name' =>  $fields['firstname'].' '.$fields['lastname'],
+            strtolower($fields['firstname'].$fields['lastname']),
         ]);
 
-        return $user;
+        $user->profile()->update([
+            'firstname' => $fields['firstname'],
+            'lastname' => $fields['lastname'],
+            'dev_stack' => $fields['dev_stack'],
+            'phone' => $fields['phone'],
+        ]);
+
+        $response = [
+            'user' => $user->load(['profile', 'projects', 'roles'])
+        ];
+
+        return $response;
     }
 
     public function changePass(Request $request)

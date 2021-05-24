@@ -6,6 +6,7 @@ export const loginUser = async (data) => {
         await axios.get(`${BASE_URL}/sanctum/csrf-cookie`)
         const res = await axios.post(`${BASE_URL}/login`, data);
         location.replace('/dashboard')
+        
         return {...res.data, isAuthenticated: true};
 
     } catch (err) {
@@ -14,6 +15,20 @@ export const loginUser = async (data) => {
             return {error: {message: 'Server errror, please try again.'}, isAuthenticated: false, token: null};
         }
         return {error: err.response.data, isAuthenticated: false, token: null};
+    }
+}
+
+export const updateUser = async (data) => {
+    try {
+        const res = await axios.put(`${BASE_URL}/api/update`, data);
+
+        return res.data;
+    } catch (error) {
+        console.log(err.response);
+        if (err.response.status == 500){
+            return {error: {message: 'Server errror, please try again.'}};
+        }
+        return {error: err.response.data};
     }
 }
 

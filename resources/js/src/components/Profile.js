@@ -292,7 +292,7 @@ const handleUploadAvatar = (img) => {
                                     <ResoucesTable />
                                 </TabPanel>
                                 <TabPanel value={value} index={2}>
-                                    <ProfileForm user={state.user} />
+                                    <ProfileForm />
                                 </TabPanel>
                             </>
                         )}                      

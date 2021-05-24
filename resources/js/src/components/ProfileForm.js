@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {UserContext} from '../context/GlobalState';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,12 +22,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ProfileForm = ({user}) => {
+const ProfileForm = () => {
   const classes = useStyles();
+  const {state, updateUser} = React.useContext(UserContext);
   const [data, setData] = React.useState({
     firstname: '',
     lastname: '',
-    email: '',
     dev_stack: '',
     phone: '',
     github: ''
@@ -34,14 +35,18 @@ const ProfileForm = ({user}) => {
 
   React.useEffect(() => {
     setData({
-      firstname: user && user.profile.firstname,
-      lastname: user && user.profile.lastname,
-      email: user && user.email,
-      dev_stack: user && user.profile.dev_stack,
-      phone: user && user.profile.phone,
-      github: user && user.profile.github,
+      firstname: state.user && state.user.profile.firstname,
+      lastname: state.user && state.user.profile.lastname,
+      dev_stack: state.user && state.user.profile.dev_stack,
+      phone: state.user && state.user.profile.phone,
+      github: state.user && state.user.profile.github,
     })
-  }, [])
+  }, [state.user]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    updateUser(data);
+  }
 
   return (
     <Paper className={classes.paper}>
@@ -81,20 +86,6 @@ const ProfileForm = ({user}) => {
               name="lastname"
               value={data.lastname}
               onChange={e => setData({...data, lastname: e.target.value})}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              disabled
-              id="email_address"
-              label="Email Address"
-              name="email"
-              value={data.email}
-              onChange={e => setData({...data, email: e.target.value})}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -144,6 +135,8 @@ const ProfileForm = ({user}) => {
               variant="contained"
               color="primary"
               size="large"
+              onClick={handleSubmit}
+              disabled={state.loading || !data.firstname || !data.lastname || !data.phone || !data.github || !data.dev_stack}
               //className={classes.submit}
             >
               Save Changes

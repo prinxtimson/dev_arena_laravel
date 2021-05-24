@@ -5,7 +5,8 @@ import {
     Switch,
     Route,
   } from "react-router-dom";
-import { UserContextProvider } from './context/GlobalState';
+import 
+UserContextProvider from './context/GlobalState';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 

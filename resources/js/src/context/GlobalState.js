@@ -5,7 +5,7 @@ import { LOADING, LOAD_USER, LOGIN, LOGOUT, ON_NEW_NOTIFICATION, ON_READ_NOTIFIC
 
 export const UserContext = React.createContext(null);
 
-export const UserContextProvider = ({children}) => {
+export default ({children}) => {
     const token = localStorage.getItem('DEV-ARENA-TOKEN');
 
     const initialState = {
@@ -50,8 +50,8 @@ export const UserContextProvider = ({children}) => {
 
     }, [])
 
-    
-        Echo.private(`App.Models.User.${state.user && state.user.id}`)
+    React.useEffect(() => {
+        window.echo.private(`App.Models.User.${state.user && state.user.id}`)
         .notification((notification) => {
           //
           console.log(notification)
@@ -65,7 +65,9 @@ export const UserContextProvider = ({children}) => {
         //     notifications: [newNotification, ...notifications.notifications],
         //     count: notifications.count + 1,
         //   })
-        });
+    });
+    }, [state.isAuthenticated]);
+    
 
     const clearError = () => {
         dispatch({type: REMOVE_ALERT});

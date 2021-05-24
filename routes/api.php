@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/users/{id}', [UserController::class, 'show']);
     Route::get('/developers', [UserController::class, 'dev']);
     Route::put('/change-password', [AuthController::class, 'changePass']);
+    Route::put('/update', [AuthController::class, 'update']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::put('/accept-project', [ProjectController::class, 'accept_project']);
     Route::put('/decline-project', [ProjectController::class, 'decline_project']);

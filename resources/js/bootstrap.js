@@ -51,3 +51,5 @@ window.echo = new Echo({
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     forceTLS: false
 });
+
+window.app_env = process.env.APP_ENV;

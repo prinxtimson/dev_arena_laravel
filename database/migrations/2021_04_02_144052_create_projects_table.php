@@ -18,7 +18,10 @@ class CreateProjectsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('avatar');
+            $table->text('mandate');
+            $table->string('project_pm');
             $table->date('start');
+            $table->date('expected_end');
             $table->date('end');
             $table->timestamps();
         });

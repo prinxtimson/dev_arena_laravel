@@ -60,11 +60,7 @@ export default ({children}) => {
             type: notification.type,
             id: notification.id
           }  
-          dispatch({type: ON_NEW_NOTIFICATION, payload: newNotification})
-        //   setNotifications({
-        //     notifications: [newNotification, ...notifications.notifications],
-        //     count: notifications.count + 1,
-        //   })
+          dispatch({type: ON_NEW_NOTIFICATION, payload: newNotification});
     });
     }, [state.isAuthenticated]);
     

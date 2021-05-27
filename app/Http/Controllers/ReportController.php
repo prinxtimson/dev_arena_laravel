@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Project; 
+use App\Models\Report; 
 
 class ReportController extends Controller
 {
@@ -11,19 +13,11 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
-    }
+        $project = Project::find($id);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $project->reports;
     }
 
     /**
@@ -32,9 +26,15 @@ class ReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $user = auth()->user();
+        $project = Project::find($id);
+
+        return $project->reports()->create([
+            'details' => $request->details,
+            'user_id' => $user->id
+            ]);
     }
 
     /**
@@ -45,18 +45,7 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return Report::find($id)->load('project');
     }
 
     /**
@@ -68,7 +57,13 @@ class ReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = auth()->user();
+
+        $report = Report::find($id);
+
+        $report->update($request->all());
+
+        return $report->refresh();
     }
 
     /**
@@ -79,6 +74,6 @@ class ReportController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Report::destroy($id);
     }
 }

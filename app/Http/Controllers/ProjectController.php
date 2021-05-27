@@ -39,7 +39,16 @@ class ProjectController extends Controller
             'end' => 'required'
         ]);
 
-        $project = Project::create($request->all());
+        $project = Project::create([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'start' => $request->start,
+            'avatar' => $request->avatar,
+            'mandate' => $request->mandate,
+            'project_pm' => $request->project_pm,
+            'end' => $request->end,
+            'expected_end' => $request->end,
+        ]);
 
         $response = [
             'project' => $project,
@@ -58,7 +67,7 @@ class ProjectController extends Controller
     public function show($id)
     {
         //
-        return Project::find($id);
+        return Project::find($id)->load('developers');
     }
 
     /**

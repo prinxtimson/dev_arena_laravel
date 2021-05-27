@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
 const UserProfile = () => {
 const classes = useStyles();
-const {userId} = useParams();
+const {id} = useParams();
 const [loading, setLoading] = React.useState(true);
 const [user, setUser] = React.useState({});
 
@@ -79,7 +79,7 @@ const handleUploadAvatar = (img) => {
 }
 
 React.useEffect(() => {
-  axios.get(`${BASE_URL}/api/users/${userId}`)
+  axios.get(`${BASE_URL}/api/users/${id}`)
       .then(res => {
           setUser(res.data);
           setLoading(false);

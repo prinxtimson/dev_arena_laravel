@@ -53,7 +53,7 @@ const Row = ({row}) => {
   const [open, setOpen] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState(false);
   let a = moment(project.end);
-  let b = moment.now();
+  let b = moment();
 
   const handleDialogOpen = () => {
     setOpen(true);
@@ -133,10 +133,13 @@ const Row = ({row}) => {
           {moment(project.start).format('MMM Do YYYY')}
         </StyledTableCell>
         <StyledTableCell align="left">
+          {moment(project.expected_end).format('MMM Do YYYY')}
+        </StyledTableCell>
+        <StyledTableCell align="left">
           {moment(project.end).format('MMM Do YYYY')}
         </StyledTableCell>
         <StyledTableCell align="left">
-          {a.diff(b) <= 0 ? 'Completed' : 'In progress'}
+          {a.diff(b, 'weeks') + 'Weeks'}
         </StyledTableCell>
         <StyledTableCell align="right">
           <IconButton
@@ -146,6 +149,7 @@ const Row = ({row}) => {
             <MoreVertIcon />
           </IconButton>
           <DropMenu
+            id={project.id}
             handleClose={handleClose}
             anchorEl={anchorEl}
             handleEdit={handleEdit}
@@ -156,7 +160,7 @@ const Row = ({row}) => {
   )
 }
 
-const DropMenu = ({anchorEl, handleClose, handleEdit}) => {
+const DropMenu = ({anchorEl, handleClose, handleEdit, id}) => {
 
   return (
     <Menu
@@ -174,7 +178,7 @@ const DropMenu = ({anchorEl, handleClose, handleEdit}) => {
       open={Boolean(anchorEl)}
       onClose={handleClose}
     >
-      <MenuItem onClick={handleClose}>Assign Dev</MenuItem>
+      <MenuItem component={Link} onClick={handleClose} to={`/dashboard/projects/${id}`}>View</MenuItem>
       <MenuItem onClick={handleEdit}>Edit</MenuItem>
       <MenuItem onClick={handleClose}>Delete</MenuItem>
     </Menu>
@@ -246,8 +250,9 @@ const ProjectsTable = () => {
               <TableRow>
                 <TableCell>Name</TableCell>
                 <TableCell align="left">Start</TableCell>
-                <TableCell align="left">End</TableCell>
-                <TableCell align="left">Status</TableCell>
+                <TableCell align="left">Expected End Date</TableCell>
+                <TableCell align="left">End Date</TableCell>
+                <TableCell align="left">Weeks</TableCell>
                 <TableCell align="right" />
               </TableRow>
             </TableHead>

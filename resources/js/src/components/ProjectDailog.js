@@ -167,9 +167,11 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
     name: project ? project.name : '',
     start: project ? project.start : '',
     end: project ? project.end : '',
+    project_pm: project ? project.project_pm : '',
+    mandate: project ? project.mandate : '',
   });
   let a = moment(project.end);
-  let b = moment.now();
+  let b = moment();
 
   const handleSaveChanges = () => {
     handleSaveEdit(data);
@@ -183,7 +185,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
     <>
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose} handleEdit={handleEdit}>
-          Modal title
+          Project Details
         </DialogTitle>
         <DialogContent>
           {!isEdit && (
@@ -215,6 +217,46 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
                 <ListItemText
                   primary="Name"
                   secondary={project.name} />
+              )}
+            </Grid>
+            <Grid item xs={12}>
+              {isEdit ? (
+                <TextField
+                  variant="outlined"
+                  margin="dense"
+                  required
+                  fullWidth
+                  id="project_pm"
+                  label="Project PM"
+                  name="project_pm"
+                  autoFocus
+                  value={data.project_pm}
+                  onChange={e => setData({...data, project_pm: e.target.value})}
+                />
+              ) : (
+                <ListItemText
+                  primary="Project PM"
+                  secondary={project.project_pm} />
+              )}
+            </Grid>
+            <Grid item xs={12}>
+              {isEdit ? (
+                <TextField
+                  variant="outlined"
+                  margin="dense"
+                  required
+                  fullWidth
+                  id="mandate"
+                  label="Project Mandate"
+                  name="mandate"
+                  autoFocus
+                  value={data.mandate}
+                  onChange={e => setData({...data, mandate: e.target.value})}
+                />
+              ) : (
+                <ListItemText
+                  primary="Project Mandate"
+                  secondary={project.mandate} />
               )}
             </Grid>
             <Grid item xs={12}>

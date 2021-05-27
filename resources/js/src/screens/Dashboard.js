@@ -13,6 +13,7 @@ import Profile from '../components/Profile';
 import UserProfile from '../components/UserProfile';
 import ProjectsTable from '../components/ProjectsTable';
 import AddProjectForm from '../components/AddProjectForm';
+import SingleProject from '../components/SingleProject';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -20,16 +21,19 @@ const useStyles = makeStyles((theme) => ({
 
 function Dashboard({match}) {
     const classes = useStyles();
-    const {routeName, userId} = useParams();
+    const {routeName, id} = useParams();
     const {state} = React.useContext(UserContext);
     
 
     const renderComponent = (param1, param2) => {
         switch(param1) {
             case 'users':
-                return <UsersTable />
+                return <UsersTable />;
             case 'projects':
-                return <ProjectsTable />
+                if(param2){
+                    return <SingleProject />;
+                }
+                return <ProjectsTable />;
             case 'change-password':
                 return <ChangePasswordForm />;
             case 'add-user':
@@ -53,7 +57,7 @@ function Dashboard({match}) {
             {!state.loading && (
                 <InfoDialog email_verified_at={state.user && state.user.email_verified_at} />
             )}
-            {renderComponent(routeName, userId)}
+            {renderComponent(routeName, id)}
         </DrawerMenu>
     )
 }

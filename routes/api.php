@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::put('/accept-project', [ProjectController::class, 'accept_project']);
     Route::put('/decline-project', [ProjectController::class, 'decline_project']);
+    Route::get('/projects/{id}', [ProjectController::class, 'show']);
+    Route::get('/reports/{id}', [ReportController::class, 'index']);
+    //Route::get('/reports/{id}', [ReportController::class, 'show']);
+    Route::post('/reports/{id}', [ReportController::class, 'store']);
+    Route::put('/reports/{id}', [ReportController::class, 'update']);
+    Route::delete('/reports/{id}', [ReportController::class, 'destroy']);
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'role:admin|super-admin']], function () {

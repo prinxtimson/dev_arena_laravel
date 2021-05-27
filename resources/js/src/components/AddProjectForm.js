@@ -45,7 +45,9 @@ const AddProjectForm = () => {
         start: '',
         end: '',
         slug: '',
-        avatar: 'sample.com'
+        avatar: 'sample.com',
+        mandate: '',
+        project_pm: '',
     });
 
   const handleSubmit = (e) => {
@@ -112,6 +114,30 @@ const AddProjectForm = () => {
                           name: e.target.value,
                           slug: e.target.value.replace(/\s+/g, "").toLowerCase()
                         })}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="project_pm"
+                        label="Project PM"
+                        name="project_pm"
+                        value={data.project_pm}
+                        onChange={e => setData({...data, project_pm: e.target.value})}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        multiline
+                        rows={4}
+                        id="mandate"
+                        label="Project Mandate"
+                        name="mandate"
+                        value={data.mandate}
+                        onChange={e => setData({...data, mandate: e.target.value})}
                     />
                     <TextField
                         variant="outlined"

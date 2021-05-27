@@ -56,7 +56,7 @@ const App = () => {
                         <Route exact path="/">
                             <HomePage />
                         </Route>
-                        <Route path="/dashboard/:routeName?/:userId?">
+                        <Route path="/dashboard/:routeName?/:id?">
                             <Dashboard />
                         </Route>
                         <Route path="/forgot-password">

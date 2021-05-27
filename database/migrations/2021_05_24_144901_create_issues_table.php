@@ -19,7 +19,7 @@ class CreateIssuesTable extends Migration
             $table->foreignId('raise_by')
                   ->constrained('users')->onDelete('cascade');
             $table->foreignId('assign_to')
-                ->constrained('users');
+                ->constrained('users')->nullable();
             $table->foreignId('project_id')
                 ->constrained()->onDelete('cascade');
             $table->date('resolve_at')->nullable();

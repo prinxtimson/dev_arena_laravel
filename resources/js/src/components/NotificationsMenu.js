@@ -93,6 +93,10 @@ const NotificationsMenu = ({notifications, anchorE2, handleClose, handleOnFocus}
     setOpenDialog(false);
   };
 
+  const handleClick = (id) => {
+    location.replace(`/dashboard/projects/${id}`);
+  }
+
   const open = Boolean(anchorE2);
   const id = open ? 'simple-popover' : undefined;
 
@@ -130,27 +134,37 @@ const NotificationsMenu = ({notifications, anchorE2, handleClose, handleOnFocus}
             <ListItem button onClick={() => handleDialogOpen(notification)}>
               <ListItemText primary="New Project Assign" secondary={`project ${notification && notification.data.project} had been assign to you`} />
             </ListItem>
-            {notifications.length-1 < index &&  <Divider />} 
+            {notifications.length-1 === index ? null :  <Divider />} 
             </div>
             )
           }
           if(notification.type === "App\\Notifications\\AcceptProject"){
             return (
             <div key={notification.id}>
-            <ListItem button>
+            <ListItem button onClick={() => handleClick(notification.data.project_id)}>
               <ListItemText primary="Project Accepted" secondary={`${notification && notification.data.name} had accepted Project ${notification && notification.data.project}`} />
             </ListItem>
-            {notifications.length-1 < index &&  <Divider />} 
+            {notifications.length-1 === index ? null :  <Divider />} 
             </div>
             )
           }
           if(notification.type === "App\\Notifications\\DeclineProject"){
             return (
             <div key={notification.id}>
-            <ListItem button>
+            <ListItem button onClick={() => handleClick(notification.data.project_id)}>
               <ListItemText primary="Project Declined" secondary={`${notification && notification.data.name} had declined Project ${notification && notification.data.project}`} />
             </ListItem>
-            {notifications.length-1 < index &&  <Divider />} 
+            {notifications.length-1 === index ? null : <Divider />} 
+            </div>
+            )
+          }
+          if(notification.type === "App\\Notifications\\IssueRaised"){
+            return (
+            <div key={notification.id}>
+            <ListItem button onClick={() => handleClick(notification.data.project_id)}>
+              <ListItemText primary="Issues Raised" secondary={`${notification && notification.data.name} had raised a blocker on Project ${notification && notification.data.project}`} />
+            </ListItem>
+            {notifications.length-1 === index ? null :  <Divider />} 
             </div>
             )
           }

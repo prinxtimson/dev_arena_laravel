@@ -74,6 +74,10 @@ const AddUserForm = () => {
         .catch(err => {
             console.log(err.response);
             setLoading(false);
+            if(err.response.status === 500){
+                setError({message: 'Server Error, Please try again.'});
+                return;
+            }
             setError(err.response.data);
         })
     

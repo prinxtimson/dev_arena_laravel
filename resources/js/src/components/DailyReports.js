@@ -90,6 +90,62 @@ const CustomTextField = ({report, handleClick, handleUpdate}) => {
   )
 }
 
+const RenderCard = ({report, handleUpdate, handleOpen, state}) => {
+  const classes = useStyles();
+  const [edit, setEdit] = React.useState(false)
+
+  const handleClick = () => {
+    setEdit(false)
+  }
+
+  return (
+    <Card className={classes.root} elevation={0} key={report.id}>
+      {edit ? (
+        <CardContent>
+          <CustomTextField
+            report={report}
+            handleClick={handleClick}
+            handleUpdate={handleUpdate}
+          />
+        </CardContent>
+      ) : (
+        <>
+          <CardContent>
+            <Typography className={classes.title} color="textSecondary" gutterBottom>
+              {moment(report.created_at).format('LLLL')}
+            </Typography>
+            <Typography variant="body2" component="p">
+              {report.details}
+            </Typography>
+          </CardContent>
+          {state.user && state.user.id === report.user_id && (
+            <CardActions>
+              <Button
+                size="small"
+                variant="text"
+                color="secondary"
+                onClick={() => handleOpen(report.id)}
+                className={classes.button}
+                startIcon={<DeleteIcon />}>
+                Delete
+              </Button>
+              <Button
+                size="small"
+                variant="text"
+                color="primary"
+                onClick={() => setEdit(true)}
+                className={classes.button}
+                startIcon={<EditIcon />}>
+                Edit
+              </Button>
+            </CardActions>
+          )}
+        </>
+      )}
+  </Card>
+  )
+}
+
 const RenderConfirmDelete = ({open, id, handleClose, handleDelete}) => (
   <Dialog
       open={open}
@@ -120,7 +176,7 @@ const DailyReports = ({id}) => {
   const classes = useStyles();
   const {state} = React.useContext(UserContext);
   const [loading, setLoading] = React.useState(true);
-  const [edit, setEdit] = React.useState(false)
+  const [isPermitted, setIspermitted] = React.useState(false);
   const [formLoading, setFormLoading] = React.useState(false);
   const [reports, setReports] = React.useState([])
   const [details, setDetails] = React.useState('');
@@ -130,8 +186,8 @@ const DailyReports = ({id}) => {
     setReportId(null)
   }
 
-  const handleClick = () => {
-    setEdit(false)
+  const handleOpen = (id) => {
+    setReportId(id)
   }
 
   const handleUpdate = (report) => {
@@ -140,16 +196,18 @@ const DailyReports = ({id}) => {
     setReports(reports);
   }
  
-  const handleDelete = (user) => {
+  const handleDelete = (id) => {
     handleClose();
-    axios.delete(`${BASE_URL}/api/reports/${user}`)
+    axios.delete(`${BASE_URL}/api/reports/${id}`)
         .then(() => {
-            const newReports = reports.filter(report => report.id !== user);
+            const newReports = reports.filter(report => report.id !== id);
             setReports(newReports);
         })      
   }
 
   React.useEffect(() => {
+    const project = state.user && state.user.projects.find(project => project.id = id);
+    setIspermitted(Boolean(project));
     axios.get(`${BASE_URL}/api/reports/${id}`)
       .then(res => {
         setReports(res.data);
@@ -207,7 +265,7 @@ const DailyReports = ({id}) => {
                   <Button
                     color="primary"
                     variant="outlined"
-                    disabled={formLoading || !details}
+                    disabled={formLoading || !details || !isPermitted}
                     onClick={handleOnSave}>
                     Save
                   </Button>
@@ -224,50 +282,13 @@ const DailyReports = ({id}) => {
           ) : (
             <Paper className={classes.paper}>
               {reports.length > 0 && reports.map(report => (
-                <Card className={classes.root} elevation={0} key={report.id}>
-                  {edit ? (
-                    <CardContent>
-                      <CustomTextField
-                        report={report}
-                        handleClick={handleClick}
-                        handleUpdate={handleUpdate}
-                      />
-                    </CardContent>
-                  ) : (
-                    <>
-                      <CardContent>
-                        <Typography className={classes.title} color="textSecondary" gutterBottom>
-                          {moment(report.created_at).format('LLLL')}
-                        </Typography>
-                        <Typography variant="body2" component="p">
-                          {report.details}
-                        </Typography>
-                      </CardContent>
-                      {state.user && state.user.id === report.user_id && (
-                        <CardActions>
-                          <Button
-                            size="small"
-                            variant="text"
-                            color="secondary"
-                            onClick={() => setReportId(report.id)}
-                            className={classes.button}
-                            startIcon={<DeleteIcon />}>
-                            Delete
-                          </Button>
-                          <Button
-                            size="small"
-                            variant="text"
-                            color="primary"
-                            onClick={() => setEdit(true)}
-                            className={classes.button}
-                            startIcon={<EditIcon />}>
-                            Edit
-                          </Button>
-                        </CardActions>
-                      )}
-                    </>
-                  )}
-              </Card>
+                <RenderCard
+                  key={report.id}
+                  state={state}
+                  report={report}
+                  handleOpen={handleOpen}
+                  handleUpdate={handleUpdate}
+                />
               ))}
             </Paper>
           )}

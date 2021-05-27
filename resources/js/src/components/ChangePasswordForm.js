@@ -60,6 +60,7 @@ const ChangePasswordForm = () => {
         setCurrentPassword('');
         setNewPassword('');
         setConfirmNewPassword('');
+        location.reload();
     })
     .catch(err => {
         console.log(err.response);

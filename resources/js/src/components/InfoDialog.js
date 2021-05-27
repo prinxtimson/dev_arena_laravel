@@ -18,7 +18,7 @@ const InfoDialog = ({email_verified_at}) => {
   return (
     <div>
       <Dialog
-        open={open && location.pathname !== "/dashboard/change_password"}
+        open={open && location.pathname !== "/dashboard/change-password"}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"

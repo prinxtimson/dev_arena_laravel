@@ -12,6 +12,8 @@ class Issue extends Model
     protected $fillable = [
         'details',
         'resolve_at',
+        'assign_to',
+        'raise_by',
     ];
 
     protected $casts = [

@@ -8,6 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Chip from '@material-ui/core/Chip';
+import { Link, NavLink } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
@@ -41,10 +42,10 @@ const UserProjects = ({projects}) => {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell align="left">Developer</TableCell>
             <TableCell align="left">Start</TableCell>
-            <TableCell align="left">End</TableCell>
-            <TableCell align="left">Status</TableCell>
+            <TableCell align="left">Expected End Date</TableCell>
+            <TableCell align="left">End Date</TableCell>
+            <TableCell align="left">Weeks</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -58,19 +59,23 @@ const UserProjects = ({projects}) => {
                   let a = moment(project.end);
                   let b = moment.now();
                   return (
-                    <TableRow key={project.name}>
+                    <TableRow key={project.name} >
                       <TableCell component="th" scope="row">
-                        {project.name}
+                        <NavLink to={`projects/${project.id}`}>
+                          {project.name}
+                        </NavLink>
                       </TableCell>
-                      <TableCell align="left">{row.calories}</TableCell>
                       <TableCell align="left">
                         {moment(project.start).format('MMM Do YYYY')}
+                      </TableCell>
+                      <TableCell align="left">
+                        {moment(project.expected_end).format('MMM Do YYYY')}
                       </TableCell>
                       <TableCell align="left">
                         {moment(project.end).format('MMM Do YYYY')}
                       </TableCell>
                       <TableCell align="left">
-                        <Chip color="primary" label={a.diff(b) <= 0 ? 'Completed' : 'In progress'} />
+                        {a.diff(b, 'weeks') + 'Weeks'}
                       </TableCell>
                     </TableRow>
                   )

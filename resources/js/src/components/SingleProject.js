@@ -9,7 +9,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import Box from '@material-ui/core/Box';
 import ProjectDetails from './ProjectDetails';
 import DailyReports from './DailyReports';
-import Blockers from './Blockers';
+import ProjectBlockers from './ProjectBlockers';
 import EditProjectForm from './EditProjectForm';
 
 const TabPanel = (props) => {
@@ -89,7 +89,7 @@ const SingleProject = () => {
                   <DailyReports id={id} />
               </TabPanel>
               <TabPanel value={value} index={2}>
-                  <Blockers id={id} />
+                  <ProjectBlockers id={id} />
               </TabPanel>
               <TabPanel value={value} index={3}>
                   <EditProjectForm id={id} />

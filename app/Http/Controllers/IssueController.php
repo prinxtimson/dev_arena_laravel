@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 use App\Models\Project;
@@ -82,5 +83,27 @@ class IssueController extends Controller
     public function destroy($id)
     {
         return Issue::destroy($id);
+    }
+
+    public function close($id)
+    {
+        $issue = Issue::find($id);
+
+        $issue->update([
+            'resolve_at' => Carbon::now(),
+        ]);
+
+        return $issue->refresh();
+    }
+
+    public function open($id)
+    {
+        $issue = Issue::find($id);
+
+        $issue->update([
+            'resolve_at' => null,
+        ]);
+
+        return $issue->refresh();
     }
 }

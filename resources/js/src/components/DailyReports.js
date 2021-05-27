@@ -193,7 +193,7 @@ const DailyReports = ({id}) => {
   const handleUpdate = (report) => {
     const index = reports.findIndex(val => val.id === report.id);
     reports.splice(index, 1, report);
-    setReports(reports);
+    setReports([...reports]);
   }
  
   const handleDelete = (id) => {

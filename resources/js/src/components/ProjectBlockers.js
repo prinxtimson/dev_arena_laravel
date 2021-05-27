@@ -15,6 +15,8 @@ import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
 import EditIcon from '@material-ui/icons/Edit';
+import DoneAllIcon from '@material-ui/icons/DoneAll';
+import LoopIcon from '@material-ui/icons/Loop';
 import Paper from '@material-ui/core/Paper';
 import moment from 'moment';
 import { UserContext } from '../context/GlobalState';
@@ -112,6 +114,20 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
     setEdit(false)
   }
 
+  const handleOnClose = () => {
+    axios.get(`${BASE_URL}/api/issues/close/${blocker.id}`)
+        .then(res => {
+            handleUpdate(res.data);
+        })      
+  }
+
+  const handleOnOpen = () => {
+    axios.get(`${BASE_URL}/api/issues/open/${blocker.id}`)
+        .then(res => {
+            handleUpdate(res.data);
+        })      
+  }
+
   return (
     <Card className={classes.root} elevation={0} key={blocker.id}>
       {edit ? (
@@ -160,17 +176,21 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
                 <Button
                   size="small"
                   variant="text"
-                  color="secondary"
+                  color="primary"
+                  disabled={Boolean(blocker.resolve_at)}
+                  onClick={handleOnClose}
                   className={classes.button}
-                  startIcon={<EditIcon />}>
+                  startIcon={<DoneAllIcon />}>
                   Close
                 </Button>
                 <Button
                   size="small"
                   variant="text"
                   color="secondary"
+                  onClick={handleOnOpen}
+                  disabled={!blocker.resolve_at}
                   className={classes.button}
-                  startIcon={<EditIcon />}>
+                  startIcon={<LoopIcon />}>
                   Open
                 </Button>
               </>
@@ -232,7 +252,7 @@ const ProjectBlockers = ({id}) => {
     const index = blockers.findIndex(val => val.id === blocker.id);
     blockers.splice(index, 1, blocker);
     //console.log(blockers)
-    setBlockers(blockers);
+    setBlockers([...blockers]);
   }
  
   const handleDelete = (id) => {

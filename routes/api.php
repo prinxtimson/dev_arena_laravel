@@ -46,7 +46,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/reports/{id}', [ReportController::class, 'update']);
     Route::delete('/reports/{id}', [ReportController::class, 'destroy']);
     Route::get('/issues/{id}', [IssueController::class, 'index']);
-    //Route::get('/issues/{id}', [IssueController::class, 'show']);
     Route::post('/issues/{id}', [IssueController::class, 'store']);
     Route::put('/issues/{id}', [IssueController::class, 'update']);
     Route::delete('/issues/{id}', [IssueController::class, 'destroy']);
@@ -56,6 +55,8 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin|super-admin']], funct
     //
     Route::post('/projects', [ProjectController::class, 'store']);
     Route::put('/projects/{id}', [ProjectController::class, 'update']);
+    Route::get('/issues/close/{id}', [IssueController::class, 'close']);
+    Route::get('/issues/open/{id}', [IssueController::class, 'open']);
     Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
     //Route::put('/projects', [ProjectController::class, 'update']);
     Route::put('/assign-dev/{id}/{dev}', [ProjectController::class, 'assign_dev']);

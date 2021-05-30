@@ -241,7 +241,8 @@ const DailyReports = ({id}) => {
           handleDelete={handleDelete}
         />
       <Grid container spacing={2}>
-        <Grid item sm={4} xs={12}>
+        {state.user && state.user.roles[0].name === 'developer' && (
+          <Grid item sm={4} xs={12}>
           {loading ? (
             <Skeleton variant="rect" width="100%">
               <div style={{ paddingTop: '35%' }} />
@@ -274,7 +275,8 @@ const DailyReports = ({id}) => {
             </Paper>
           )}
         </Grid>
-        <Grid item sm={8} xs={12}>
+        )}       
+        <Grid item sm={state.user && state.user.roles[0].name === 'developer' ? 8 : 12} xs={12}>
           {loading ? (
             <Skeleton variant="rect" width="100%">
               <div style={{ paddingTop: '45%' }} />

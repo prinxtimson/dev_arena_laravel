@@ -70,8 +70,6 @@ class AuthController extends Controller
         $fields = $request->validate([
             'firstname' => 'required|string',
             'lastname' => 'required|string',
-            'dev_stack' => 'required|string',
-            'phone' => 'required|string',
         ]);
 
         //$user = User::find($user);
@@ -80,12 +78,7 @@ class AuthController extends Controller
             strtolower($fields['firstname'].$fields['lastname']),
         ]);
 
-        $user->profile()->update([
-            'firstname' => $fields['firstname'],
-            'lastname' => $fields['lastname'],
-            'dev_stack' => $fields['dev_stack'],
-            'phone' => $fields['phone'],
-        ]);
+        $user->profile()->update($request->all());
 
         $response = [
             'user' => $user->load(['profile', 'projects', 'roles'])

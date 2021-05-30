@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Http\Request;
@@ -21,7 +22,9 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::with('roles')->paginate(20);
+        $users = User::with(['roles', 'projects' => function ($query) {
+            $query->where('end', '>', Carbon::now());
+        }])->paginate(20);
 
         return $users;
     }

@@ -11,6 +11,7 @@ import ProjectDetails from './ProjectDetails';
 import DailyReports from './DailyReports';
 import ProjectBlockers from './ProjectBlockers';
 import EditProjectForm from './EditProjectForm';
+import { UserContext } from '../context/GlobalState';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -54,6 +55,7 @@ function a11yProps(index) {
 
 const SingleProject = () => {
   const [value, setValue] = React.useState(0);
+  const {state} = React.useContext(UserContext);
   const [loading, setLoading] = React.useState(false);
   const {id} = useParams();
 
@@ -73,7 +75,9 @@ const SingleProject = () => {
           <AntTab label="Details" {...a11yProps(0)} />
           <AntTab label="Daily Updates" {...a11yProps(1)} />
           <AntTab label="Blockers" {...a11yProps(2)} />
-          <AntTab label="Edit Project" {...a11yProps(3)} />
+          {state.user && state.user.roles[0].name === 'admin' && (
+            <AntTab label="Edit Project" {...a11yProps(3)} />
+          )}
         </Tabs>
         <div>
           {loading ? (
@@ -91,9 +95,11 @@ const SingleProject = () => {
               <TabPanel value={value} index={2}>
                   <ProjectBlockers id={id} />
               </TabPanel>
-              <TabPanel value={value} index={3}>
+              {state.user && state.user.roles[0].name === 'admin' && (
+                <TabPanel value={value} index={3}>
                   <EditProjectForm id={id} />
-              </TabPanel>
+                </TabPanel>
+              )}
             </>
           )}
         </div>

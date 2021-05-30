@@ -160,7 +160,7 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading, handleSaveEdit, error, handleUpdate}) => {
+const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading, handleSaveEdit, error, handleUpdate, dev}) => {
   const [editDev, setEditDev] = React.useState(false);
   const classes = useStyles();
   const [data, setData] = React.useState({
@@ -172,6 +172,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
   });
   let a = moment(project.end);
   let b = moment();
+  let c = moment(project.start);
 
   const handleSaveChanges = () => {
     handleSaveEdit(data);
@@ -180,6 +181,10 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
   const handleClick = () => {
     setEditDev(false)
   }
+
+  React.useEffect(() => {
+    setEditDev(dev);
+  }, [dev])
 
   return (
     <>
@@ -191,7 +196,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
           {!isEdit && (
           <ListItemText
           primary="Status"
-          secondary={a.diff(b) <= 0 ? 'Completed' : 'In progress'}/>
+          secondary={b.diff(c) <= 0 ? 'Not Started' : a.diff(b) <= 0 ? 'Completed' : 'In progress'}/>
           )}
           {error ? (
             <Alert onClose={() => setError(null)} severity="error">
@@ -308,7 +313,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
                   id="end_date"
                   label="End Date"
                   name="end_date"
-                  type="date"
+                  type=""
                   autoFocus
                   defaultValue={moment(data.end).format('L')}
                   InputLabelProps={{

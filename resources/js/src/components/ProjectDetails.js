@@ -88,9 +88,7 @@ const ProjectDetails = ({id}) => {
             </Skeleton>
           ) : (
             <Paper className={classes.paper}>
-            <ListItemText
-                  primary="End"
-                  secondary={moment(project.end).format('MMM Do YYYY')}/>
+            <ListItemText primary="" />
             </Paper>
           )}
         </Grid>

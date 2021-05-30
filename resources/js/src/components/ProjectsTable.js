@@ -6,17 +6,23 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
+import TableFooter from '@material-ui/core/TableFooter';
 import TableRow from '@material-ui/core/TableRow';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
+import TablePagination from '@material-ui/core/TablePagination';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import AppContainer from './AppContainer';
-import ListItemText from '@material-ui/core/ListItemText';
+import Badge from '@material-ui/core/Badge';
 import { Link } from 'react-router-dom';
 import { axios, BASE_URL } from '../utils/utils';
 import ProjectDailog from './ProjectDailog';
@@ -43,7 +49,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Row = ({row}) => {
+const RenderDeleteConfirmationDialog = ({open, row, handleClose, handleDelete}) => (
+  <Dialog
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+  >
+      <DialogTitle id="alert-dialog-title">
+          Confirm Delete
+      </DialogTitle>
+      <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+              You are about to delete {`${row && row.name}`} from the platform, click DELETE if you wish to continue or CANCEL to cancel
+          </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+          <Button onClick={handleClose} color="primary">
+              Cancel
+          </Button>
+          <Button onClick={handleDelete} color="primary" autoFocus>
+              Delete
+          </Button>
+      </DialogActions>
+  </Dialog>
+)
+
+const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [project, setProject] = React.useState(row);
@@ -51,16 +83,29 @@ const Row = ({row}) => {
   const [error, setError] = React.useState(null);
   const [msg, setMsg] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+  const [openDel, setOpenDel] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState(false);
+  const [dev, setDev] = React.useState(false);
+  const [weeks, setWeeks] = React.useState();
+  const issueCount = row.issues.length;
   let a = moment(project.end);
   let b = moment();
 
   const handleDialogOpen = () => {
     setOpen(true);
   };
+
   const handleDialogClose = () => {
     setIsEdit(false);
     setOpen(false);
+  };
+
+  const handleDelDialogOpen = () => {
+    setOpenDel(true);
+  };
+
+  const handleDelDialogClose = () => {
+    setOpenDel(false);
   };
 
   const handleClick = (event) => {
@@ -73,12 +118,47 @@ const Row = ({row}) => {
     handleDialogOpen();
   }
 
+  const handleAssignDev = () => {
+    handleDialogOpen();
+    setDev(true)
+  }
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const handleUpdate = (data) => {
     setProject(data);
+  }
+
+  const handleCloseProject = () => {
+    handleClose();
+    axios.put(`${BASE_URL}/api/projects/close/${row.id}`)
+        .then(res => {
+          //console.log(res.data)
+            setMsg(`Project ${row.name} had been closed successfuly`);
+            handleUpdateRows(res.data.project);
+            setProject(res.data.project);
+        }) 
+        .catch(err => {
+          console.log(err.response);
+          setError(err.response.data);
+      })
+  }
+
+  const handleDeleteProject = () => {
+    handleClose();
+    handleDelDialogClose();
+    axios.delete(`${BASE_URL}/api/projects/${row.id}`)
+        .then(res => {
+            setMsg(`Project ${row.name} had been deleted successfuly`);
+            handleDeleteRow(row.id);
+        }) 
+        .catch(err => {
+          console.log(err.response);
+          setLoading(false);
+          setError(err.response.data);
+      })
   }
 
   const handleSaveEdit = (data) => {
@@ -89,6 +169,7 @@ const Row = ({row}) => {
             setLoading(false);
             setMsg(res.data.msg);
             setProject(res.data.project);
+            handleUpdateRows(res.data.project)
             setIsEdit(false);
         })
         .catch(err => {
@@ -105,11 +186,18 @@ const Row = ({row}) => {
         handleClose={handleDialogClose}
         handleSaveEdit={handleSaveEdit}
         isEdit={isEdit}
+        dev={dev}
         handleEdit={handleEdit}
         handleUpdate={handleUpdate}
         project={project}
         loading={loading}
         error={error}
+      />
+      <RenderDeleteConfirmationDialog
+          open={openDel}
+          row={row}
+          handleClose={handleDelDialogClose}
+          handleDelete={handleDeleteProject}
       />
       <Snackbar
           open={Boolean(msg)}
@@ -127,7 +215,7 @@ const Row = ({row}) => {
       </Snackbar>
       <StyledTableRow>
         <StyledTableCell component="th" scope="row" onClick={handleDialogOpen}>
-          {project.name}
+          <Badge badgeContent={issueCount} color="error">{project.name}</Badge>
         </StyledTableCell>
         <StyledTableCell align="left">
           {moment(project.start).format('MMM Do YYYY')}
@@ -153,6 +241,9 @@ const Row = ({row}) => {
             handleClose={handleClose}
             anchorEl={anchorEl}
             handleEdit={handleEdit}
+            handleDelDialogOpen={handleDelDialogOpen}
+            handleCloseProject={handleCloseProject}
+            handleAssignDev={handleAssignDev}
           />
         </StyledTableCell>
       </StyledTableRow>
@@ -160,7 +251,7 @@ const Row = ({row}) => {
   )
 }
 
-const DropMenu = ({anchorEl, handleClose, handleEdit, id}) => {
+const DropMenu = ({anchorEl, handleClose, handleEdit, id, handleAssignDev, handleCloseProject, handleDelDialogOpen}) => {
 
   return (
     <Menu
@@ -179,8 +270,10 @@ const DropMenu = ({anchorEl, handleClose, handleEdit, id}) => {
       onClose={handleClose}
     >
       <MenuItem component={Link} onClick={handleClose} to={`/dashboard/projects/${id}`}>View</MenuItem>
+      <MenuItem onClick={handleAssignDev}>Assign Dev</MenuItem>
       <MenuItem onClick={handleEdit}>Edit</MenuItem>
-      <MenuItem onClick={handleClose}>Delete</MenuItem>
+      <MenuItem onClick={handleCloseProject}>Close</MenuItem>
+      <MenuItem onClick={handleDelDialogOpen}>Delete</MenuItem>
     </Menu>
   )
 }
@@ -205,9 +298,12 @@ const StyledTableRow = withStyles((theme) => ({
 
 const ProjectsTable = () => {
   const classes = useStyles();
+  const [page, setPage] = React.useState(0);
   const [state, setState] = React.useState({
-    rows: [],
+    data: [],
     loading: false,
+    per_page: 0,
+    total: 0,
     error: null,
     msg: null
   });
@@ -216,14 +312,40 @@ const ProjectsTable = () => {
     setState({...state, loading: true});
     axios.get(`${BASE_URL}/api/projects`)
         .then(res => {
-            //console.log(res.data.data)
-            setState({...state, rows: res.data.data, loading: false});
+            console.log(res.data)
+            setState({...state, ...res.data, loading: false});
         })
         .catch(err => {
             console.log(err.response);
             setState({...state, error: err.response.data, loading: false});
         });
   }, []);
+
+  const handleUpdateRows = (project) => {
+    const currentRows = state.data;
+    const index = currentRows.findIndex(row => row.id === project.id);
+    currentRows.splice(index, 1, project);
+    setState({...state, data: [...currentRows]});
+  }
+
+  const handleDeleteRow = (id) => {
+    const newRows = state.data.filter(row => row.id !== id);
+    setState({...state, data: newRows, per_page: state.per_page - 1});
+  }
+
+  const handleChangePage = (event, newPage) => {
+    const number = newPage + 1
+    axios.get(`${BASE_URL}/api/projects?page=${number}`)
+        .then(res => {
+            console.log(res.data)
+            setPage(newPage);
+            setState({...state, ...res.data, loading: false});
+        })
+        .catch(err => {
+            console.log(err.response);
+            setState({...state, error: err.response.data, loading: false});
+        });
+  };
 
   return (
     <AppContainer>
@@ -233,8 +355,7 @@ const ProjectsTable = () => {
         </Skeleton>
       ) : ( 
       <Paper variant="outlined" className={classes.paper}>
-        <TableContainer component={Paper}>
-          <div className={classes.btnContainer}>
+        <div className={classes.btnContainer}>
             <Button
                 variant="contained"
                 color="primary"
@@ -245,6 +366,8 @@ const ProjectsTable = () => {
                 Add Project
             </Button>
           </div>
+        <TableContainer component={Paper}>
+          
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -257,16 +380,31 @@ const ProjectsTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {state.rows.length === 0 ? (
+              {state.data.length === 0 ? (
                   <TableRow>
                       <StyledTableCell scope="row">
                           No Data Available.
                       </StyledTableCell>
                   </TableRow>
-                ) : state.rows.map((row) => (
-                <Row row={row} key={row.name} />
+                ) : state.data.map((row) => (
+                <Row
+                  row={row}
+                  key={row.name}
+                  handleDeleteRow={handleDeleteRow}
+                  handleUpdateRows={handleUpdateRows} />
               ))}
             </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[20]}
+                  rowsPerPage={state.per_page}
+                  count={state.total}
+                  page={page}
+                  onChangePage={handleChangePage}
+                />
+              </TableRow>
+            </TableFooter>
           </Table>
         </TableContainer>
       </Paper>

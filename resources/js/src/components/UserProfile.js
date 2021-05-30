@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -53,7 +54,17 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         padding: theme.spacing(2),
         borderRadius: 15,
-    }
+    },
+    red: {
+        backgroundColor: 'red',
+        color: 'white',
+        marginLeft: theme.spacing(2),
+    },
+    green: {
+        backgroundColor: 'green',
+        color: 'white',
+        marginLeft: theme.spacing(2),
+    },
 }));
 
 
@@ -61,7 +72,7 @@ const UserProfile = () => {
 const classes = useStyles();
 const {id} = useParams();
 const [loading, setLoading] = React.useState(true);
-const [user, setUser] = React.useState({});
+const [user, setUser] = React.useState(null);
 
 const handleUploadAvatar = (img) => {
     const config = {
@@ -114,14 +125,24 @@ React.useEffect(() => {
                                 {user && user.profile && `${user.profile.firstname.charAt(0)}${user.profile.lastname.charAt(0)}`}
                             </Avatar>
                         </>
-                        <ListItemText
-                            primary={user && user.name}
-                            secondary={user && user.roles && user.roles[0].name}
-                            primaryTypographyProps={{
-                                variant: 'h6',
-                                component: 'h6'
-                            }}
-                        />
+                        <>
+                            <ListItemText
+                                primary={user && user.name}
+                                secondary={user && user.roles && user.roles[0].name}
+                                primaryTypographyProps={{
+                                    variant: 'h6',
+                                    component: 'h6'
+                                }}
+                            />
+                            {user.roles[0] && user.roles[0].name === 'developer' && 
+                            (
+                                <Chip
+                                    size="small"
+                                    label={user.projects.length >= 2 ? 'Not available' : 'Available'}
+                                    className={user.projects.length >= 2 ? classes.red : classes.green}
+                                />
+                            )}
+                        </>
                     </CardContent>
                 </CardActionArea>
             </Card>
@@ -129,7 +150,7 @@ React.useEffect(() => {
             <div className={classes.clear} style={{margin: loading ? 20 : 0}} />
             <Container >
                 <Grid container spacing={5} justify="flex-start">
-                    <Grid item sm={12} md={4}>
+                    <Grid item sm={12} md={user && user.roles[0] && user.roles[0].name === 'developer' ? 4 : 12}>
                         {loading ? (
                           <Skeleton variant="rect" width="100%">
                             <div style={{ paddingTop: '70%' }} />
@@ -201,15 +222,17 @@ React.useEffect(() => {
                         </Paper>
                         )}
                     </Grid>
-                    <Grid item sm={12} md={8}>
-                        {loading ? (
-                          <Skeleton variant="rect" width="100%">
-                            <div style={{ paddingTop: '57%' }} />
-                          </Skeleton>
-                        ) : (                                
-                          <UserProjects projects={user && user.projects} />  
-                        )}                      
-                    </Grid>
+                    {user && user.roles[0] && user.roles[0].name === 'developer' && (
+                        <Grid item sm={12} md={8}>
+                            {loading ? (
+                            <Skeleton variant="rect" width="100%">
+                                <div style={{ paddingTop: '57%' }} />
+                            </Skeleton>
+                            ) : (                                
+                            <UserProjects projects={user && user.projects} />  
+                            )}                      
+                        </Grid>
+                    )}
                 </Grid>
             </Container>
         </AppContainer>

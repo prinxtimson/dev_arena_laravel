@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 const EditProjectForm = ({id}) => {
   const classes = useStyles();
   const [loading, setLoading] = React.useState(true);
+  const [loading2, setLoading2] = React.useState(false);
   const [error, setError] = React.useState(null);
   const [msg, setMsg] = React.useState(null);
   const [data, setData] = React.useState({
@@ -57,16 +58,16 @@ const EditProjectForm = ({id}) => {
 
 const handleSubmit = (e) => {
   e.preventDefault();
-  setLoading(true);
-  axios.put(`${BASE_URL}/api/projects/${project.id}`, data)
+  setLoading2(true);
+  axios.put(`${BASE_URL}/api/projects/${id}`, data)
       .then(res => {
-          setLoading(false);
+          setLoading2(false);
           setMsg(res.data.msg);
           setData(...res.data.project);
       })
       .catch(err => {
           console.log(err.response);
-          setLoading(false);
+          setLoading2(false);
           setError(err.response.data);
       })
   
@@ -161,7 +162,7 @@ React.useEffect(() => {
                 fullWidth
                 id="start"
                 label="Start Date"
-                type="date"
+                type=""
                 name="start"
                 defaultValue={moment(data.start).format('L')}
                 InputLabelProps={{
@@ -177,12 +178,12 @@ React.useEffect(() => {
                 id="expected_end"
                 label="Expected End Date"
                 name="expected_end"
-                type="date"
+                type=""
                 defaultValue={moment(data.expected_end).format('L')}
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={e => setData({...data, end: e.target.value})}
+                onChange={e => setData({...data, expected_end: e.target.value})}
               />
               <TextField
                 variant="outlined"
@@ -192,7 +193,7 @@ React.useEffect(() => {
                 id="end"
                 label="End Date"
                 name="end"
-                type="date"
+                type=""
                 value={moment(data.end).format('L')}
                 defaultValue={moment(data.end).format('L')}
                 InputLabelProps={{
@@ -207,7 +208,7 @@ React.useEffect(() => {
                 color="primary"
                 size="large"
                 className={classes.submit}
-                disabled={loading || !data.name || !data.end || !data.start}
+                disabled={loading2 || !data.name || !data.end || !data.start}
                 onClick={handleSubmit}
               >
                 Submit

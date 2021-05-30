@@ -15,6 +15,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Paper from '@material-ui/core/Paper';
+import Chip from '@material-ui/core/Chip';
 import AppContainer from './AppContainer';
 import { axios, BASE_URL } from '../utils/utils';
 import { UserContext } from '../context/GlobalState';
@@ -29,7 +30,15 @@ const useStyles = makeStyles((theme) => ({
     },
     table: {
         borderWidth: 0
-    }
+    },
+    red: {
+        backgroundColor: 'red',
+        color: 'white'
+    },
+    green: {
+        backgroundColor: 'green',
+        color: 'white'
+    },
 }));
 
 const StyledTableCell = withStyles((theme) => ({
@@ -125,7 +134,7 @@ const UsersTable = () => {
         setState({...state, loading: true});
         axios.get(`${BASE_URL}/api/users`)
             .then(res => {
-                //console.log(res.data)
+                console.log(res.data)
                 setState({...state, rows: res.data.data, loading: false});
             })
             .catch(err => {
@@ -196,7 +205,13 @@ const UsersTable = () => {
                                         //to={`profile/${row.id}`}
                                         //onClick={() => handleOnClick(row.id)}
                                         >
-                                        <NavLink to={`profile/${row.id}`}>{row.name}</NavLink>
+                                        <NavLink to={`profile/${row.id}`}>{row.name}</NavLink> {row.roles[0] && row.roles[0].name === 'developer' && (
+                                            <Chip
+                                                size="small"
+                                                label={row.projects.length >= 2 ? 'Not available' : 'Available'}
+                                                className={row.projects.length >= 2 ? classes.red : classes.green}
+                                                />
+                                            )}
                                     </StyledTableCell>
                                     <StyledTableCell align="left">
                                         {row.username}

@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin|super-admin']], funct
     //
     Route::post('/projects', [ProjectController::class, 'store']);
     Route::put('/projects/{id}', [ProjectController::class, 'update']);
+    Route::put('/projects/close/{id}', [ProjectController::class, 'close']);
     Route::get('/issues/close/{id}', [IssueController::class, 'close']);
     Route::get('/issues/open/{id}', [IssueController::class, 'open']);
     Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);

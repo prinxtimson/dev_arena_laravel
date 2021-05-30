@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Project; 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,7 +22,9 @@ class ProjectController extends Controller
     public function index()
     {
         //
-        return Project::with('developers')->paginate(20);
+        return Project::with(['developers', 'issues' => function ($query) {
+            $query->where('resolve_at', '=', null);
+        }])->paginate(20);
     }
 
     /**
@@ -83,6 +86,10 @@ class ProjectController extends Controller
         $project = Project::find($id);
         $project->update($request->all());
 
+        $project->load(['developers', 'issues' => function ($query) {
+            $query->where('resolve_at', '=', null);
+        }]);
+
         $response = [
             'project' => $project,
             'msg' => 'Project updated successfully.'
@@ -103,6 +110,26 @@ class ProjectController extends Controller
         return  Project::destroy($id);
     }
 
+    public function close($id)
+    {
+        $project = Project::find($id);
+
+        $project->update([
+            'end' => Carbon::now(),
+        ]);
+
+        $project->refresh()->load(['developers', 'issues' => function ($query) {
+            $query->where('resolve_at', '=', null);
+        }]);
+
+        $response = [
+            'project' => $project,
+            'msg' => 'Project closed successfully.'
+        ];
+
+        return $response;
+    }
+
     public function assign_dev(Request $request, $id, $dev)
     {
         $user = User::find($dev);
@@ -113,7 +140,9 @@ class ProjectController extends Controller
 
         $project->developers()->attach($dev);
 
-        $project->refresh()->load('developers');
+        $project->refresh()->load(['developers', 'issues' => function ($query) {
+            $query->where('resolve_at', '=', null);
+        }]);
 
         $fields = [
             'project' => $project,

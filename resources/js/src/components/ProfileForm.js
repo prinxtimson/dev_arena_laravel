@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {UserContext} from '../context/GlobalState';
+import { axios, BASE_URL } from '../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 const ProfileForm = () => {
   const classes = useStyles();
   const {state, updateUser} = React.useContext(UserContext);
+  const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState({
     firstname: '',
     lastname: '',
@@ -37,15 +39,24 @@ const ProfileForm = () => {
     setData({
       firstname: state.user && state.user.profile.firstname,
       lastname: state.user && state.user.profile.lastname,
-      dev_stack: state.user && state.user.profile.dev_stack,
-      phone: state.user && state.user.profile.phone,
-      github: state.user && state.user.profile.github,
+      dev_stack: state.user && state.user.profile.dev_stack ? state.user.profile.dev_stack : '',
+      phone: state.user && state.user.profile.phone ? state.user.profile.phone : '',
+      github: state.user && state.user.profile.github ? state.user.profile.github : '',
     })
   }, [state.user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateUser(data);
+    setLoading(true);
+    axios.put(`${BASE_URL}/api/update`, data)
+        .then(res => {
+          updateUser({user: res.data.user});
+          setLoading(false);
+        })
+        .catch(err => {
+          console.log(err.response);
+          setLoading(false);
+        });
   }
 
   return (
@@ -98,7 +109,7 @@ const ProfileForm = () => {
               label="Phone Number"
               name="phone"
               value={data.phone}
-              onChange={e => setData({...data, email: e.target.value})}
+              onChange={e => setData({...data, phone: e.target.value})}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -111,7 +122,7 @@ const ProfileForm = () => {
               label="Github URL"
               name="github_url"
               value={data.github}
-              onChange={e => setData({...data, email: e.target.value})}
+              onChange={e => setData({...data, github: e.target.value})}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -124,7 +135,7 @@ const ProfileForm = () => {
               label="Dev Stack"
               name="dev_stack"
               value={data.dev_stack}
-              onChange={e => setData({...data, email: e.target.value})}
+              onChange={e => setData({...data, dev_stack: e.target.value})}
             />
           </Grid>
           <Grid item xs={12} md={6} />
@@ -136,7 +147,7 @@ const ProfileForm = () => {
               color="primary"
               size="large"
               onClick={handleSubmit}
-              disabled={state.loading || !data.firstname || !data.lastname || !data.phone || !data.github || !data.dev_stack}
+              disabled={loading || !data.firstname || !data.lastname}
               //className={classes.submit}
             >
               Save Changes

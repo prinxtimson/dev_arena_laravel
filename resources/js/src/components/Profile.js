@@ -196,9 +196,14 @@ const handleUploadAvatar = (img) => {
                         textColor="primary"
                         
                     >
-                        <AntTab label="Projects" {...a11yProps(0)} />
-                        <AntTab label="Resouces" {...a11yProps(1)} />
-                        <AntTab label="Edit Profile" {...a11yProps(2)} />
+                        {state.user && state.user.roles[0].name === 'developer' ? (
+                            <>
+                                <AntTab label="Projects" {...a11yProps(0)} />
+                                <AntTab label="Resouces" {...a11yProps(1)} />
+                                <AntTab label="Edit Profile" {...a11yProps(2)} />
+                            </>
+                        ) : null}
+                       
                     </Tabs>
                 </CardActions>
             </Card>
@@ -285,15 +290,24 @@ const handleUploadAvatar = (img) => {
                           </Skeleton>
                         ) : (
                             <>
-                                <TabPanel value={value} index={0}>
-                                    <UserProjects projects={state.user.projects} />
-                                </TabPanel>
-                                <TabPanel value={value} index={1}>
-                                    <ResoucesTable />
-                                </TabPanel>
-                                <TabPanel value={value} index={2}>
+                                {state.user && state.user.roles[0].name === 'developer' ? (
+                                    <>
+                                        <TabPanel value={value} index={0}>
+                                            <UserProjects projects={state.user.projects} />
+                                        </TabPanel>
+                                        <TabPanel value={value} index={1}>
+                                            <ResoucesTable />
+                                        </TabPanel>
+                                        <TabPanel value={value} index={2}>
+                                            <ProfileForm />
+                                        </TabPanel>
+                                    </>
+                                ) : (
+                                    
                                     <ProfileForm />
-                                </TabPanel>
+                                   
+                                )}
+                                
                             </>
                         )}                      
                     </Grid>

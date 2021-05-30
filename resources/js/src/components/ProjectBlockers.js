@@ -303,40 +303,42 @@ const ProjectBlockers = ({id}) => {
         handleDelete={handleDelete}
       />
       <Grid container spacing={2}>
-        <Grid item sm={4} xs={12}>
-          {loading ? (
-            <Skeleton variant="rect" width="100%">
-              <div style={{ paddingTop: '35%' }} />
-            </Skeleton>
-          ) : (
-            <Paper className={classes.paper}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    id="blocker"
-                    label="Blocker Details"
-                    className={classes.textfield}
-                    multiline
-                    rows={4}
-                    value={data.details}
-                    onChange={e => setData({...data, details: e.target.value})}
-                    variant="outlined"
-                  />
+        {state.user && state.user.roles[0].name === 'developer' && (
+          <Grid item sm={4} xs={12}>
+            {loading ? (
+              <Skeleton variant="rect" width="100%">
+                <div style={{ paddingTop: '35%' }} />
+              </Skeleton>
+            ) : (
+              <Paper className={classes.paper}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      id="blocker"
+                      label="Blocker Details"
+                      className={classes.textfield}
+                      multiline
+                      rows={4}
+                      value={data.details}
+                      onChange={e => setData({...data, details: e.target.value})}
+                      variant="outlined"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      color="primary"
+                      onClick={handleOnSave}
+                      disabled={formLoading || !data.details || !isPermitted}
+                      variant="outlined">
+                      Save
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    color="primary"
-                    onClick={handleOnSave}
-                    disabled={formLoading || !data.details || !isPermitted}
-                    variant="outlined">
-                    Save
-                  </Button>
-                </Grid>
-              </Grid>
-            </Paper>
-          )}
-        </Grid>
-        <Grid item sm={8} xs={12}>
+              </Paper>
+            )}
+          </Grid>
+        )}
+        <Grid item sm={state.user && state.user.roles[0].name === 'developer' ? 8 : 12} xs={12}>
           {loading ? (
             <Skeleton variant="rect" width="100%">
               <div style={{ paddingTop: '45%' }} />

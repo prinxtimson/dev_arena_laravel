@@ -61,6 +61,9 @@ const AddProjectForm = () => {
               name: '',
               start: '',
               end: '',
+              slug: '',
+              mandate: '',
+              project_pm: '',
             });
         })
         .catch(err => {

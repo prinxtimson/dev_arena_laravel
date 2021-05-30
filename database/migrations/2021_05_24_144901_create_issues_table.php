@@ -16,6 +16,7 @@ class CreateIssuesTable extends Migration
         Schema::create('issues', function (Blueprint $table) {
             $table->id();
             $table->string('details');
+            $table->string('ticket_no');
             $table->foreignId('raise_by')
                   ->constrained('users')->onDelete('cascade');
             $table->foreignId('assign_to')

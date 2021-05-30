@@ -20,6 +20,10 @@ const useStyles = makeStyles(theme => ({
     title: {
       flexGrow: 1,
     },
+    image: {
+        width: 85,
+        height: 42,
+    }
 }));
 
 const AppNavBar = () => {

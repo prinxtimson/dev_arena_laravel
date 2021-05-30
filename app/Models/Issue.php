@@ -14,6 +14,7 @@ class Issue extends Model
         'resolve_at',
         'assign_to',
         'raise_by',
+        'ticket_no',
     ];
 
     protected $casts = [

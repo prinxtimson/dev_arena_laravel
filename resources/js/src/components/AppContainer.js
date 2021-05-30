@@ -7,7 +7,7 @@ const HEIGHT = window.innerHeight;
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        minHeight: HEIGHT,
+        backgroundColor: 'white',
     },
     innerContainer: {
         margin: theme.spacing(5, 0),
@@ -21,7 +21,7 @@ function AppContainer({children}) {
     const classes = useStyles();
 
     return (
-        <div className="container-fluid">
+        <div className={[classes.container]}>     
             <CssBaseline />
             {children}
             <MainFooter />

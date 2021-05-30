@@ -8,6 +8,8 @@ use App\Models\Project;
 use App\Models\User; 
 use App\Models\Issue; 
 use App\Notifications\IssueRaised;
+use App\Notifications\IssueResolved;
+use App\Notifications\IssueReopen;
 use Illuminate\Support\Facades\Notification;
 
 class IssueController extends Controller
@@ -40,9 +42,13 @@ class IssueController extends Controller
             'details' => $request->details,
             'raise_by' => $user->id,
             ]);
+
+        $issue->update([
+            'ticket_no' => 'DEVISSUE-'.$issue->id,
+        ]);
         
         Notification::send($admins, new IssueRaised($user, $project));
-        return $issue;
+        return $issue->refresh();
     }
 
     /**
@@ -71,7 +77,7 @@ class IssueController extends Controller
 
         $issue->update($request->all());
 
-        return $issue->refresh();
+        return $issue->refresh()->load('project');
     }
 
     /**
@@ -88,12 +94,17 @@ class IssueController extends Controller
     public function close($id)
     {
         $issue = Issue::find($id);
+        $user = User::find($issue->raise_by);
 
         $issue->update([
             'resolve_at' => Carbon::now(),
         ]);
 
-        return $issue->refresh();
+        $issue->refresh()->load('project');
+
+        $user->notify(new IssueResolved($issue));
+
+        return $issue;
     }
 
     public function open($id)
@@ -104,6 +115,10 @@ class IssueController extends Controller
             'resolve_at' => null,
         ]);
 
-        return $issue->refresh();
+        $issue->refresh()->load('project');
+
+        $user->notify(new IssueReopen($issue));
+
+        return $issue;
     }
 }

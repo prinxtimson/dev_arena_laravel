@@ -83,7 +83,7 @@ const NotificationsMenu = ({notifications, anchorE2, handleClose, handleOnFocus}
   const classes = useStyles();
   const [openDialog, setOpenDialog] = React.useState(false);
   const [currentNotification, setCurrentNotification] = React.useState({})
-  
+
   const handleDialogOpen = (notification) => {
     setCurrentNotification(notification);
     setOpenDialog(true);
@@ -163,6 +163,26 @@ const NotificationsMenu = ({notifications, anchorE2, handleClose, handleOnFocus}
             <div key={notification.id}>
             <ListItem button onClick={() => handleClick(notification.data.project_id)}>
               <ListItemText primary="Issues Raised" secondary={`${notification && notification.data.name} had raised a blocker on Project ${notification && notification.data.project}`} />
+            </ListItem>
+            {notifications.length-1 === index ? null :  <Divider />} 
+            </div>
+            )
+          }
+          if(notification.type === "App\\Notifications\\IssueResolved"){
+            return (
+            <div key={notification.id}>
+            <ListItem button onClick={() => handleClick(notification.data.issue.project.id)}>
+              <ListItemText primary="Issue Resolved" secondary={`Issue with Ticket No. ${notification && notification.data.issue.ticket_no} on Project ${notification && notification.data.issue.project.name} had been resolved.`} />
+            </ListItem>
+            {notifications.length-1 === index ? null :  <Divider />} 
+            </div>
+            )
+          }
+          if(notification.type === "App\\Notifications\\IssueReopen"){
+            return (
+            <div key={notification.id}>
+            <ListItem button onClick={() => handleClick(notification.data.issue.project.id)}>
+              <ListItemText primary="Issue Reopen" secondary={`Issue with Ticket No. ${notification && notification.data.issue.ticket_no} on Project ${notification && notification.data.issue.project.name} had been re-opened.`} />
             </ListItem>
             {notifications.length-1 === index ? null :  <Divider />} 
             </div>

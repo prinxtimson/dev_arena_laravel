@@ -42,12 +42,17 @@ const AddProjectForm = () => {
     const [msg, setMsg] = React.useState(null);
     const [data, setData] = React.useState({
         name: '',
-        start: '',
-        end: '',
+        start_at: '',
+        est_end_at: '',
         slug: '',
         avatar: 'sample.com',
         mandate: '',
         project_pm: '',
+        project_owner: '',
+        ba_lead: '',
+        scrum_master: '',
+        dev_liason_officer: '',
+        end_at: '',
     });
 
   const handleSubmit = (e) => {
@@ -59,11 +64,16 @@ const AddProjectForm = () => {
             setMsg(res.data.msg);
             setData({
               name: '',
-              start: '',
-              end: '',
+              start_at: '',
+              est_end_at: '',
+              end_at: '',
               slug: '',
               mandate: '',
               project_pm: '',
+              ba_lead: '',
+              scrum_master: '',
+              project_owner: '',
+              dev_liason_officer: '',
             });
         })
         .catch(err => {
@@ -134,6 +144,50 @@ const AddProjectForm = () => {
                         margin="normal"
                         required
                         fullWidth
+                        id="project_owner"
+                        label="Project Owner"
+                        name="project_owner"
+                        value={data.project_owner}
+                        onChange={e => setData({...data, project_owner: e.target.value})}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="scrum_master"
+                        label="Scrum Master"
+                        name="scrum_master"
+                        value={data.scrum_master}
+                        onChange={e => setData({...data, scrum_master: e.target.value})}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="ba_lead"
+                        label="BA Lead"
+                        name="ba_lead"
+                        value={data.ba_lead}
+                        onChange={e => setData({...data, ba_lead: e.target.value})}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="dev_liason_officer"
+                        label="Dev Liason Officer"
+                        name="dev_liason_officer"
+                        value={data.dev_liason_officer}
+                        onChange={e => setData({...data, dev_liason_officer: e.target.value})}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
                         multiline
                         rows={4}
                         id="mandate"
@@ -147,30 +201,32 @@ const AddProjectForm = () => {
                         margin="normal"
                         required
                         fullWidth
-                        id="start"
+                        id="start_at"
                         label="Start Date"
                         type="date"
-                        name="start"
+                        name="start_at"
                         defaultValue={window.Date.now()}
                         InputLabelProps={{
                           shrink: true,
                         }}
-                        onChange={e => setData({...data, start: e.target.value})}
+                        onChange={e => setData({...data, start_at: e.target.value})}
                     />
                     <TextField
                         variant="outlined"
                         margin="normal"
                         required
                         fullWidth
-                        id="end"
-                        label="End Date"
-                        name="end"
+                        id="est_end_at"
+                        label="Estimated End Date"
+                        name="est_end_at"
                         type="date"
                         defaultValue={window.Date.now()}
                         InputLabelProps={{
                           shrink: true,
                         }}
-                        onChange={e => setData({...data, end: e.target.value})}
+                        onChange={e => {
+                          setData({...data, est_end_at: e.target.value, end_at: e.target.value})
+                        }}
                     />
                     <Button
                         type="submit"
@@ -179,7 +235,7 @@ const AddProjectForm = () => {
                         color="primary"
                         size="large"
                         className={classes.submit}
-                        disabled={loading || !data.name || !data.end || !data.start}
+                        disabled={loading || !data.name || !data.est_end_at || !data.start_at}
                         onClick={handleSubmit}
                     >
                         Submit

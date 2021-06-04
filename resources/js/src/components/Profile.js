@@ -2,18 +2,14 @@ import React from 'react';
 import AppContainer from './AppContainer';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import EditIcon from '@material-ui/icons/Edit';
-import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
@@ -30,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
       borderRadius: 15,
       margin: theme.spacing(3),
+      minHeight: 250
     },
     media: {
       height: 200,
@@ -42,9 +39,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        position: 'absolute',
-        bottom: '-40px',
-        left: '10px',
+        marginTop: theme.spacing(5)
     },
     avatar: {
         width: theme.spacing(16),
@@ -63,8 +58,8 @@ const useStyles = makeStyles((theme) => ({
     },
     edit: {
         position: 'absolute',
-        bottom: '15px',
-        left: '110px',
+        top: '100px',
+        left: '90px',
         zIndex: 1000,
         borderRadius: 50,
         height: 30,
@@ -156,14 +151,10 @@ const handleUploadAvatar = (img) => {
                 </Skeleton>
             ) : ( 
             <Card className={classes.root}>
-                <CardActionArea>
-                    <CardMedia
-                        className={classes.media}
-                        image="/static/images/cards/contemplative-reptile.jpg"
-                        title="Contemplative Reptile"
-                    />
+                
+                    
                     <CardContent className={classes.content}>
-                        <div>
+                        <div style={{position: 'relative'}}>
                             <Avatar
                                 alt={state.user && state.user.name}
                                 src={state.user && state.user.avatar}
@@ -187,7 +178,7 @@ const handleUploadAvatar = (img) => {
                             }}
                         />
                     </CardContent>
-                </CardActionArea>
+                
                 <CardActions className={classes.actions}>
                     <Tabs
                         value={value}
@@ -196,14 +187,15 @@ const handleUploadAvatar = (img) => {
                         textColor="primary"
                         
                     >
-                        {state.user && state.user.roles[0].name === 'developer' ? (
-                            <>
-                                <AntTab label="Projects" {...a11yProps(0)} />
-                                <AntTab label="Resouces" {...a11yProps(1)} />
-                                <AntTab label="Edit Profile" {...a11yProps(2)} />
-                            </>
-                        ) : null}
-                       
+                        {state.user?.roles[0].name === 'developer' && (
+                            <AntTab label="Projects" {...a11yProps(0)} />
+                        )}
+                       {state.user?.roles[0].name === 'developer' && (
+                            <AntTab label="Resouces" {...a11yProps(1)} />
+                        )}
+                        {state.user?.roles[0].name === 'developer' && (
+                            <AntTab label="Edit Profile" {...a11yProps(2)} />
+                        )}
                     </Tabs>
                 </CardActions>
             </Card>
@@ -259,26 +251,42 @@ const handleUploadAvatar = (img) => {
                                         }}
                                     />
                                 </ListItem>
-                                <ListItem>
-                                    <ListItemText
-                                        primary="Github"
-                                        secondary={state.user && state.user.profile.github}
-                                        primaryTypographyProps={{
-                                            variant: 'subtitle2',
-                                            component: 'h6'
-                                        }}
-                                    />
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemText
-                                        primary="Dev Stack"
-                                        secondary={state.user && state.user.profile.dev_stack}
-                                        primaryTypographyProps={{
-                                            variant: 'subtitle2',
-                                            component: 'h6'
-                                        }}
-                                    />
-                                </ListItem>
+                                {state.user?.roles[0].name === 'developer' && (
+                                    <ListItem>
+                                        <ListItemText 
+                                            primary="Location" 
+                                            secondary={state.user && state.user.profile.location}
+                                            primaryTypographyProps={{
+                                                variant: 'subtitle2',
+                                                component: 'h6'
+                                            }}
+                                        />
+                                    </ListItem>
+                                )}
+                                {state.user?.roles[0].name === 'developer' && (
+                                    <ListItem>
+                                        <ListItemText
+                                            primary="Github"
+                                            secondary={state.user && state.user.profile.github}
+                                            primaryTypographyProps={{
+                                                variant: 'subtitle2',
+                                                component: 'h6'
+                                            }}
+                                        />
+                                    </ListItem>
+                                )}
+                                {state.user?.roles[0].name === 'developer' && (
+                                    <ListItem>
+                                        <ListItemText
+                                            primary="Dev Stack"
+                                            secondary={state.user && state.user.profile.dev_stack}
+                                            primaryTypographyProps={{
+                                                variant: 'subtitle2',
+                                                component: 'h6'
+                                            }}
+                                        />
+                                    </ListItem>
+                                )}
                             </List>
                         </Paper>
                         )}
@@ -290,7 +298,7 @@ const handleUploadAvatar = (img) => {
                           </Skeleton>
                         ) : (
                             <>
-                                {state.user && state.user.roles[0].name === 'developer' ? (
+                                {state.user?.roles[0].name === 'developer' ? (
                                     <>
                                         <TabPanel value={value} index={0}>
                                             <UserProjects projects={state.user.projects} />

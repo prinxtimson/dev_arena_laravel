@@ -54,7 +54,16 @@ const ProjectDetails = ({id}) => {
                   <ListItemText primary="Project PM" secondary={project.project_pm} />
                 </Grid>
                 <Grid item xs={12}>
-                  <ListItemText primary="Project Mandate" secondary={project.mandate} />
+                  <ListItemText primary="Project Owner" secondary={project.project_owner} />
+                </Grid>
+                <Grid item xs={12}>
+                  <ListItemText primary="BA Lead" secondary={project.ba_lead} />
+                </Grid>
+                <Grid item xs={12}>
+                  <ListItemText primary="Scrum Master" secondary={project.scrum_master} />
+                </Grid>
+                <Grid item xs={12}>
+                  <ListItemText primary="Dev Liason Officer" secondary={project.dev_liason_officer} />
                 </Grid>
                 <Grid item xs={12}>
                   <ListItemText
@@ -63,19 +72,19 @@ const ProjectDetails = ({id}) => {
                 </Grid>
                 <Grid item xs={12}>
                   <ListItemText
-                    primary="Start"
-                    secondary={moment(project.start).format('MMM Do YYYY')} 
+                    primary="Start Date"
+                    secondary={moment(project.start_at).format('MMM Do YYYY')} 
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <ListItemText
-                    primary="Expected End"
-                    secondary={moment(project.expected_end).format('MMM Do YYYY')}/>
+                    primary="Estimated End"
+                    secondary={moment(project.est_end_at).format('MMM Do YYYY')}/>
                 </Grid>
                 <Grid item xs={12}>
                   <ListItemText
                     primary="End"
-                    secondary={moment(project.end).format('MMM Do YYYY')}/>
+                    secondary={moment(project.end_at).format('MMM Do YYYY')}/>
                 </Grid>
               </Grid>
             </Paper>

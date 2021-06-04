@@ -38,20 +38,11 @@ class ProjectController extends Controller
         //
         $request->validate([
             'name' => 'required',
-            'start' => 'required',
-            'end' => 'required'
+            'start_at' => 'required',
+            'end_at' => 'required'
         ]);
 
-        $project = Project::create([
-            'name' => $request->name,
-            'slug' => $request->slug,
-            'start' => $request->start,
-            'avatar' => $request->avatar,
-            'mandate' => $request->mandate,
-            'project_pm' => $request->project_pm,
-            'end' => $request->end,
-            'expected_end' => $request->end,
-        ]);
+        $project = Project::create($request->all());
 
         $response = [
             'project' => $project,
@@ -115,7 +106,7 @@ class ProjectController extends Controller
         $project = Project::find($id);
 
         $project->update([
-            'end' => Carbon::now(),
+            'end_at' => Carbon::now(),
         ]);
 
         $project->refresh()->load(['developers', 'issues' => function ($query) {
@@ -139,6 +130,8 @@ class ProjectController extends Controller
         $project = Project::find($id)->load('developers');
 
         $project->developers()->attach($dev);
+
+        $project->update(['assign_at' => Carbon::now()]);
 
         $project->refresh()->load(['developers', 'issues' => function ($query) {
             $query->where('resolve_at', '=', null);

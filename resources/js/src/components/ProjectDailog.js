@@ -165,14 +165,19 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
   const classes = useStyles();
   const [data, setData] = React.useState({
     name: project ? project.name : '',
-    start: project ? project.start : '',
-    end: project ? project.end : '',
+    start_at: project ? project.start_at : '',
+    end_at: project ? project.end_at : '',
+    est_end_at: project ? project.est_end_at : '',
     project_pm: project ? project.project_pm : '',
+    project_owner: project ? project.project_owner : '',
+    ba_lead: project ? project.ba_lead : '',
+    scrum_master: project ? project.scrum_master : '',
+    dev_liason_officer: project ? project.dev_liason_officer : '',
     mandate: project ? project.mandate : '',
   });
-  let a = moment(project.end);
+  let a = moment(project.end_at);
   let b = moment();
-  let c = moment(project.start);
+  let c = moment(project.start_at);
 
   const handleSaveChanges = () => {
     handleSaveEdit(data);
@@ -196,7 +201,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
           {!isEdit && (
           <ListItemText
           primary="Status"
-          secondary={b.diff(c) <= 0 ? 'Not Started' : a.diff(b) <= 0 ? 'Completed' : 'In progress'}/>
+          secondary={b.diff(c) <= 0 ? 'Pending' : a.diff(b) <= 0 ? 'Completed' : 'In progress'}/>
           )}
           {error ? (
             <Alert onClose={() => setError(null)} severity="error">
@@ -224,7 +229,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
                   secondary={project.name} />
               )}
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
               {isEdit ? (
                 <TextField
                   variant="outlined"
@@ -242,6 +247,86 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
                 <ListItemText
                   primary="Project PM"
                   secondary={project.project_pm} />
+              )}
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              {isEdit ? (
+                <TextField
+                  variant="outlined"
+                  margin="dense"
+                  required
+                  fullWidth
+                  id="project_owner"
+                  label="Project Owner"
+                  name="project_owner"
+                  autoFocus
+                  value={data.project_owner}
+                  onChange={e => setData({...data, project_owner: e.target.value})}
+                />
+              ) : (
+                <ListItemText
+                  primary="Project Owner"
+                  secondary={project.project_owner} />
+              )}
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              {isEdit ? (
+                <TextField
+                  variant="outlined"
+                  margin="dense"
+                  required
+                  fullWidth
+                  id="ba_lead"
+                  label="BA Lead"
+                  name="ba_lead"
+                  autoFocus
+                  value={data.ba_lead}
+                  onChange={e => setData({...data, ba_lead: e.target.value})}
+                />
+              ) : (
+                <ListItemText
+                  primary="BA Lead"
+                  secondary={project.ba_lead} />
+              )}
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              {isEdit ? (
+                <TextField
+                  variant="outlined"
+                  margin="dense"
+                  required
+                  fullWidth
+                  id="scrum_master"
+                  label="Scrum Master"
+                  name="scrum_master"
+                  autoFocus
+                  value={data.scrum_master}
+                  onChange={e => setData({...data, scrum_master: e.target.value})}
+                />
+              ) : (
+                <ListItemText
+                  primary="Scrum Master"
+                  secondary={project.scrum_master} />
+              )}
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              {isEdit ? (
+                <TextField
+                  variant="outlined"
+                  margin="dense"
+                  required
+                  fullWidth
+                  id="dev_liason_officer"
+                  label="Dev Liason Officer"
+                  name="dev_liason_officer"
+                  autoFocus
+                  value={data.dev_liason_officer}
+                  onChange={e => setData({...data, dev_liason_officer: e.target.value})}
+                />
+              ) : (
+                <ListItemText
+                  primary="Dev Liason Officer"
+                  secondary={project.dev_liason_officer} />
               )}
             </Grid>
             <Grid item xs={12}>
@@ -278,7 +363,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
                   secondary={project.developers.length > 0 && project.developers.map(dev => dev.name).join(', ')} />
               )}
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={4}>
               {isEdit ? (
                 <TextField
                   variant="outlined"
@@ -290,20 +375,44 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
                   name="start_date"
                   type=""
                   autoFocus
-                  defaultValue={moment(data.start).format('L')}
+                  defaultValue={moment(data.start_at).format('L')}
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  onChange={e => setData({...data, start: e.target.value})}
+                  onChange={e => setData({...data, start_at: e.target.value})}
                 />
               ) : (
                 <ListItemText
-                  primary="Start"
-                  secondary={moment(project.start).format('MMM Do YYYY')} 
+                  primary="Start Date"
+                  secondary={moment(project.start_at).format('MMM Do YYYY')} 
                 />
               )}
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={4}>
+              {isEdit ? (
+                <TextField
+                  variant="outlined"
+                  margin="dense"
+                  required
+                  fullWidth
+                  id="est_end_date"
+                  label="Estimated End Date"
+                  name="est_end_date"
+                  type=""
+                  autoFocus
+                  defaultValue={moment(data.est_end_at).format('L')}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={e => setData({...data, est_end_at: e.target.value})}
+                />
+              ) : (
+                <ListItemText
+                  primary="Estimated End Date"
+                  secondary={moment(project.est_end_at).format('MMM Do YYYY')}/>
+              )}
+            </Grid>
+            <Grid item xs={12} sm={4}>
               {isEdit ? (
                 <TextField
                   variant="outlined"
@@ -315,16 +424,16 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
                   name="end_date"
                   type=""
                   autoFocus
-                  defaultValue={moment(data.end).format('L')}
+                  defaultValue={moment(data.end_at).format('L')}
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  onChange={e => setData({...data, end: e.target.value})}
+                  onChange={e => setData({...data, end_at: e.target.value})}
                 />
               ) : (
                 <ListItemText
-                  primary="End"
-                  secondary={moment(project.end).format('MMM Do YYYY')}/>
+                  primary="End Date"
+                  secondary={moment(project.end_at).format('MMM Do YYYY')}/>
               )}
             </Grid>
           </Grid>
@@ -334,7 +443,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
             <Button
               onClick={handleSaveChanges}
               color="primary"
-              disabled={loading}>
+              disabled={loading || !data.name || !data.start_at || !data.end_at}>
               Save changes
             </Button>
           </DialogActions>

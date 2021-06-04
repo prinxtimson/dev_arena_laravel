@@ -81,7 +81,8 @@ class AuthController extends Controller
         $user->profile()->update($request->all());
 
         $response = [
-            'user' => $user->load(['profile', 'projects', 'roles'])
+            'user' => $user->load(['profile', 'projects', 'roles']),
+            'msg' => 'Profile updated successfuly.'
         ];
 
         return $response;

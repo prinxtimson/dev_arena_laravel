@@ -14,7 +14,8 @@ class Profile extends Model
         'phone',
         'dev_stack',
         'github',
-        'user_id'
+        'user_id',
+        'location'
     ];
 
     public function user() {

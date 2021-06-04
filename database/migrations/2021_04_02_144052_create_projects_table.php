@@ -17,12 +17,17 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->string('avatar');
+            $table->string('avatar')->nullable();
             $table->text('mandate');
-            $table->string('project_pm');
-            $table->date('start');
-            $table->date('expected_end');
-            $table->date('end');
+            $table->string('project_pm')->nullable();
+            $table->string('project_owner')->nullable();
+            $table->string('ba_lead')->nullable();
+            $table->string('scrum_master')->nullable();
+            $table->string('dev_liason_officer')->nullable();
+            $table->date('assign_at')->nullable();
+            $table->date('start_at');
+            $table->date('est_end_at');
+            $table->date('end_at');
             $table->timestamps();
         });
     }

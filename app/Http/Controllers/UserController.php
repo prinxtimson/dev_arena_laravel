@@ -23,7 +23,7 @@ class UserController extends Controller
     {
         //
         $users = User::with(['roles', 'projects' => function ($query) {
-            $query->where('end', '>', Carbon::now());
+            $query->where('end_at', '>', Carbon::now());
         }])->paginate(20);
 
         return $users;
@@ -111,15 +111,17 @@ class UserController extends Controller
         $fields = $request->validate([
             'firstname' => 'required|string',
             'lastname' => 'required|string',
-            'role' => 'required|string',
         ]);
 
         $user = User::find($id);
         $user->update([
             'name' =>  $fields['firstname'] . $fields['lastname'],
+            'username' => strtolower($fields['firstname'].$fields['lastname']),
         ]);
 
-        $user->profile()->update();
+        $user->profile()->update($request->all());
+
+        $user->refresh()->load(['profile', 'roles', 'projects']);
 
         $response = [
             'user' => $user,

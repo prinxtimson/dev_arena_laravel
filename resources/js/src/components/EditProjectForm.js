@@ -48,12 +48,16 @@ const EditProjectForm = ({id}) => {
   const [msg, setMsg] = React.useState(null);
   const [data, setData] = React.useState({
     name: '',
+    start_at: '',
+    est_end_at: '',
     slug: '',
-    start: '',
-    expected_end: '',
-    end: '',
-    project_pm: '',
     mandate: '',
+    project_pm: '',
+    project_owner: '',
+    ba_lead: '',
+    scrum_master: '',
+    dev_liason_officer: '',
+    end_at: '',
   });
 
 const handleSubmit = (e) => {
@@ -142,6 +146,50 @@ React.useEffect(() => {
                 value={data.project_pm}
                 onChange={e => setData({...data, project_pm: e.target.value})}
               />
+               <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="project_owner"
+                label="Project Owner"
+                name="project_owner"
+                value={data.project_owner}
+                onChange={e => setData({...data, project_owner: e.target.value})}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="scrum_master"
+                label="Scrum Master"
+                name="scrum_master"
+                value={data.scrum_master}
+                onChange={e => setData({...data, scrum_master: e.target.value})}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="ba_lead"
+                label="BA Lead"
+                name="ba_lead"
+                value={data.ba_lead}
+                onChange={e => setData({...data, ba_lead: e.target.value})}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="dev_liason_officer"
+                label="Dev Liason Officer"
+                name="dev_liason_officer"
+                value={data.dev_liason_officer}
+                onChange={e => setData({...data, dev_liason_officer: e.target.value})}
+              />
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -160,46 +208,45 @@ React.useEffect(() => {
                 margin="normal"
                 required
                 fullWidth
-                id="start"
+                id="start_at"
                 label="Start Date"
                 type=""
-                name="start"
-                defaultValue={moment(data.start).format('L')}
+                name="start_at"
+                defaultValue={moment(data.start_at).format('L')}
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={e => setData({...data, start: e.target.value})}
+                onChange={e => setData({...data, start_at: e.target.value})}
               />
               <TextField
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                id="expected_end"
-                label="Expected End Date"
-                name="expected_end"
+                id="est_end_at"
+                label="Estimated End Date"
+                name="est_end_at"
                 type=""
-                defaultValue={moment(data.expected_end).format('L')}
+                defaultValue={moment(data.est_end_at).format('L')}
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={e => setData({...data, expected_end: e.target.value})}
+                onChange={e => setData({...data, est_end_at: e.target.value})}
               />
               <TextField
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                id="end"
+                id="end_at"
                 label="End Date"
-                name="end"
+                name="end_at"
                 type=""
-                value={moment(data.end).format('L')}
-                defaultValue={moment(data.end).format('L')}
+                defaultValue={moment(data.end_at).format('L')}
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={e => setData({...data, end: e.target.value})}
+                onChange={e => setData({...data, end_at: e.target.value})}
               />
               <Button
                 type="submit"
@@ -208,7 +255,7 @@ React.useEffect(() => {
                 color="primary"
                 size="large"
                 className={classes.submit}
-                disabled={loading2 || !data.name || !data.end || !data.start}
+                disabled={loading2 || !data.name || !data.end_at || !data.start_at}
                 onClick={handleSubmit}
               >
                 Submit

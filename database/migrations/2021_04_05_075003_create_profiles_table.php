@@ -20,6 +20,7 @@ class CreateProfilesTable extends Migration
             $table->string('phone')->nullable();
             $table->string('dev_stack')->nullable();
             $table->string('github')->nullable();
+            $table->string('location')->nullable();
             $table->foreignId('user_id')
                   ->constrained()->onDelete('cascade');
             $table->timestamps();

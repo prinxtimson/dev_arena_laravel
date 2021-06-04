@@ -14,14 +14,20 @@ class Project extends Model
         'avatar',
         'mandate',
         'project_pm',
-        'start',
-        'expected_end',
-        'end'
+        'project_owner',
+        'ba_lead',
+        'scrum_master',
+        'dev_liason_officer',
+        'assign_at',
+        'start_at',
+        'est_end_at',
+        'end_at'
     ];
     protected $casts = [
-        'start' => 'datetime',
-        'end' => 'datetime',
-        'expected_end' => 'datetime',
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
+        'est_end_at' => 'datetime',
+        'assign_at' => 'datetime'
     ];
 
     /**
@@ -36,6 +42,10 @@ class Project extends Model
 
     public function reports() {
         return $this->hasMany(Report::class);
+    }
+
+    public function files() {
+        return $this->hasMany(File::class);
     }
 
     public function issues ()

@@ -7,9 +7,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AppContainer from './AppContainer';
 import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Alert from '@material-ui/lab/Alert';
 import { axios, BASE_URL } from '../utils/utils';
-
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,6 +41,7 @@ const AddProjectForm = () => {
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState(null);
     const [msg, setMsg] = React.useState(null);
+    const [files, setFiles] = React.useState([]);
     const [data, setData] = React.useState({
         name: '',
         start_at: '',
@@ -55,10 +57,30 @@ const AddProjectForm = () => {
         end_at: '',
     });
 
+    const handleDelete = (index) => {
+        const newFiles = files.filter((file, i) => i !== index);
+        setFiles(newFiles);
+      }
+    
+      const handleOnFileSelect = (file) => {
+        for (let key in file){
+          if (file.hasOwnProperty(key)) {
+            setFiles([file[key], ...files]);
+          }
+        }
+      }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    axios.post(`${BASE_URL}/api/projects`, data)
+    let formData = new FormData();
+    files.forEach(file => {
+      formData.append('files[]', file);
+    })
+    for(let key in data) {
+        formData.append(key, data[key]);
+    }
+    axios.post(`${BASE_URL}/api/projects`, formData)
         .then(res => {
             setLoading(false);
             setMsg(res.data.msg);
@@ -75,13 +97,13 @@ const AddProjectForm = () => {
               project_owner: '',
               dev_liason_officer: '',
             });
+            setFiles([]);
         })
         .catch(err => {
             console.log(err.response);
             setLoading(false);
             setError(err.response.data);
         })
-    
   }
 
   return (
@@ -183,6 +205,30 @@ const AddProjectForm = () => {
                         value={data.dev_liason_officer}
                         onChange={e => setData({...data, dev_liason_officer: e.target.value})}
                     />
+                    {files.length > 0 && files.map((file, index) => (
+                        <div className={classes.fileList} key={`${index}`}>
+                            <Typography className={classes.fileName}>
+                                {file.name}
+                            </Typography>
+                            <IconButton
+                                aria-label="close" 
+                                className={classes.btn}
+                                onClick={() => handleDelete(index)}>
+                                <DeleteIcon />
+                            </IconButton>
+                        </div>
+                    ))}
+                    <Button
+                        variant="contained"
+                        component="label"
+                    >
+                        Select File
+                        <input
+                            type="file"
+                            onChange={e => handleOnFileSelect(e.target.files)}
+                            hidden
+                        />
+                    </Button>
                     <TextField
                         variant="outlined"
                         margin="normal"

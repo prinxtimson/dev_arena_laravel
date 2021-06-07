@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\IssueController;
+use App\Http\Controllers\ResourceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,12 +24,12 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/forgot-password', [AuthController::class, 'forgotPass']);
 Route::post('/reset-password', [AuthController::class, 'resetPass']);
-Route::get('/projects', [ProjectController::class, 'index']);
-Route::get('/users', [UserController::class, 'index']);
 //->middleware('auth:sanctum');
 
 //Protected routes 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/projects', [ProjectController::class, 'index']);
+    Route::get('/users', [UserController::class, 'index']);
     Route::get('/me', [AuthController::class, 'me']);
     Route::get('/mark-notification', [AuthController::class, 'markNotification']);
     Route::post('/upload-avatar', [AuthController::class, 'upload']);
@@ -49,6 +50,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/issues/{id}', [IssueController::class, 'store']);
     Route::put('/issues/{id}', [IssueController::class, 'update']);
     Route::delete('/issues/{id}', [IssueController::class, 'destroy']);
+    Route::get('/resources', [ResourceController::class, 'index']);
+    Route::get('/resources/{id}', [ResourceController::class, 'show']);
+    Route::post('/resources', [ResourceController::class, 'store']);
+    Route::put('/resources/{id}', [ResourceController::class, 'update']);
+    Route::put('/resources/remove-file/{id}/{index}', [ResourceController::class, 'remove_file']);
+    Route::delete('/resources/{id}', [ResourceController::class, 'destroy']);
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'role:admin|super-admin']], function () {
@@ -56,6 +63,7 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin|super-admin']], funct
     Route::post('/projects', [ProjectController::class, 'store']);
     Route::put('/projects/{id}', [ProjectController::class, 'update']);
     Route::put('/projects/close/{id}', [ProjectController::class, 'close']);
+    Route::put('/projects/remove-file/{id}/{index}', [ProjectController::class, 'remove_file']);
     Route::get('/issues/close/{id}', [IssueController::class, 'close']);
     Route::get('/issues/open/{id}', [IssueController::class, 'open']);
     Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);

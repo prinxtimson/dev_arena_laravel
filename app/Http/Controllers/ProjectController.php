@@ -22,7 +22,7 @@ class ProjectController extends Controller
     public function index()
     {
         //
-        return Project::with(['developers', 'issues' => function ($query) {
+        return Project::with(['developers', 'media', 'issues' => function ($query) {
             $query->where('resolve_at', '=', null);
         }])->paginate(20);
     }
@@ -42,7 +42,14 @@ class ProjectController extends Controller
             'end_at' => 'required'
         ]);
 
-        $project = Project::create($request->all());
+        $project = Project::create($request->except('files'));
+
+        if ($request->hasFile('files')) {
+            $project->addMultipleMediaFromRequest(['files'])
+                    ->each(function ($file) {
+                        $file->toMediaCollection();
+                    });
+        }
 
         $response = [
             'project' => $project,
@@ -75,9 +82,36 @@ class ProjectController extends Controller
     {
         //
         $project = Project::find($id);
-        $project->update($request->all());
+        $project->update($request->except('files'));
 
-        $project->load(['developers', 'issues' => function ($query) {
+        if ($request->hasFile('files')) {
+            $project->addMultipleMediaFromRequest(['files'])
+                    ->each(function ($file) {
+                        $file->toMediaCollection();
+                    });
+        }
+
+        $project->load(['developers', 'media', 'issues' => function ($query) {
+            $query->where('resolve_at', '=', null);
+        }]);
+
+        $response = [
+            'project' => $project,
+            'msg' => 'Project updated successfully.'
+        ];
+
+        return $response;
+    }
+
+    public function remove_file (Request $request, $id, $index)
+    {
+        $project = Project::find($id);
+
+        $mediaItems = $project->getMedia();
+
+        $mediaItems[$index]->delete();
+
+        $project->load(['developers', 'media', 'issues' => function ($query) {
             $query->where('resolve_at', '=', null);
         }]);
 
@@ -109,7 +143,7 @@ class ProjectController extends Controller
             'end_at' => Carbon::now(),
         ]);
 
-        $project->refresh()->load(['developers', 'issues' => function ($query) {
+        $project->refresh()->load(['developers', 'media', 'issues' => function ($query) {
             $query->where('resolve_at', '=', null);
         }]);
 
@@ -133,7 +167,7 @@ class ProjectController extends Controller
 
         $project->update(['assign_at' => Carbon::now()]);
 
-        $project->refresh()->load(['developers', 'issues' => function ($query) {
+        $project->refresh()->load(['developers', 'media', 'issues' => function ($query) {
             $query->where('resolve_at', '=', null);
         }]);
 

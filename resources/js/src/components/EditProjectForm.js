@@ -63,7 +63,12 @@ const EditProjectForm = ({id}) => {
 const handleSubmit = (e) => {
   e.preventDefault();
   setLoading2(true);
-  axios.put(`${BASE_URL}/api/projects/${id}`, data)
+  let formData = new FormData();
+  for(let key in data) {
+    formData.append(key, data[key]);
+  }
+  formData.append('_method', 'put');
+  axios.post(`${BASE_URL}/api/projects/${id}`, formData)
       .then(res => {
           setLoading2(false);
           setMsg(res.data.msg);

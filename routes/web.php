@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,10 @@ use App\Http\Controllers\LoginController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::get('/download/{media}', function(Media $media){
+    return $media;
+});
 
 //Route::post('/login', [LoginController::class, 'authenticate']);
 // Route::middleware('auth:sanctum');

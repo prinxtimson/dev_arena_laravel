@@ -14,6 +14,9 @@ import UserProfile from '../components/UserProfile';
 import ProjectsTable from '../components/ProjectsTable';
 import AddProjectForm from '../components/AddProjectForm';
 import SingleProject from '../components/SingleProject';
+import AddResourceForm from '../components/AddResourceForm';
+import Resources from '../components/Resources';
+import SingleResource from '../components/SingleResource';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -34,6 +37,11 @@ function Dashboard({match}) {
                     return <SingleProject />;
                 }
                 return <ProjectsTable />;
+            case 'resources':
+                if(param2){
+                    return <SingleResource />;
+                }
+                return <Resources />;
             case 'change-password':
                 return <ChangePasswordForm />;
             case 'add-user':
@@ -46,6 +54,8 @@ function Dashboard({match}) {
                 };
             case 'add-project':
                 return <AddProjectForm />
+            case 'add-resources':
+                return <AddResourceForm />;
             default:
                 return <DashboardIndex />;
         }

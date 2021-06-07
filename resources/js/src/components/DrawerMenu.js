@@ -9,7 +9,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import PersonIcon from '@material-ui/icons/Person';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import FolderIcon from '@material-ui/icons/Folder';
+import NewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -111,7 +112,30 @@ function DrawerMenu({ window, children }) {
         <div className={classes.toolbar} />
         <Divider />
         <List>
-          {state.loading ? null : state.user && state.user.roles[0].name === 'developer' ? null : (
+          {state.loading ? null : state.user?.roles[0].name === 'developer' ? (
+            <>
+              <MenuItem
+                component={Link}
+                to="/dashboard/resources"
+                onClick={handleDrawerToggle}
+              >
+                <ListItemIcon>
+                  <FolderIcon />
+                </ListItemIcon>
+                <ListItemText primary="Resources" />
+              </MenuItem>
+              <MenuItem
+                component={Link}
+                to="/dashboard/add-resources"
+                onClick={handleDrawerToggle}
+              >
+                <ListItemIcon>
+                  <NewFolderIcon />
+                </ListItemIcon>
+                <ListItemText primary="Add Resources" />
+              </MenuItem>
+            </>
+          ) : (
             <>
               <MenuItem
                 component={Link}
@@ -132,6 +156,16 @@ function DrawerMenu({ window, children }) {
                   <BusinessCenterIcon />
                 </ListItemIcon>
                 <ListItemText primary="Projects" />
+              </MenuItem>
+              <MenuItem
+                component={Link}
+                to="/dashboard/resources"
+                onClick={handleDrawerToggle}
+              >
+                <ListItemIcon>
+                  <FolderIcon />
+                </ListItemIcon>
+                <ListItemText primary="Resources" />
               </MenuItem>
             </>
           )}   

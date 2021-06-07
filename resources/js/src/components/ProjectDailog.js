@@ -14,16 +14,15 @@ import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import Alert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { FileIcon, defaultStyles } from 'react-file-icon';
 import Chip from '@material-ui/core/Chip';
+import { UserContext } from '../context/GlobalState';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import moment from 'moment';
 import { BASE_URL, axios } from '../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
   btn: {
-    // position: 'absolute',
-    // right: theme.spacing(1),
-    // top: theme.spacing(1),
     color: theme.palette.grey[500],
     marginRight: 2
   },
@@ -45,7 +44,12 @@ const styles = (theme) => ({
     right: theme.spacing(5),
     top: theme.spacing(2),
     color: theme.palette.grey[500],
-  }
+  },
+  fileContainer: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    margin: theme.spacing(3, 0),
+  },
 });
 
 const CustomTextField = ({project, handleClick, handleUpdate}) => {
@@ -163,6 +167,7 @@ const DialogActions = withStyles((theme) => ({
 const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading, handleSaveEdit, error, handleUpdate, dev}) => {
   const [editDev, setEditDev] = React.useState(false);
   const classes = useStyles();
+  const {state} = React.useContext(UserContext);
   const [data, setData] = React.useState({
     name: project ? project.name : '',
     start_at: project ? project.start_at : '',
@@ -190,6 +195,22 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
   React.useEffect(() => {
     setEditDev(dev);
   }, [dev])
+
+  const handleDelete = (index) => {
+    axios.put(`${BASE_URL}/api/projects/remove-file/${id}/${index}`)
+    .then(res => {
+      console.log(res.data);
+      handleUpdate(res.data);
+      //setLoading(false);
+    })
+    .catch(err => {
+      console.log(err.response);
+      if (err.response.statusText === "Unauthorized") {
+          location.replace('/login');
+      }
+      //setLoading(false);
+    });
+  }
 
   return (
     <>
@@ -308,7 +329,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
                   primary="Scrum Master"
                   secondary={project.scrum_master} />
               )}
-            </Grid>
+            </Grid> 
             <Grid item xs={12} sm={6}>
               {isEdit ? (
                 <TextField
@@ -328,6 +349,28 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
                   primary="Dev Liason Officer"
                   secondary={project.dev_liason_officer} />
               )}
+            </Grid>
+            <Grid item xs={12}>
+              {project.media?.map((data, index) => {
+                const fileExt = data.file_name.split('.').pop();
+                return (
+                  <div className={classes.fileContainer} key={data.id}>
+                    <div style={{width: 30, height: 30, marginRight: 10}}>
+                      <FileIcon extension={fileExt} {...defaultStyles[fileExt]} />
+                    </div>           
+                    <Typography style={{fontSize: 20}}>
+                    <a href={`${BASE_URL}/download/${data.id}`}>{data.file_name}</a></Typography>
+                    {state.user?.roles[0]?.name !== 'developer' && (
+                      <IconButton
+                        aria-label="close" 
+                        className={classes.btn}
+                        onClick={() => handleDelete(index)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    )}
+                  </div>
+                )
+              })}
             </Grid>
             <Grid item xs={12}>
               {isEdit ? (

@@ -34,7 +34,7 @@ class AuthController extends Controller
         $token = $user->createToken('access_token')->plainTextToken;
 
         $response = [
-            'user' => $user->load(['profile', 'projects', 'roles']),
+            'user' => $user->load(['profile', 'projects', 'roles', 'resources']),
             'token' => $token
         ];
 
@@ -42,7 +42,7 @@ class AuthController extends Controller
     }
 
     public function me(Request $request) {
-        $user = auth()->user()->load(['profile', 'projects', 'roles']);
+        $user = auth()->user()->load(['profile', 'projects', 'roles', 'resources']);
         $notifications = auth()->user()->notifications;
         $count = auth()->user()->unreadNotifications->count();
         $response = [
@@ -81,7 +81,7 @@ class AuthController extends Controller
         $user->profile()->update($request->all());
 
         $response = [
-            'user' => $user->load(['profile', 'projects', 'roles']),
+            'user' => $user->load(['profile', 'projects', 'roles', 'resources']),
             'msg' => 'Profile updated successfuly.'
         ];
 
@@ -164,7 +164,7 @@ class AuthController extends Controller
             'avatar' => asset('storage/'.$path),
         ]);
 
-        $user->refresh()->load(['profile', 'projects', 'roles']);
+        $user->refresh()->load(['profile', 'projects', 'roles', 'resources']);
 
         $response = [
             'user' => $user,

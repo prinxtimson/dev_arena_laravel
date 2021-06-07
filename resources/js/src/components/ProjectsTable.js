@@ -29,6 +29,7 @@ import ProjectDailog from './ProjectDailog';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+import UploadDocDialog from './UploadDocDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,6 +84,7 @@ const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
   const [error, setError] = React.useState(null);
   const [msg, setMsg] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
   const [openDel, setOpenDel] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState(false);
   const [dev, setDev] = React.useState(false);
@@ -98,6 +100,14 @@ const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
   const handleDialogClose = () => {
     setIsEdit(false);
     setOpen(false);
+  };
+
+  const handleDocDialogOpen = () => {
+    setOpen2(true);
+  };
+
+  const handleDocDialogClose = () => {
+    setOpen2(false);
   };
 
   const handleDelDialogOpen = () => {
@@ -193,6 +203,14 @@ const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
         loading={loading}
         error={error}
       />
+      <UploadDocDialog
+        open={open2}
+        handleClose={handleDocDialogClose}
+        handleUpdate={handleUpdate}
+        project={project}
+        error={error}
+        setError={setError}
+      />
       <RenderDeleteConfirmationDialog
           open={openDel}
           row={row}
@@ -244,6 +262,7 @@ const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
             handleDelDialogOpen={handleDelDialogOpen}
             handleCloseProject={handleCloseProject}
             handleAssignDev={handleAssignDev}
+            handleDocDialogOpen={handleDocDialogOpen}
           />
         </StyledTableCell>
       </StyledTableRow>
@@ -251,7 +270,7 @@ const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
   )
 }
 
-const DropMenu = ({anchorEl, handleClose, handleEdit, id, handleAssignDev, handleCloseProject, handleDelDialogOpen}) => {
+const DropMenu = ({anchorEl, handleClose, handleEdit, id, handleAssignDev, handleCloseProject, handleDelDialogOpen, handleDocDialogOpen}) => {
 
   return (
     <Menu
@@ -272,6 +291,7 @@ const DropMenu = ({anchorEl, handleClose, handleEdit, id, handleAssignDev, handl
       <MenuItem component={Link} onClick={handleClose} to={`/dashboard/projects/${id}`}>View</MenuItem>
       <MenuItem onClick={handleAssignDev}>Assign Dev</MenuItem>
       <MenuItem onClick={handleEdit}>Edit</MenuItem>
+      <MenuItem onClick={handleDocDialogOpen}>Upload Docs</MenuItem>
       <MenuItem onClick={handleCloseProject}>Close</MenuItem>
       <MenuItem onClick={handleDelDialogOpen}>Delete</MenuItem>
     </Menu>

@@ -17,7 +17,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Skeleton from '@material-ui/lab/Skeleton';
 import UserProjects from './UserProjects';
-import ResoucesTable from './ResoucesTable';
+import ResourcesTable from './ResourcesTable';
 import ProfileForm from './ProfileForm';
 import {UserContext} from '../context/GlobalState';
 import { axios, BASE_URL } from '../utils/utils';
@@ -304,7 +304,7 @@ const handleUploadAvatar = (img) => {
                                             <UserProjects projects={state.user.projects} />
                                         </TabPanel>
                                         <TabPanel value={value} index={1}>
-                                            <ResoucesTable />
+                                            <ResourcesTable resources={state.user.resources} />
                                         </TabPanel>
                                         <TabPanel value={value} index={2}>
                                             <ProfileForm />

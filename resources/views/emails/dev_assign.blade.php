@@ -5,7 +5,7 @@ Hi {{ $data['user']['name']}},
 
 Project {{$data['project']['name']}} had been assign to you, Please login to your account to acept or declined.
 
-@component('mail::button', ['url' => '', 'color' => 'success'])
+@component('mail::button', ['url' => 'https://tritekdevarena.herokuapp.com/login', 'color' => 'success'])
 Visit Website
 @endcomponent
 

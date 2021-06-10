@@ -10,7 +10,7 @@ Welcome to Tritek Consulting Ltd Dev Arena Portal. Find the following is your lo
 # Password: {{ $user['password'] }}
 @endcomponent
 
-@component('mail::button', ['url' => '', 'color' => 'success'])
+@component('mail::button', ['url' => 'https://tritekdevarena.herokuapp.com/login', 'color' => 'success'])
 Visit Website
 @endcomponent
 

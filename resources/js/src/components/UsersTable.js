@@ -67,11 +67,11 @@ const RenderDeleteConfirmationDialog = ({open, user, handleClose, handleDelete})
         aria-describedby="alert-dialog-description"
     >
         <DialogTitle id="alert-dialog-title">
-            Delete Confirmation
+            Deactivate Confirmation
         </DialogTitle>
         <DialogContent>
             <DialogContentText id="alert-dialog-description">
-                You are about to delete {`${user && user.name}`} from the platform, click DELETE if you wish to continue or CANCEL to cancel
+                You are about to deactivate {`${user && user.name}`} from the platform, click DEACTIVATE if you wish to continue or CANCEL to cancel
             </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -79,7 +79,7 @@ const RenderDeleteConfirmationDialog = ({open, user, handleClose, handleDelete})
                 Cancel
             </Button>
             <Button onClick={handleDelete} color="primary" autoFocus>
-                Delete
+                Deactivate
             </Button>
         </DialogActions>
     </Dialog>
@@ -230,7 +230,7 @@ const UsersTable = () => {
                                                 size="small"
                                                 onClick={() => handleOpen(row)}
                                             >
-                                                Delete
+                                                Deactivate
                                             </Button>
                                         ) : row.roles[0].name === 'developer' ? (
                                             <Button
@@ -239,7 +239,7 @@ const UsersTable = () => {
                                                 size="small"
                                                 onClick={() => handleOpen(row)}
                                             >
-                                                Delete
+                                                Deactivate
                                             </Button>
                                         ) : null}
                                     </StyledTableCell>

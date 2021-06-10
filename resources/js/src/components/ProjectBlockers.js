@@ -142,7 +142,7 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
         <>
           <CardContent>
             <Typography className={classes.title} color="textSecondary" gutterBottom>
-              {moment(blocker.created_at).format('LLLL')}
+              {`${blocker.ticket_no} - ${moment(blocker.created_at).format('LLLL')}`}
             </Typography>
             <Typography variant="body2" component="p">
               {blocker.details}
@@ -303,7 +303,7 @@ const ProjectBlockers = ({id}) => {
         handleDelete={handleDelete}
       />
       <Grid container spacing={2}>
-        {state.user && state.user.roles[0].name === 'developer' && (
+        {state.user?.roles[0]?.name === 'developer' && (
           <Grid item sm={4} xs={12}>
             {loading ? (
               <Skeleton variant="rect" width="100%">
@@ -338,7 +338,7 @@ const ProjectBlockers = ({id}) => {
             )}
           </Grid>
         )}
-        <Grid item sm={state.user && state.user.roles[0].name === 'developer' ? 8 : 12} xs={12}>
+        <Grid item sm={state.user?.roles[0].name === 'developer' ? 8 : 12} xs={12}>
           {loading ? (
             <Skeleton variant="rect" width="100%">
               <div style={{ paddingTop: '45%' }} />

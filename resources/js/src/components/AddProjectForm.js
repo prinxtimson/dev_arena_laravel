@@ -33,6 +33,14 @@ const useStyles = makeStyles((theme) => ({
   },
   checkboxLabel: {
       fontSize: 12
+  },
+  fileList: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  fileName: {
+    flexGrow: 1,
+    alignSelf: 'center',
   }
 }));
 

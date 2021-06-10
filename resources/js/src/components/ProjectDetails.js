@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -39,6 +39,17 @@ const ProjectDetails = ({id}) => {
   return (
     <div className={classes.root} >
       <Grid container spacing={3}>
+        <Grid item sm={4} xs={12}>
+          {loading ? (
+            <Skeleton variant="rect" width="100%">
+              <div style={{ paddingTop: '35%' }} />
+            </Skeleton>
+          ) : (
+            <Paper className={classes.paper}>
+            <ListItemText primary="" />
+            </Paper>
+          )}
+        </Grid>
         <Grid item sm={8} xs={12}>
           {loading ? (
             <Skeleton variant="rect" width="100%">
@@ -87,17 +98,6 @@ const ProjectDetails = ({id}) => {
                     secondary={moment(project.end_at).format('MMM Do YYYY')}/>
                 </Grid>
               </Grid>
-            </Paper>
-          )}
-        </Grid>
-        <Grid item sm={4} xs={12}>
-          {loading ? (
-            <Skeleton variant="rect" width="100%">
-              <div style={{ paddingTop: '35%' }} />
-            </Skeleton>
-          ) : (
-            <Paper className={classes.paper}>
-            <ListItemText primary="" />
             </Paper>
           )}
         </Grid>

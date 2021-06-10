@@ -7,6 +7,7 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -26,6 +27,25 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[500],
     marginRight: 2
   },
+  btn2: {
+    color: 'red',
+    marginLeft: 10,
+    alignSelf: 'center',
+  },
+  fileContainer: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    margin: theme.spacing(1, 0),
+  },
+  devContainer: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  button: {
+    padding: theme.spacing(0.5),
+    marginLeft: 20,
+    marginTop: 5,
+  },
 }));
 
 const styles = (theme) => ({
@@ -44,11 +64,6 @@ const styles = (theme) => ({
     right: theme.spacing(5),
     top: theme.spacing(2),
     color: theme.palette.grey[500],
-  },
-  fileContainer: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    margin: theme.spacing(3, 0),
   },
 });
 
@@ -197,10 +212,10 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
   }, [dev])
 
   const handleDelete = (index) => {
-    axios.put(`${BASE_URL}/api/projects/remove-file/${id}/${index}`)
+    axios.put(`${BASE_URL}/api/projects/remove-file/${project.id}/${index}`)
     .then(res => {
       console.log(res.data);
-      handleUpdate(res.data);
+      handleUpdate(res.data.project);
       //setLoading(false);
     })
     .catch(err => {
@@ -210,6 +225,17 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
       }
       //setLoading(false);
     });
+  }
+
+  const handleRemoveDev = (id) => {
+    axios.put(`${BASE_URL}/api/detach-dev/${project.id}/${id}`).then(res => {
+      handleUpdate(res.data)
+    }).catch(err => {
+      console.log(err.response);
+      if (err.response.statusText === "Unauthorized") {
+        location.replace('/login');
+    }
+    })
   }
 
   return (
@@ -351,19 +377,22 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
               )}
             </Grid>
             <Grid item xs={12}>
+              <Typography variant="h6" component="h6">
+                Documents
+              </Typography>
               {project.media?.map((data, index) => {
                 const fileExt = data.file_name.split('.').pop();
                 return (
                   <div className={classes.fileContainer} key={data.id}>
-                    <div style={{width: 30, height: 30, marginRight: 10}}>
+                    <div style={{width: 25, height: 25, marginRight: 10, marginBottom: 10}}>
                       <FileIcon extension={fileExt} {...defaultStyles[fileExt]} />
                     </div>           
-                    <Typography style={{fontSize: 20}}>
+                    <Typography style={{fontSize: 18}}>
                     <a href={`${BASE_URL}/download/${data.id}`}>{data.file_name}</a></Typography>
                     {state.user?.roles[0]?.name !== 'developer' && (
                       <IconButton
                         aria-label="close" 
-                        className={classes.btn}
+                        className={classes.button}
                         onClick={() => handleDelete(index)}>
                         <DeleteIcon />
                       </IconButton>
@@ -399,11 +428,27 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
                   handleClick={handleClick}
                   handleUpdate={handleUpdate}
                 />
-              ) : (
+              ) : (            
                 <ListItemText
-                  onClick={() => setEditDev(true)} 
+                  onClick={() => project.developers?.length === 0 &&setEditDev(true)} 
                   primary="Developer"
-                  secondary={project.developers.length > 0 && project.developers.map(dev => dev.name).join(', ')} />
+                  secondary={
+                    project.developers?.length > 0 && project.developers.map(dev => (
+                      <div className={classes.devContainer} key={dev.id}>
+                        <Typography>{dev.name}</Typography>
+                        <Button
+                          type="submit"
+                          variant="text"
+                          color="primary"
+                          size="small"
+                          onClick={() => handleRemoveDev(dev.id)}
+                          className={classes.btn2}
+                          >
+                          Remove
+                        </Button>
+                      </div>
+                    ))
+                    }/>
               )}
             </Grid>
             <Grid item xs={12} sm={4}>

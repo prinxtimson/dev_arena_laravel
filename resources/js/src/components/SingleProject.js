@@ -12,6 +12,7 @@ import DailyReports from './DailyReports';
 import ProjectBlockers from './ProjectBlockers';
 import EditProjectForm from './EditProjectForm';
 import { UserContext } from '../context/GlobalState';
+import ProjectDocuments from './ProjectDocuments';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -73,10 +74,11 @@ const SingleProject = () => {
           textColor="primary"  
         >
           <AntTab label="Details" {...a11yProps(0)} />
-          <AntTab label="Daily Updates" {...a11yProps(1)} />
-          <AntTab label="Blockers" {...a11yProps(2)} />
+          <AntTab label="Documents" {...a11yProps(1)} />
+          <AntTab label="Daily Updates" {...a11yProps(2)} />
+          <AntTab label="Blockers" {...a11yProps(3)} />
           {state.user && state.user.roles[0].name === 'admin' && (
-            <AntTab label="Edit Project" {...a11yProps(3)} />
+            <AntTab label="Edit Project" {...a11yProps(4)} />
           )}
         </Tabs>
         <div>
@@ -90,13 +92,16 @@ const SingleProject = () => {
                   <ProjectDetails id={id} />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                  <DailyReports id={id} />
+                  <ProjectDocuments id={id} />
               </TabPanel>
               <TabPanel value={value} index={2}>
+                  <DailyReports id={id} />
+              </TabPanel>
+              <TabPanel value={value} index={3}>
                   <ProjectBlockers id={id} />
               </TabPanel>
               {state.user && state.user.roles[0].name === 'admin' && (
-                <TabPanel value={value} index={3}>
+                <TabPanel value={value} index={4}>
                   <EditProjectForm id={id} />
                 </TabPanel>
               )}

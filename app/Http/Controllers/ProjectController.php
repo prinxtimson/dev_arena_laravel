@@ -68,7 +68,7 @@ class ProjectController extends Controller
     public function show($id)
     {
         //
-        return Project::find($id)->load('developers');
+        return Project::find($id)->load(['developers', 'media']);
     }
 
     /**
@@ -135,6 +135,19 @@ class ProjectController extends Controller
         return  Project::destroy($id);
     }
 
+    public function search(Request $request)
+    {
+        return Project::with(['developers', 'media', 'issues' => function ($query) {
+            $query->where('resolve_at', '=', null);
+        }])->when($request->start_date, function($query) use ($request){
+            $query->where('assign_at', '>=', $request->start_date);
+        })
+        ->when($request->end_date, function($query) use ($request){
+            $query->where('end_at', '<=', $request->end_date);
+        })
+        ->paginate(20);
+    }
+
     public function close($id)
     {
         $project = Project::find($id);
@@ -161,7 +174,7 @@ class ProjectController extends Controller
 
         $assign_by = auth()->user();
 
-        $project = Project::find($id)->load('developers');
+        $project = Project::find($id);
 
         $project->developers()->attach($dev);
 
@@ -178,6 +191,25 @@ class ProjectController extends Controller
 
         $user->notify(new AssignDev($assign_by, $project));
         //Mail::to($user)->send(new DevAssignEmail($fields));
+
+        return $project;
+    }
+
+    public function detach_dev(Request $request, $id, $dev)
+    {
+        $user = User::find($dev);
+
+        $assign_by = auth()->user();
+
+        $project = Project::find($id);
+
+        $project->developers()->detach($dev);
+
+        $project->update(['assign_at' => null]);
+
+        $project->refresh()->load(['developers', 'media', 'issues' => function ($query) {
+            $query->where('resolve_at', '=', null);
+        }]);
 
         return $project;
     }

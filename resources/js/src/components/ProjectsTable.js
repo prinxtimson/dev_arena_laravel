@@ -104,6 +104,7 @@ const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
 
   const handleDocDialogOpen = () => {
     setOpen2(true);
+    setAnchorEl(null);
   };
 
   const handleDocDialogClose = () => {
@@ -112,6 +113,7 @@ const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
 
   const handleDelDialogOpen = () => {
     setOpenDel(true);
+    setAnchorEl(null);
   };
 
   const handleDelDialogClose = () => {
@@ -371,7 +373,7 @@ const ProjectsTable = () => {
     <AppContainer>
       {state.loading ? (
         <Skeleton variant="rect" width="100%">
-          <div style={{ paddingTop: '60%' }} />
+          <div style={{ paddingTop: '40%' }} />
         </Skeleton>
       ) : ( 
       <Paper variant="outlined" className={classes.paper}>

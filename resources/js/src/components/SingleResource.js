@@ -90,7 +90,7 @@ const SingleResource = () => {
     return true;
   }
 
-  const handleDelete = (index) => {
+  const handleFileDelete = (index) => {
     axios.put(`${BASE_URL}/api/resources/remove-file/${id}/${index}`)
     .then(res => {
       console.log(res.data);
@@ -103,6 +103,20 @@ const SingleResource = () => {
           location.replace('/login');
       }
       //setLoading(false);
+    });
+  }
+
+  const handleDelete = () => {
+    axios.delete(`${BASE_URL}/api/resources/${id}`)
+    .then(res => {
+      console.log(res.data);
+      location.replace('/dashboard/resources');
+    })
+    .catch(err => {
+      console.log(err.response);
+      if (err.response.statusText === "Unauthorized") {
+          location.replace('/login');
+      }
     });
   }
 
@@ -126,12 +140,23 @@ const SingleResource = () => {
               {state.user?.id === resource.user_id &&  (
                 <Button
                   variant="text"
-                  color="secondary"
+                  color="primary"
                   size="small"
                   className={classes.submit}
                   onClick={() => setIsEdit(true)}
                 >
                   Edit
+                </Button>
+              )}
+              {state.user?.id === resource.user_id &&  (
+                <Button
+                  variant="text"
+                  color="secondary"
+                  size="small"
+                  className={classes.submit}
+                  onClick={handleDelete}
+                >
+                  Delete
                 </Button>
               )}
               </div>
@@ -152,7 +177,7 @@ const SingleResource = () => {
               const fileExt = data.file_name.split('.').pop();
               return (
                 <div className={classes.fileContainer} key={data.id}>
-                  <div style={{width: 40, height: 40, marginRight: 10}}>
+                  <div style={{width: 40, height: 40, marginRight: 10, marginBottom: 10}}>
                     <FileIcon extension={fileExt} {...defaultStyles[fileExt]} />
                   </div>           
                   <Typography style={{fontSize: 20}}>
@@ -162,7 +187,7 @@ const SingleResource = () => {
                     <IconButton
                       aria-label="close" 
                       className={classes.btn}
-                      onClick={() => handleDelete(index)}>
+                      onClick={() => handleFileDelete(index)}>
                       <DeleteIcon />
                     </IconButton>
                   )}

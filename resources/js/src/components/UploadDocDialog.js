@@ -7,17 +7,15 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import DoneIcon from '@material-ui/icons/Done';
-import DeleteIcon from '@material-ui/icons/Delete';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 import { BASE_URL, axios } from '../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    margin: theme.spacing(3, 0),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+  root: {
+    minWidth: 530
   },
   avatar: {
     margin: theme.spacing(1),
@@ -31,13 +29,26 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
     padding: theme.spacing(1.5),
   },
-  checkboxLabel: {
-      fontSize: 12
+  container: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+  },
+  textfield: {
+    flexGrow: 1,
   },
   btn: {
     color: theme.palette.grey[500],
     marginRight: 2
   },
+  fileList: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  fileName: {
+    flexGrow: 1,
+    alignSelf: 'center',
+  }
 }));
 
 const DialogContent = withStyles((theme) => ({
@@ -56,36 +67,22 @@ const DialogActions = withStyles((theme) => ({
 const UploadDocDialog = ({open, handleClose, project, handleUpdate, setError, error}) => {
   const classes = useStyles();
   const [loading, setLoading] = React.useState(false);
-  const [files, setFiles] = React.useState([]);
+  const [file, setFile] = React.useState(null);
   const [msg, setMsg] = React.useState(null)
 
-  const handleDelete = (index) => {
-    const newFiles = files.filter((file, i) => i !== index);
-    setFiles(newFiles);
-  }
-
-  const handleOnFileSelect = (file) => {
-    setMsg(null)
-    for (let key in file){
-      if (file.hasOwnProperty(key)) {
-        setFiles([file[key], ...files]);
-      }
-    }
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     setLoading(true);
     let formData = new FormData();
-    files.forEach(file => {
-      formData.append('files[]', file);
-    })
+    
+    formData.append('files[]', file); 
     formData.append('_method', 'put');
+
     axios.post(`${BASE_URL}/api/projects/${project.id}`, formData)
         .then(res => {
             setLoading(false);
             setMsg(res.data.msg);
-            handleUpdate(...res.data.project);
+            handleUpdate(res.data.project);
+            setFile(null)
         })
         .catch(err => {
             console.log(err.response);
@@ -95,9 +92,14 @@ const UploadDocDialog = ({open, handleClose, project, handleUpdate, setError, er
     
   }
 
+  const handleOnClose = () => {
+    handleClose();
+    setFile(null);
+  }
+
   return (
-    <Dialog onClose={handleClose} aria-labelledby="dialog-title" open={open}>
-      <MuiDialogTitle disableTypography>
+    <Dialog className={classes.root} onClose={handleOnClose} aria-labelledby="dialog-title" open={open}>
+      <MuiDialogTitle>
         {project.name}
       </MuiDialogTitle>
       <DialogContent>
@@ -106,42 +108,52 @@ const UploadDocDialog = ({open, handleClose, project, handleUpdate, setError, er
             {error.message}
           </Alert>
         )}
-        {files.length > 0 && files.map((file, index) => (
-            <div className={classes.fileList} key={`${index}`}>
-                <Typography className={classes.fileName}>
-                    {file.name}
-                </Typography>
-                {loading ? (
-                  <CircularProgress className={classes.btn} />
-                ) : msg ? (
-                  <DoneIcon />
-                ) : (
-                  <IconButton
-                    aria-label="close" 
-                    className={classes.btn}
-                    onClick={() => handleDelete(index)}>
-                    <DeleteIcon />
-                  </IconButton>
-                )}
-            </div>
-        ))}
-        <Button
-            variant="contained"
-            component="label"
+        <Snackbar
+          open={Boolean(msg)}
+          anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+          autoHideDuration={8000} 
+          onClose={() => setMsg(null)}
         >
-          Select File
-          <input
-            type="file"
-            onChange={e => handleOnFileSelect(e.target.files)}
-            hidden
-          />
-        </Button>
+          <Alert
+              onClose={() => setMsg(null)} 
+              severity="success"
+              variant="filled"
+          >
+              {msg}
+          </Alert>
+        </Snackbar>
+        <Grid container spacing={0} justify="center" alignItems="center">
+          <Grid item xs={12} sm={8}>
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="file"
+              margin="dense"
+              disabled
+              className={classes.textfield}
+              value={file? file.name : ''}
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Button
+                variant="contained"
+                component="label"
+            >
+              Select File
+              <input
+                type="file"
+                onChange={e => setFile(e.target.files[0])}
+                hidden
+              />
+            </Button>
+          </Grid>
+        </Grid>
       </DialogContent>
       <DialogActions>
         <Button
           onClick={handleSubmit}
           color="primary"
-          disabled={loading || files.length == 0}>
+          disabled={loading || !file}>
           Submit
         </Button>
       </DialogActions>

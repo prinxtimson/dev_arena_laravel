@@ -4,6 +4,10 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Skeleton from '@material-ui/lab/Skeleton';
 import ListItemText from '@material-ui/core/ListItemText';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import moment from 'moment';
 import { axios, BASE_URL } from '../utils/utils';
@@ -23,6 +27,10 @@ const ProjectDetails = ({id}) => {
   const [project, setProject] = React.useState({
     developers: []
   });
+  const [state, setState] = React.useState({
+    reports: false,
+    issues: false,
+  });
 
   React.useEffect(() => {
     axios.get(`${BASE_URL}/api/projects/${id}`)
@@ -36,6 +44,14 @@ const ProjectDetails = ({id}) => {
       });
   }, []);
 
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
+
+  const handleOnExport = () => {
+    window.location.href = `${BASE_URL}/projects/export/${id}?report=${state.reports}&blocker=${state.issues}`
+  }
+
   return (
     <div className={classes.root} >
       <Grid container spacing={3}>
@@ -46,7 +62,42 @@ const ProjectDetails = ({id}) => {
             </Skeleton>
           ) : (
             <Paper className={classes.paper}>
-            <ListItemText primary="" />
+              <Grid container spacing={5}>
+                <Grid item xs={12}>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={state.reports}
+                          onChange={handleChange}
+                          name="reports"
+                          color="primary"
+                        />
+                      }
+                      label="Include Reports"
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={state.issues}
+                          onChange={handleChange}
+                          name="issues"
+                          color="primary"
+                        />
+                      }
+                      label="Include Blockers"
+                    />
+                  </FormGroup>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    color="primary"
+                    variant="outlined"
+                    onClick={handleOnExport}>
+                    Export Project
+                  </Button>
+                </Grid>
+              </Grid>
             </Paper>
           )}
         </Grid>

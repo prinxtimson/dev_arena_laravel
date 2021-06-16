@@ -181,6 +181,10 @@ const DailyReports = ({id}) => {
   const [reports, setReports] = React.useState([])
   const [details, setDetails] = React.useState('');
   const [reportId, setReportId] = React.useState(null);
+  const [search, setSearch] = React.useState({
+    from: '',
+    to: ''
+  });
 
   const handleClose = () => {
     setReportId(null)
@@ -206,7 +210,7 @@ const DailyReports = ({id}) => {
   }
 
   React.useEffect(() => {
-    const project = state.user && state.user.projects.find(project => project.id = id);
+    const project = state.user?.projects.find(project => project.id == id);
     setIspermitted(Boolean(project));
     axios.get(`${BASE_URL}/api/reports/${id}`)
       .then(res => {
@@ -219,7 +223,35 @@ const DailyReports = ({id}) => {
       });
   }, []);
 
+  const handleOnSearch = () => {
+    const {from, to} = search;
+    if(from || to) {
+      setFormLoading(true)
+      axios.get(`${BASE_URL}/api/reports/${id}?${from && `from=${new Date(from).toISOString()}`}${to && from ? `&to=${new Date(to).toISOString()}` : to && !from && `to=${new Date(to).toISOString()}`}`)
+      .then(res => {
+        setReports(res.data);
+        setFormLoading(false)
+      })
+      .catch(err => {
+          console.log(err.response);
+          setFormLoading(false)
+      });
+    }  
+  };
+
+  const handleReset = () => {
+    setSearch({from: '', to: ''});
+    axios.get(`${BASE_URL}/api/reports/${id}`)
+      .then(res => {
+        setReports(res.data);
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  }
+
   const handleOnSave = () => {
+    setFormLoading(true)
     axios.post(`${BASE_URL}/api/reports/${id}`, {details})
       .then(res => {
         setReports([res.data, ...reports]);
@@ -232,6 +264,15 @@ const DailyReports = ({id}) => {
       });
   }
 
+  const handleExport = () => {
+    const {from, to} = search;
+    if (from || to) {
+      window.location.href = `${BASE_URL}/reports/export/${id}?${from && `from=${from}`}${to && from ? `&to=${to}` : to && !from && `to=${to}`}`
+    }else {
+      window.location.href = `${BASE_URL}/reports/export/${id}`
+    }
+  }
+
   return (
     <Paper className={classes.root} elevation={0}>
         <RenderConfirmDelete
@@ -241,13 +282,12 @@ const DailyReports = ({id}) => {
           handleDelete={handleDelete}
         />
       <Grid container spacing={2}>
-        {state.user && state.user.roles[0].name === 'developer' && (
-          <Grid item sm={4} xs={12}>
+        <Grid item sm={4} xs={12}>
           {loading ? (
             <Skeleton variant="rect" width="100%">
               <div style={{ paddingTop: '35%' }} />
             </Skeleton>
-          ) : (
+          ) : state.user?.roles[0].name === 'developer' ? (          
             <Paper className={classes.paper}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -273,10 +313,80 @@ const DailyReports = ({id}) => {
                 </Grid>
               </Grid>
             </Paper>
-          )}
-        </Grid>
-        )}       
-        <Grid item sm={state.user && state.user.roles[0].name === 'developer' ? 8 : 12} xs={12}>
+          ) : (
+            <Paper className={classes.paper}>
+              <Grid container spacing={2}>
+              <Grid item xs={12}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    fullWidth
+                    onClick={handleExport}>
+                    Export Reports
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    id="from"
+                    label="From"
+                    type="date"
+                    value={search.from}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}                   
+                    onChange={e => setSearch({
+                      ...search, 
+                      from: e.target.value})}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    id="to"
+                    label="To"
+                    type="date"
+                    value={search.to}
+                    inputProps={{
+                      min: search.from
+                    }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    onChange={e => setSearch({
+                      ...search,
+                      to: e.target.value})}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                      <Button
+                        color="primary"
+                        variant="outlined"
+                        fullWidth
+                        onClick={handleOnSearch}>
+                        Search
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        color="default"
+                        variant="contained"
+                        fullWidth
+                        onClick={handleReset}>
+                        Reset
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Paper>
+          )}  
+        </Grid>    
+        <Grid item sm={8} xs={12}>
           {loading ? (
             <Skeleton variant="rect" width="100%">
               <div style={{ paddingTop: '45%' }} />

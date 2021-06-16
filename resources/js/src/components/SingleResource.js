@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -59,6 +59,7 @@ const SingleResource = () => {
   const [loading, setLoading] = React.useState(true);
   const [resource, setResource] = React.useState(null);
   const [isEdit, setIsEdit] = React.useState(false);
+  let history = useHistory();
   const {id} = useParams();
 
   React.useEffect(() => {
@@ -110,7 +111,7 @@ const SingleResource = () => {
     axios.delete(`${BASE_URL}/api/resources/${id}`)
     .then(res => {
       console.log(res.data);
-      location.replace('/dashboard/resources');
+      history.push('/dashboard/resources');
     })
     .catch(err => {
       console.log(err.response);

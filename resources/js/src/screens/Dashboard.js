@@ -17,6 +17,7 @@ import SingleProject from '../components/SingleProject';
 import AddResourceForm from '../components/AddResourceForm';
 import Resources from '../components/Resources';
 import SingleResource from '../components/SingleResource';
+import UserProjects from '../components/UserProjects';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -35,8 +36,11 @@ function Dashboard({match}) {
             case 'projects':
                 if(param2){
                     return <SingleProject />;
+                } else if (state.user?.roles[0]?.name === 'developer') {
+                    return <UserProjects projects={state.user.projects} />;
+                }else {
+                    return <ProjectsTable />;
                 }
-                return <ProjectsTable />;
             case 'resources':
                 if(param2){
                     return <SingleResource />;

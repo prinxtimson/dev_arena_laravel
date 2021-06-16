@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProjectExportController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\IssueController;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /*
@@ -35,6 +39,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/{name?}/{id?}', ['as' => 'dashboard', function ($name = null) {
         return view('welcome');
     }]);
+    Route::get('/projects/export', [ProjectExportController::class, 'export']);
+    Route::get('/projects/export/{id}', [ProjectExportController::class, 'export_one']);
+    Route::get('/users/export', [UserController::class, 'export']);
+    Route::get('/reports/export/{id}', [ReportController::class, 'export']);
+    Route::get('/blockers/export/{id}', [IssueController::class, 'export']);
 });
 
 Route::middleware(['auth', 'role:admin|super-admin'])->group(function () {

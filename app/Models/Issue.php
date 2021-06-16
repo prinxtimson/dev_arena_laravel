@@ -12,8 +12,7 @@ class Issue extends Model
     protected $fillable = [
         'details',
         'resolve_at',
-        'assign_to',
-        'raise_by',
+        'user_id',
         'ticket_no',
     ];
 
@@ -21,18 +20,18 @@ class Issue extends Model
         'resolve_at' => 'datetime',
     ];
 
-    public function raise_by ()
+    public function user ()
     {
-        return $this->belongsTo(User::class, 'raise_by');
-    }
-
-    public function assign_to ()
-    {
-        return $this->belongsTo(User::class, 'assign_to');
+        return $this->belongsTo(User::class);
     }
 
     public function project ()
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function comments ()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

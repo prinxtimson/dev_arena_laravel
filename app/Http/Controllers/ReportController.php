@@ -5,19 +5,42 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Project; 
 use App\Models\Report; 
+use App\Exports\DailyReportsExport;
+use Maatwebsite\Excel\Excel;
 
 class ReportController extends Controller
 {
+    private $excel;
+
+    public function __construct(Excel $excel)
+    {
+        $this->excel = $excel;
+    }
+
+    public function export(Request $request, $id)
+    {
+        $from = $request->from;
+        $to = $request->to;
+
+        return $this->excel->download(new DailyReportsExport($id, $from, $to), 'project_daily_reports.xlsx');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Request $request, $id)
     {
+        $from = $request->from;
+        $to = $request->to;
         $project = Project::find($id);
 
-        return $project->reports;
+        return $project->reports->when($from, function($q) use ($from) {
+            return $q->where('created_at', '>=', $from);
+        })->when($to, function($q) use ($to) {
+            return $q->where('created_at', '<=', $to);
+        });
     }
 
     /**

@@ -18,15 +18,15 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import AppContainer from './AppContainer';
 import Badge from '@material-ui/core/Badge';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { axios, BASE_URL } from '../utils/utils';
 import ProjectDailog from './ProjectDailog';
-import Skeleton from '@material-ui/lab/Skeleton';
+import Grid from '@material-ui/core/Grid';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import UploadDocDialog from './UploadDocDialog';
@@ -39,7 +39,11 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     width: '100%',
+    padding: theme.spacing(3),
     marginBottom: theme.spacing(2),
+  },
+  grid: {
+    margin: theme.spacing(0.5, 0)
   },
   title: {
     flex: '1 1 100%',
@@ -48,6 +52,11 @@ const useStyles = makeStyles((theme) => ({
   btnContainer: {
     margin: theme.spacing(2.5, 2),
   },
+  hover: {
+    '&:hover': {
+        color: '#fff',
+    }
+}
 }));
 
 const RenderDeleteConfirmationDialog = ({open, row, handleClose, handleDelete}) => (
@@ -90,7 +99,7 @@ const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
   const [dev, setDev] = React.useState(false);
   const [weeks, setWeeks] = React.useState();
   const issueCount = row.issues.length;
-  let a = moment(project.end);
+  let a = moment(project.end_at);
   let b = moment();
 
   const handleDialogOpen = () => {
@@ -238,13 +247,13 @@ const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
           <Badge badgeContent={issueCount} color="error">{project.name}</Badge>
         </StyledTableCell>
         <StyledTableCell align="left">
-          {moment(project.start).format('MMM Do YYYY')}
+          {moment(project.start_at).format('MMM Do YYYY')}
         </StyledTableCell>
         <StyledTableCell align="left">
-          {moment(project.expected_end).format('MMM Do YYYY')}
+          {moment(project.est_end_at).format('MMM Do YYYY')}
         </StyledTableCell>
         <StyledTableCell align="left">
-          {moment(project.end).format('MMM Do YYYY')}
+          {moment(project.end_at).format('MMM Do YYYY')}
         </StyledTableCell>
         <StyledTableCell align="left">
           {a.diff(b, 'weeks') + 'Weeks'}
@@ -321,6 +330,11 @@ const StyledTableRow = withStyles((theme) => ({
 const ProjectsTable = () => {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
+  let history = useHistory();
+  const [search, setSearch] = React.useState({
+    start: '',
+    end: ''
+  })
   const [state, setState] = React.useState({
     data: [],
     loading: false,
@@ -369,27 +383,137 @@ const ProjectsTable = () => {
         });
   };
 
+  const handleOnSearch = () => {
+    const {start, end} = search;
+    if(start || end) {
+      setState({...state, loading: true});
+      history.push(`?${start && `start=${start}`}${end && start ? `&end=${end}` : end && !start && `end=${end}`}`);
+
+      axios.get(`${BASE_URL}/api/projects?${start && `start=${new Date(start).toISOString()}`}${end && start ? `&end=${new Date(end).toISOString()}` : end && !start && `end=${new Date(end).toISOString()}`}`)
+      .then(res => {
+          console.log(res.data);
+          setState({...state, ...res.data, loading: false});
+      })
+      .catch(err => {
+          console.log(err.response);
+          setState({...state, error: err.response.data, loading: false});
+      });
+    }  
+  };
+
+  const handleReset = () => {
+    setState({...state, loading: true});
+    setSearch({start: '', end: ''});
+    history.push('/dashboard/projects')
+    axios.get(`${BASE_URL}/api/projects`)
+        .then(res => {
+            console.log(res.data)
+            setState({...state, ...res.data, loading: false});
+        })
+        .catch(err => {
+            console.log(err.response);
+            setState({...state, error: err.response.data, loading: false});
+        });
+  }
+
+  const handleExport = () => {
+    //let location = useLocation();
+    const query = new URLSearchParams(window.location.search)
+    const start = query.get('start');
+    const end = query.get('end');
+    if (start || end) {
+      window.location.href = `${BASE_URL}/projects/export?${start && `start=${start}`}${end && start ? `&end=${end}` : end && !start && `end=${end}`}`
+    }else {
+      window.location.href = `${BASE_URL}/projects/export`
+    }
+  }
+
   return (
     <AppContainer>
-      {state.loading ? (
-        <Skeleton variant="rect" width="100%">
-          <div style={{ paddingTop: '40%' }} />
-        </Skeleton>
-      ) : ( 
       <Paper variant="outlined" className={classes.paper}>
-        <div className={classes.btnContainer}>
-            <Button
+          <Grid container spacing={5} justify="center" alignItems="center">
+            <Grid item xs={12} sm={3}>
+              <Button
                 variant="contained"
                 color="primary"
                 size="large"
-                component={Link}
-                to="/dashboard/add-project"
-            >
-                Add Project
-            </Button>
-          </div>
-        <TableContainer component={Paper}>
-          
+                onClick={handleExport}
+                className={classes.hover}
+              >
+                Export Table
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={9}>
+              <Grid container spacing={2} justify="center" alignItems="center">
+                <Grid item xs={6} sm={4}>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    margin="dense"
+                    id="start"
+                    label="Start Date"
+                    type="date"
+                    value={search.start}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    
+                    onChange={e => setSearch({
+                      ...search, 
+                      start: e.target.value})}
+                  />
+                </Grid>
+                <Grid item xs={6} sm={4}>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    margin="dense"
+                    id="end"
+                    label="End Date"
+                    type="date"
+                    value={search.end}
+                    inputProps={{
+                      min: search.start
+                    }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    onChange={e => setSearch({
+                      ...search,
+                      end: e.target.value})}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <Grid container spacing={1} justify="center" alignItems="center">
+                    <Grid item xs={6}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        fullWidth
+                        onClick={handleOnSearch}
+                      >
+                        Search
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        variant="contained"
+                        color="default"
+                        size="large"
+                        fullWidth
+                        onClick={handleReset}
+                      >
+                        Reset
+                      </Button>
+                    </Grid>
+                  </Grid>
+                 
+                </Grid>
+              </Grid>
+            </Grid>
+        </Grid>
+        <TableContainer component={Paper} elevation={0}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -402,7 +526,13 @@ const ProjectsTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {state.data.length === 0 ? (
+              {state.loading ? (
+                <TableRow>
+                  <StyledTableCell scope="row">
+                      Loading.....
+                  </StyledTableCell>
+                </TableRow>
+              ) : state.data.length === 0 ? (
                   <TableRow>
                       <StyledTableCell scope="row">
                           No Data Available.
@@ -430,7 +560,6 @@ const ProjectsTable = () => {
           </Table>
         </TableContainer>
       </Paper>
-      )}
   </AppContainer>
   )
 }

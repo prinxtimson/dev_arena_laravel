@@ -93,7 +93,8 @@ const toggleEdit = () => {
     setIsEdit(!isEdit);
 }
 
-const handleSubmit = () => {
+const handleSubmit = (e) => {
+    e.preventDefault();
     setFormLoading(true);
     axios.put(`${BASE_URL}/api/users/${id}`, data)
         .then(res => {

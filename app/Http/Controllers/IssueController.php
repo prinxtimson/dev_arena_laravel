@@ -11,19 +11,45 @@ use App\Notifications\IssueRaised;
 use App\Notifications\IssueResolved;
 use App\Notifications\IssueReopen;
 use Illuminate\Support\Facades\Notification;
+use App\Exports\BlockersExport;
+use Maatwebsite\Excel\Excel;
 
 class IssueController extends Controller
 {
+    private $excel;
+
+    public function __construct(Excel $excel)
+    {
+        $this->excel = $excel;
+    }
+
+    public function export(Request $request, $id)
+    {
+        $from = $request->from;
+        $to = $request->to;
+        $resolved = $request->resolved;
+
+        return $this->excel->download(new BlockersExport($id, $from, $to, $resolved), 'project_blockers.xlsx');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Request $request, $id)
     {
+        $from = $request->from;
+        $to = $request->to;
+
         $project = Project::find($id);
 
-        return $project->issues;
+        return $project->issues->when($from, function($q) use ($from) {
+            return $q->where('created_at', '>=', $from);
+        })->when($to, function($q) use ($to) {
+            return $q->where('created_at', '<=', $to);
+        })->with(['comments' => function($q) {
+            return $q->load('user');
+        }]);
     }
 
     /**
@@ -40,7 +66,7 @@ class IssueController extends Controller
 
         $issue = $project->issues()->create([
             'details' => $request->details,
-            'raise_by' => $user->id,
+            'user_id' => $user->id,
             ]);
 
         $issue->update([
@@ -48,7 +74,7 @@ class IssueController extends Controller
         ]);
         
         Notification::send($admins, new IssueRaised($user, $project));
-        return $issue->refresh();
+        return $issue->refresh()->load('comments');
     }
 
     /**
@@ -59,7 +85,7 @@ class IssueController extends Controller
      */
     public function show($id)
     {
-        return Issue::find($id)->load('project');
+        return Issue::find($id)->load(['project', 'comments']);
     }
 
     /**
@@ -77,7 +103,7 @@ class IssueController extends Controller
 
         $issue->update($request->all());
 
-        return $issue->refresh()->load('project');
+        return $issue->refresh()->load(['project', 'comments']);
     }
 
     /**
@@ -100,7 +126,7 @@ class IssueController extends Controller
             'resolve_at' => Carbon::now(),
         ]);
 
-        $issue->refresh()->load('project');
+        $issue->refresh()->load(['project', 'comments']);
 
         $user->notify(new IssueResolved($issue));
 
@@ -115,7 +141,7 @@ class IssueController extends Controller
             'resolve_at' => null,
         ]);
 
-        $issue->refresh()->load('project');
+        $issue->refresh()->load(['project', 'comments']);
 
         $user->notify(new IssueReopen($issue));
 

@@ -197,7 +197,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
   });
   let a = moment(project.end_at);
   let b = moment();
-  let c = moment(project.start_at);
+  let c = moment(project.assign_at);
 
   const handleSaveChanges = () => {
     handleSaveEdit(data);

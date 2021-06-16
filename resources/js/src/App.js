@@ -26,10 +26,10 @@ const theme = createMuiTheme({
         },
       },
       MuiButton: {
-        text: {
-          color: 'white'
-        }
-      }
+        primary: {
+          color: 'white',
+        },
+      },
     },
     typography: {
       button: {
@@ -41,7 +41,11 @@ const theme = createMuiTheme({
       primary: {
         // Purple and green play nicely together.
         main: '#c7a936',
-        text: 'white'
+        contrastText: "#fff",
+        '&:hover': {
+          contrastText: '#fff'
+        },
+        textDecoration: "none",
       },
     },    
   })

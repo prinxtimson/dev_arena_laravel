@@ -275,6 +275,9 @@ const AddProjectForm = () => {
                         name="est_end_at"
                         type="date"
                         defaultValue={window.Date.now()}
+                        inputProps={{
+                          min: data.start_at
+                        }}
                         InputLabelProps={{
                           shrink: true,
                         }}

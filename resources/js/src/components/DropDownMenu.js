@@ -54,12 +54,16 @@ function DropDownMenu({handleClose, anchorE1}) {
             >
                 <div className={classes.nameDiv}>
                     <ListItemText 
-                     primary={state.user && state.user.name}
-                     secondary={state.user && state.user.email} 
+                     primary={state.user?.name}
+                     secondary={state.user?.email} 
                     />
                 </div>
                 <Divider />
-                <MenuItem>
+                <MenuItem
+                  component={Link}
+                  to="/dashboard"
+                  onClick={handleClose}
+                >
                     <ListItemIcon>
                         <HomeIcone fontSize="small" />
                     </ListItemIcon>

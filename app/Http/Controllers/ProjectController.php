@@ -19,12 +19,17 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        return Project::with(['developers', 'media', 'issues' => function ($query) {
-            $query->where('resolve_at', '=', null);
-        }])->paginate(20);
+        $start = $request->start;
+        $end = $request->end;
+        return Project::when($start, function($q) use ($start) {
+                return $q->where('start_at', '>=', $start);
+            })->when($end, function($q) use ($end) {
+                return $q->where('end_at', '<=', $end);
+            })->with(['developers', 'media', 'issues' => function ($query) {
+                $query->where('resolve_at', '=', null);
+            }])->paginate(20);
     }
 
     /**

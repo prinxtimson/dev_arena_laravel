@@ -11,9 +11,25 @@ use App\Events\Illuminate\Auth\Events\NewUserAdded;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\NewUser;
 use Illuminate\Support\Facades\Mail;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Excel;
 
 class UserController extends Controller
 {
+    private $excel;
+
+    public function __construct(Excel $excel)
+    {
+        $this->excel = $excel;
+    }
+
+    public function export(Request $request)
+    {
+        $role = $request->role;
+
+        return $this->excel->download(new UsersExport($role), 'users_table.xlsx');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +38,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::with(['roles', 'projects' => function ($query) {
+        $users = User::withTrashed()->with(['roles', 'projects' => function ($query) {
             $query->where('end_at', '>', Carbon::now());
         }])->paginate(20);
 
@@ -36,6 +52,19 @@ class UserController extends Controller
                 $q->where('name', 'developer');
             }
         )->get();
+
+        return $users;
+    }
+
+    public function search_by_role($role)
+    {
+        $users = User::whereHas(
+            'roles', function($q) use ($role){
+                $q->where('name', $role);
+            }
+        )->with(['roles', 'projects' => function ($query) {
+            $query->where('end_at', '>', Carbon::now());
+        }])->paginate(20);
 
         return $users;
     }
@@ -115,7 +144,7 @@ class UserController extends Controller
 
         $user = User::find($id);
         $user->update([
-            'name' =>  $fields['firstname'] . $fields['lastname'],
+            'name' =>  $fields['firstname'] .' '. $fields['lastname'],
             'username' => strtolower($fields['firstname'].$fields['lastname']),
         ]);
 
@@ -131,6 +160,28 @@ class UserController extends Controller
         return response($response);
     }
 
+    public function disable($id)
+    {
+        User::find($id)->delete();
+
+        $user = User::withTrashed()->find($id)->load(['roles', 'projects' => function ($query) {
+            $query->where('end_at', '>', Carbon::now());
+        }]);
+
+        return $user;
+    }
+
+    public function enable($id)
+    {
+        User::withTrashed()->find($id)->restore();
+
+        $user = User::withTrashed()->find($id)->load(['roles', 'projects' => function ($query) {
+            $query->where('end_at', '>', Carbon::now());
+        }]);
+
+        return $user;
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -140,6 +191,6 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-        return User::destroy($id);
+        return User::forceDelete($id);
     }
 }

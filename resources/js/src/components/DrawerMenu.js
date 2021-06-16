@@ -18,7 +18,8 @@ import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Skeleton from '@material-ui/lab/Skeleton';
-import Typography from '@material-ui/core/Typography';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import WorkIcon from '@material-ui/icons/Work';
 import Avatar from '@material-ui/core/Avatar';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -64,6 +65,10 @@ const useStyles = makeStyles((theme) => ({
   },
   grow: {
     flexGrow: 1,
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+    fontSize: 12
   },
 }));
 
@@ -116,6 +121,16 @@ function DrawerMenu({ window, children }) {
             <>
               <MenuItem
                 component={Link}
+                to="/dashboard/projects"
+                onClick={handleDrawerToggle}
+              >
+                <ListItemIcon>
+                  <BusinessCenterIcon />
+                </ListItemIcon>
+                <ListItemText primary="Projects" />
+              </MenuItem>
+              <MenuItem
+                component={Link}
                 to="/dashboard/resources"
                 onClick={handleDrawerToggle}
               >
@@ -124,16 +139,19 @@ function DrawerMenu({ window, children }) {
                 </ListItemIcon>
                 <ListItemText primary="Resources" />
               </MenuItem>
-              <MenuItem
-                component={Link}
-                to="/dashboard/add-resources"
-                onClick={handleDrawerToggle}
-              >
-                <ListItemIcon>
-                  <NewFolderIcon />
-                </ListItemIcon>
-                <ListItemText primary="Add Resources" />
-              </MenuItem>
+              <List dense>
+                <MenuItem
+                  component={Link}
+                  className={classes.nested}
+                  to="/dashboard/add-resources"
+                  onClick={handleDrawerToggle}
+                >
+                  <ListItemIcon>
+                    <NewFolderIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Add Resources" />
+                </MenuItem>
+              </List>
             </>
           ) : (
             <>
@@ -147,6 +165,19 @@ function DrawerMenu({ window, children }) {
                 </ListItemIcon>
                 <ListItemText primary="Users" />
               </MenuItem>
+              <List dense>
+                <MenuItem
+                  component={Link}
+                  className={classes.nested}
+                  to="/dashboard/add-user"
+                  onClick={handleDrawerToggle}
+                >
+                  <ListItemIcon>
+                    <PersonAddIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Add User" />
+                </MenuItem>
+              </List>
               <MenuItem
                 component={Link}
                 to="/dashboard/projects"
@@ -157,6 +188,19 @@ function DrawerMenu({ window, children }) {
                 </ListItemIcon>
                 <ListItemText primary="Projects" />
               </MenuItem>
+              <List dense>
+                <MenuItem
+                  component={Link}
+                  className={classes.nested}
+                  to="/dashboard/add-project"
+                  onClick={handleDrawerToggle}
+                >
+                  <ListItemIcon>
+                    <WorkIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Add Project" />
+                </MenuItem>
+              </List>
               <MenuItem
                 component={Link}
                 to="/dashboard/resources"

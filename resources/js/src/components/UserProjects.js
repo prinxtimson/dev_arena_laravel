@@ -23,6 +23,12 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flex: '1 1 100%',
     margin: theme.spacing(2, 3)
+  },
+  link: {
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'none'
+    }
   }
 }));
 
@@ -56,23 +62,23 @@ const UserProjects = ({projects}) => {
                   </TableCell>
               </TableRow>
             ) : projects.map((project) => {
-                  let a = moment(project.end);
+                  let a = moment(project.end_at);
                   let b = moment.now();
                   return (
                     <TableRow key={project.name} >
                       <TableCell component="th" scope="row">
-                        <NavLink to={`projects/${project.id}`}>
+                        <NavLink to={`projects/${project.id}`} className={classes.link}>
                           {project.name}
                         </NavLink>
                       </TableCell>
                       <TableCell align="left">
-                        {moment(project.start).format('MMM Do YYYY')}
+                        {moment(project.start_at).format('MMM Do YYYY')}
                       </TableCell>
                       <TableCell align="left">
-                        {moment(project.expected_end).format('MMM Do YYYY')}
+                        {moment(project.est_end_at).format('MMM Do YYYY')}
                       </TableCell>
                       <TableCell align="left">
-                        {moment(project.end).format('MMM Do YYYY')}
+                        {moment(project.end_at).format('MMM Do YYYY')}
                       </TableCell>
                       <TableCell align="left">
                         {a.diff(b, 'weeks') + 'Weeks'}

@@ -35,21 +35,31 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/upload-avatar', [AuthController::class, 'upload']);
     Route::get('/users/{id}', [UserController::class, 'show']);
     Route::get('/developers', [UserController::class, 'dev']);
+    Route::get('/users/search/{role}', [UserController::class, 'search_by_role']);
     Route::put('/change-password', [AuthController::class, 'changePass']);
     Route::put('/update', [AuthController::class, 'update']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    
     Route::put('/accept-project', [ProjectController::class, 'accept_project']);
     Route::put('/decline-project', [ProjectController::class, 'decline_project']);
     Route::get('/projects/{id}', [ProjectController::class, 'show']);
+
     Route::get('/reports/{id}', [ReportController::class, 'index']);
     //Route::get('/reports/{id}', [ReportController::class, 'show']);
     Route::post('/reports/{id}', [ReportController::class, 'store']);
     Route::put('/reports/{id}', [ReportController::class, 'update']);
     Route::delete('/reports/{id}', [ReportController::class, 'destroy']);
+
     Route::get('/issues/{id}', [IssueController::class, 'index']);
     Route::post('/issues/{id}', [IssueController::class, 'store']);
     Route::put('/issues/{id}', [IssueController::class, 'update']);
     Route::delete('/issues/{id}', [IssueController::class, 'destroy']);
+
+    Route::get('/comments/{id}', [CommentController::class, 'index']);
+    Route::post('/comments', [CommentController::class, 'store']);
+    Route::put('/comments/{id}', [CommentController::class, 'update']);
+    Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
+
     Route::get('/resources', [ResourceController::class, 'index']);
     Route::get('/resources/{id}', [ResourceController::class, 'show']);
     Route::post('/resources', [ResourceController::class, 'store']);
@@ -73,6 +83,8 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin|super-admin']], funct
     Route::post('/users', [UserController::class, 'store']);
     Route::put('/users/{id}', [UserController::class, 'update']);
     Route::delete('users/{id}', [UserController::class, 'destroy']);
+    Route::put('users/disable/{id}', [UserController::class, 'disable']);
+    Route::put('users/enable/{id}', [UserController::class, 'enable']);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

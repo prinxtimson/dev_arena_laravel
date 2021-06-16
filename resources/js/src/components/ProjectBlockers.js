@@ -171,7 +171,7 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
                 </Button>
               </>
             )}
-            {state.user && state.user.roles[0].name === 'admin' && (
+            {state.user?.roles[0].name === 'admin' && (
               <>
                 <Button
                   size="small"
@@ -238,6 +238,10 @@ const ProjectBlockers = ({id}) => {
   const [data, setData] = React.useState({
     details: '',
   });
+  const [search, setSearch] = React.useState({
+    from: '',
+    to: ''
+  });
   const [issueId, setIssueId] = React.useState(null);
 
   const handleClose = () => {
@@ -265,7 +269,8 @@ const ProjectBlockers = ({id}) => {
   }
 
   React.useEffect(() => {
-    const project = state.user && state.user.projects.find(project => project.id = id);
+    const project = state.user?.projects.find(project => project.id == id);
+    console.log(project)
     setIspermitted(Boolean(project));
     axios.get(`${BASE_URL}/api/issues/${id}`)
       .then(res => {
@@ -278,7 +283,35 @@ const ProjectBlockers = ({id}) => {
       });
   }, []);
 
+  const handleOnSearch = () => {
+    const {from, to} = search;
+    if(from || to) {
+      setFormLoading(true)
+      axios.get(`${BASE_URL}/api/issues/${id}?${from && `from=${new Date(from).toISOString()}`}${to && from ? `&to=${new Date(to).toISOString()}` : to && !from && `to=${new Date(to).toISOString()}`}`)
+      .then(res => {
+        setBlockers(res.data);
+        setFormLoading(false)
+      })
+      .catch(err => {
+          console.log(err.response);
+          setFormLoading(false)
+      });
+    }  
+  };
+
+  const handleReset = () => {
+    setSearch({from: '', to: ''});
+    axios.get(`${BASE_URL}/api/issues/${id}`)
+      .then(res => {
+        setBlockers(res.data);
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  }
+
   const handleOnSave = () => {
+    setFormLoading(true)
     axios.post(`${BASE_URL}/api/issues/${id}`, data)
       .then(res => {
         setBlockers([res.data, ...blockers]);
@@ -294,6 +327,15 @@ const ProjectBlockers = ({id}) => {
       });
   }
 
+  const handleExport = () => {
+    const {from, to} = search;
+    if (from || to) {
+      window.location.href = `${BASE_URL}/blockers/export/${id}?${from && `from=${from}`}${to && from ? `&to=${to}` : to && !from && `to=${to}`}`
+    }else {
+      window.location.href = `${BASE_URL}/blockers/export/${id}`
+    }
+  }
+
   return (
     <Paper className={classes.root} elevation={0}>
       <RenderConfirmDelete
@@ -303,42 +345,111 @@ const ProjectBlockers = ({id}) => {
         handleDelete={handleDelete}
       />
       <Grid container spacing={2}>
-        {state.user?.roles[0]?.name === 'developer' && (
-          <Grid item sm={4} xs={12}>
-            {loading ? (
-              <Skeleton variant="rect" width="100%">
-                <div style={{ paddingTop: '35%' }} />
-              </Skeleton>
-            ) : (
+        <Grid item sm={4} xs={12}>
+          {loading ? (
+            <Skeleton variant="rect" width="100%">
+              <div style={{ paddingTop: '35%' }} />
+            </Skeleton>
+          ) : state.user?.roles[0]?.name === 'developer' ? (
+            <Paper className={classes.paper}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    id="blocker"
+                    label="Blocker Details"
+                    className={classes.textfield}
+                    multiline
+                    rows={4}
+                    value={data.details}
+                    onChange={e => setData({...data, details: e.target.value})}
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    color="primary"
+                    onClick={handleOnSave}
+                    disabled={formLoading || !data.details || !isPermitted}
+                    variant="outlined">
+                    Save
+                  </Button>
+                </Grid>
+              </Grid>
+            </Paper>
+          ) : (
               <Paper className={classes.paper}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      fullWidth
+                      onClick={handleExport}>
+                      Export Reports
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12}>
                     <TextField
-                      id="blocker"
-                      label="Blocker Details"
-                      className={classes.textfield}
-                      multiline
-                      rows={4}
-                      value={data.details}
-                      onChange={e => setData({...data, details: e.target.value})}
                       variant="outlined"
+                      fullWidth
+                      id="from"
+                      label="From"
+                      type="date"
+                      value={search.from}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}                   
+                      onChange={e => setSearch({
+                        ...search, 
+                        from: e.target.value})}
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <Button
-                      color="primary"
-                      onClick={handleOnSave}
-                      disabled={formLoading || !data.details || !isPermitted}
-                      variant="outlined">
-                      Save
-                    </Button>
+                    <TextField
+                      variant="outlined"
+                      fullWidth
+                      id="to"
+                      label="To"
+                      type="date"
+                      value={search.to}
+                      inputProps={{
+                        min: search.from
+                      }}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      onChange={e => setSearch({
+                        ...search,
+                        to: e.target.value})}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={6}>
+                        <Button
+                          color="primary"
+                          variant="outlined"
+                          fullWidth
+                          onClick={handleOnSearch}>
+                          Search
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          color="default"
+                          fullWidth
+                          variant="contained"
+                          onClick={handleReset}>
+                          Reset
+                        </Button>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Paper>
             )}
-          </Grid>
-        )}
-        <Grid item sm={state.user?.roles[0].name === 'developer' ? 8 : 12} xs={12}>
+        </Grid>
+        <Grid item sm={8} xs={12}>
           {loading ? (
             <Skeleton variant="rect" width="100%">
               <div style={{ paddingTop: '45%' }} />

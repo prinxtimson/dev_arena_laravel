@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import { useParams, useHistory } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -25,6 +26,7 @@ const Resources = () => {
   const classes = useStyles();
   const [loading, setLoading] = React.useState(true);
   const [resources, setResources] = React.useState([]);
+  let history = useHistory();
 
   React.useEffect(() => {
     axios.get(`${BASE_URL}/api/resources`)
@@ -43,7 +45,7 @@ const Resources = () => {
   }, []);
 
   const handleClick = id => {
-    location.replace(`/dashboard/resources/${id}`)
+    history.push(`resources/${id}`)
   }
 
   return (

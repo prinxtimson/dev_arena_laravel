@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,7 +40,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/change-password', [AuthController::class, 'changePass']);
     Route::put('/update', [AuthController::class, 'update']);
     Route::post('/logout', [AuthController::class, 'logout']);
-    
+
     Route::put('/accept-project', [ProjectController::class, 'accept_project']);
     Route::put('/decline-project', [ProjectController::class, 'decline_project']);
     Route::get('/projects/{id}', [ProjectController::class, 'show']);

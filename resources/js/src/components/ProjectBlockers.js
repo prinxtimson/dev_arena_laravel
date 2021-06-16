@@ -18,6 +18,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import LoopIcon from '@material-ui/icons/Loop';
 import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
 import moment from 'moment';
 import { UserContext } from '../context/GlobalState';
 import { BASE_URL, axios } from '../utils/utils';
@@ -46,6 +52,10 @@ const useStyles = makeStyles((theme) => ({
   pos: {
     marginBottom: 12,
   },
+  inline: {
+    display: 'block',
+    fontSize: 14,
+  }
 }));
 
 const CustomTextField = ({blocker, handleClick, handleUpdate}) => {
@@ -108,7 +118,13 @@ const CustomTextField = ({blocker, handleClick, handleUpdate}) => {
 
 const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => {
   const classes = useStyles();
-  const [edit, setEdit] = React.useState(false)
+  const [loading, setLoading] = React.useState(false);
+  const [edit, setEdit] = React.useState(false);
+  const [comments, setComments] = React.useState(blocker.comments)
+  const [comment, setComment] = React.useState({
+    text: '',
+    issue_id: blocker.id
+  });
 
   const handleClick = () => {
     setEdit(false)
@@ -128,6 +144,18 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
         })      
   }
 
+  const handleSubmitComment = () => {
+    axios.post(`${BASE_URL}/api/comments`, comment).then(res => {
+      console.log(res.data)
+      //handleUpdate(res.data)
+      setLoading(false);
+      setComment({...comment, text: ''})
+    }).catch(err => {
+      console.log(err.response);
+      setLoading(false);
+    })
+  }
+
   return (
     <Card className={classes.root} elevation={0} key={blocker.id}>
       {edit ? (
@@ -142,15 +170,14 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
         <>
           <CardContent>
             <Typography className={classes.title} color="textSecondary" gutterBottom>
-              {`${blocker.ticket_no} - ${moment(blocker.created_at).format('LLLL')}`}
+              {`${blocker.ticket_no} - ${moment(blocker.created_at).format('lll')}`}
             </Typography>
             <Typography variant="body2" component="p">
               {blocker.details}
             </Typography>
           </CardContent>
-          <CardActions>
-            {isPermitted && (
-              <>
+            {isPermitted ? (
+              <CardActions>
                 <Button
                   size="small"
                   variant="text"
@@ -169,10 +196,9 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
                   startIcon={<EditIcon />}>
                   Edit
                 </Button>
-              </>
-            )}
-            {state.user?.roles[0].name === 'admin' && (
-              <>
+              </CardActions>
+            ) : state.user?.roles[0].name === 'admin' && (
+              <CardActions>
                 <Button
                   size="small"
                   variant="text"
@@ -193,9 +219,83 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
                   startIcon={<LoopIcon />}>
                   Open
                 </Button>
-              </>
+              </CardActions>
             )}
-          </CardActions>
+          <CardContent>
+            <Grid container spacing={2} alignItems="center">
+              <Grid item xs={8}>
+                <TextField
+                  id="comment"
+                  margin="dense"
+                  label="Enter Comment"
+                  multiline
+                  className={classes.textfield}
+                  value={comment.text}
+                  onChange={e => setComment({...comment, text: e.target.value})}
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <Button
+                  color="primary"
+                  size="medium"
+                  variant="contained"
+                  disabled={loading}
+                  onClick={handleSubmitComment}
+                  >
+                  Submit
+                </Button>
+              </Grid>
+            </Grid>
+            <List>
+              {comments.map(val => (
+                <ListItem alignItems="flex-start" key={val.id}>
+                  <ListItemAvatar>
+                    <Avatar alt={val.user.name} src={val.user.avatar} />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={val.user.name}
+                    secondary={
+                      <React.Fragment>
+                        {moment(val.created_at).format('lll')}
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          className={classes.inline}
+                          color="textPrimary"
+                        >
+                          {`- ${val.text}`}
+                        </Typography>
+                        {state.user?.id === val.user.id && (
+                          <React.Fragment>
+                          
+                              <Button
+                                size="small"
+                                variant="text"
+                                color="primary"
+                                //onClick={() => setEdit(true)}
+                                className={classes.button}
+                                startIcon={<EditIcon />}>
+                                Edit
+                              </Button>
+                              <Button
+                                size="small"
+                                variant="text"
+                                color="secondary"
+                                className={classes.button}
+                                //onClick={() => handleOpen(blocker.id)}
+                                startIcon={<DeleteIcon />}>
+                                Delete
+                              </Button>
+                          </React.Fragment>
+                        )}
+                      </React.Fragment>
+                    }
+                  />
+                </ListItem>
+              ))}
+            </List>
+          </CardContent>
         </>
       )}
     </Card>
@@ -274,6 +374,7 @@ const ProjectBlockers = ({id}) => {
     setIspermitted(Boolean(project));
     axios.get(`${BASE_URL}/api/issues/${id}`)
       .then(res => {
+        console.log(res.data);
         setBlockers(res.data);
         setLoading(false)
       })
@@ -457,13 +558,16 @@ const ProjectBlockers = ({id}) => {
           ) : (
             <Paper className={classes.paper}>
               {blockers.length > 0 && blockers.map(blocker => (
-                <RenderCard
-                  key={blocker.id}
-                  state={state}
-                  isPermitted={isPermitted}
-                  handleOpen={handleOpen}
-                  handleUpdate={handleUpdate}
-                  blocker={blocker}/>
+                <div key={blocker.id}>
+                  <RenderCard
+                    key={blocker.id}
+                    state={state}
+                    isPermitted={isPermitted}
+                    handleOpen={handleOpen}
+                    handleUpdate={handleUpdate}
+                    blocker={blocker}/>
+                  <Divider />
+                </div>
               ))}
             </Paper>
           )}

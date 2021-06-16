@@ -15,7 +15,7 @@ class CommentController extends Controller
      */
     public function index($id)
     {
-        return Issue::find($id)->comments->with(['issue', 'user']);
+        return Issue::find($id)->comments()->with(['issue', 'user'])->get();
     }
 
     /**
@@ -37,7 +37,7 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $user = auth()->user();
-        $comment = $user->comment()->create($request->all());
+        $comment = $user->comments()->create($request->all());
         return $comment;
     }
 

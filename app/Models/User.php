@@ -67,7 +67,12 @@ class User extends Authenticatable
 
     public function issues ()
     {
-        return $this->hasMany(Issue::class, ['raise_by', 'assign_to']);
+        return $this->hasMany(Issue::class);
+    }
+
+    public function comments ()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     /**

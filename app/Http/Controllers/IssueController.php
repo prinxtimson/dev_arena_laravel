@@ -43,13 +43,13 @@ class IssueController extends Controller
 
         $project = Project::find($id);
 
-        return $project->issues->when($from, function($q) use ($from) {
+        return $project->issues()->when($from, function($q) use ($from) {
             return $q->where('created_at', '>=', $from);
         })->when($to, function($q) use ($to) {
             return $q->where('created_at', '<=', $to);
         })->with(['comments' => function($q) {
-            return $q->load('user');
-        }]);
+            return $q->with('user')->get();
+        }])->get();
     }
 
     /**

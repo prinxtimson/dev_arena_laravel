@@ -158,10 +158,14 @@ class AuthController extends Controller
     {
         $user = auth()->user();
 
-        $path = $request->file('avatar')->store('images', 'public');
+        $user->clearMediaCollection('avatars');
+
+        $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
+
+        $mediaUrl = $user->getFirstMediaUrl('avatars');
 
         $user->update([
-            'avatar' => asset('storage/'.$path),
+            'avatar' => $mediaUrl,
         ]);
 
         $user->refresh()->load(['profile', 'projects', 'roles', 'resources']);

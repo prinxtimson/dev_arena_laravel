@@ -49,7 +49,7 @@ class IssueController extends Controller
             return $q->where('created_at', '<=', $to);
         })->with(['comments' => function($q) {
             return $q->with('user')->get();
-        }])->get();
+        }, 'user'])->get();
     }
 
     /**
@@ -74,7 +74,7 @@ class IssueController extends Controller
         ]);
         
         Notification::send($admins, new IssueRaised($user, $project));
-        return $issue->refresh()->load('comments');
+        return $issue->refresh()->load(['comments', 'user']);
     }
 
     /**
@@ -85,7 +85,7 @@ class IssueController extends Controller
      */
     public function show($id)
     {
-        return Issue::find($id)->load(['project', 'comments']);
+        return Issue::find($id)->load(['project', 'comments', 'user']);
     }
 
     /**
@@ -103,7 +103,7 @@ class IssueController extends Controller
 
         $issue->update($request->all());
 
-        return $issue->refresh()->load(['project', 'comments']);
+        return $issue->refresh()->load(['project', 'comments', 'user']);
     }
 
     /**
@@ -126,7 +126,7 @@ class IssueController extends Controller
             'resolve_at' => Carbon::now(),
         ]);
 
-        $issue->refresh()->load(['project', 'comments']);
+        $issue->refresh()->load(['project', 'comments', 'user']);
 
         $user->notify(new IssueResolved($issue));
 
@@ -141,7 +141,7 @@ class IssueController extends Controller
             'resolve_at' => null,
         ]);
 
-        $issue->refresh()->load(['project', 'comments']);
+        $issue->refresh()->load(['project', 'comments', 'user']);
 
         $user->notify(new IssueReopen($issue));
 

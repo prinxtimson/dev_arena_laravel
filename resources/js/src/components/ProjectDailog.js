@@ -76,6 +76,7 @@ const CustomTextField = ({project, handleClick, handleUpdate}) => {
   const handleFocus = () => {
     if(options.length === 0){
       axios.get(`${BASE_URL}/api/developers`).then(res => {
+        console.log(res.data);
         setOptions(res.data);
       })
     }
@@ -104,6 +105,7 @@ const CustomTextField = ({project, handleClick, handleUpdate}) => {
           onFocus={handleFocus}
           options={options}
           getOptionLabel={(option) => option.name}
+          getOptionDisabled={option => Boolean(option?.projects?.length > 1)}
           onChange={(e, newInput) => setSelected(newInput)}
           filterSelectedOptions
           renderInput={(params) => (
@@ -179,7 +181,7 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading, handleSaveEdit, error, handleUpdate, dev}) => {
+const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading, handleSaveEdit, error, handleUpdate, dev, onRemoveDev}) => {
   const [editDev, setEditDev] = React.useState(false);
   const classes = useStyles();
   const {state} = React.useContext(UserContext);
@@ -197,7 +199,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
   });
   let a = moment(project.end_at);
   let b = moment();
-  let c = moment(project.assign_at);
+  let c = project.assign_at ? moment(project.assign_at) : null;
 
   const handleSaveChanges = () => {
     handleSaveEdit(data);
@@ -207,14 +209,13 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
     setEditDev(false)
   }
 
-  React.useEffect(() => {
+  React.useEffect(() => {    
     setEditDev(dev);
   }, [dev])
 
   const handleDelete = (index) => {
     axios.put(`${BASE_URL}/api/projects/remove-file/${project.id}/${index}`)
     .then(res => {
-      console.log(res.data);
       handleUpdate(res.data.project);
       //setLoading(false);
     })
@@ -228,14 +229,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
   }
 
   const handleRemoveDev = (id) => {
-    axios.put(`${BASE_URL}/api/detach-dev/${project.id}/${id}`).then(res => {
-      handleUpdate(res.data)
-    }).catch(err => {
-      console.log(err.response);
-      if (err.response.statusText === "Unauthorized") {
-        location.replace('/login');
-    }
-    })
+    onRemoveDev(id);
   }
 
   return (
@@ -248,7 +242,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
           {!isEdit && (
           <ListItemText
           primary="Status"
-          secondary={b.diff(c) <= 0 ? 'Pending' : a.diff(b) <= 0 ? 'Completed' : 'In progress'}/>
+          secondary={!c ? 'Pending' : a.diff(b) <= 0 ? 'Completed' : 'In progress'}/>
           )}
           {error ? (
             <Alert onClose={() => setError(null)} severity="error">
@@ -430,7 +424,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
                 />
               ) : (            
                 <ListItemText
-                  onClick={() => project.developers?.length === 0 &&setEditDev(true)} 
+                  onClick={() => project.developers?.length === 0 && setEditDev(true)}
                   primary="Developer"
                   secondary={
                     project.developers?.length > 0 && project.developers.map(dev => (

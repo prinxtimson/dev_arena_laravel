@@ -131,7 +131,7 @@ const ProjectDocuments = ({id}) => {
               <div style={{ paddingTop: '35%' }} />
             </Skeleton>
           ) : (
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} elevation={5}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Grid container spacing={0} justify="center" alignItems="center">
@@ -181,7 +181,7 @@ const ProjectDocuments = ({id}) => {
               <div style={{ paddingTop: '45%' }} />
             </Skeleton>
           ) : (
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} elevation={5}>
               {project.media?.map((data, index) => {
                 const fileExt = data.file_name.split('.').pop();
                 return (

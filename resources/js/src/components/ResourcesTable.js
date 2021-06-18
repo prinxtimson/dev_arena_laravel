@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +23,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     margin: theme.spacing(2, 3)
+  },
+  title: {
+    color: 'white'
+  },
+  hover: {
+    '&:hover': {
+        color: '#fff',
+    }
   }
 }));
 
@@ -29,11 +38,12 @@ const ResoucesTable = ({resources}) => {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} style={{backgroundColor: '#530f77', borderRadius: 15}} elevation={5}>
       <div className={classes.titleSection}>
         <Typography
           variant="h6"
           id="tableTitle"
+          className={classes.title}
           component="div"
         >
           Resources
@@ -41,12 +51,15 @@ const ResoucesTable = ({resources}) => {
         <Button
           variant="contained"
           color="primary"
-          size="large"
+          size="small"
+          component={Link}
+          className={classes.hover}
+          to="/dashboard/add-resources"
         >
-          Add
+          Add Resource
         </Button>
       </div>
-      <Table aria-label="simple table">
+      <Table aria-label="simple table" style={{backgroundColor: 'white'}}>
         <TableHead>
           <TableRow>
             <TableCell>Title</TableCell>
@@ -56,7 +69,13 @@ const ResoucesTable = ({resources}) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {resources.map((resource) => (
+          {resources.length === 0 ? (
+              <TableRow>
+                  <TableCell scope="row">
+                      You have not added any Resources yet.
+                  </TableCell>
+              </TableRow>
+            ) : resources.map((resource) => (
             <TableRow key={resource.id}>
               <TableCell component="th" scope="row">
                 {resource.title}

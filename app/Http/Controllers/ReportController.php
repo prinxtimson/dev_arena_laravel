@@ -17,10 +17,11 @@ class ReportController extends Controller
         $this->excel = $excel;
     }
 
-    public function export(Request $request, $id)
+    public function export(Request $request)
     {
         $from = $request->from;
         $to = $request->to;
+        $id = $request->id;
 
         return $this->excel->download(new DailyReportsExport($id, $from, $to), 'project_daily_reports.xlsx');
     }
@@ -30,17 +31,16 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $id)
+    public function index(Request $request)
     {
         $from = $request->from;
         $to = $request->to;
-        $project = Project::find($id);
 
-        return $project->reports->when($from, function($q) use ($from) {
+        return Report::when($from, function($q) use ($from) {
             return $q->where('created_at', '>=', $from);
         })->when($to, function($q) use ($to) {
             return $q->where('created_at', '<=', $to);
-        });
+        })->with('user')->get();
     }
 
     /**
@@ -49,15 +49,15 @@ class ReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
         $user = auth()->user();
-        $project = Project::find($id);
 
-        return $project->reports()->create([
+        $reports = $user->reports()->create([
             'details' => $request->details,
-            'user_id' => $user->id
             ]);
+
+        return $reports->load('user');
     }
 
     /**
@@ -68,7 +68,7 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        return Report::find($id)->load('project');
+        return Report::find($id)->load('user');
     }
 
     /**
@@ -86,7 +86,7 @@ class ReportController extends Controller
 
         $report->update($request->all());
 
-        return $report->refresh();
+        return $report->refresh()->load('user');
     }
 
     /**

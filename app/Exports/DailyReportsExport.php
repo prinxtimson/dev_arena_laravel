@@ -32,12 +32,15 @@ class DailyReportsExport implements FromQuery, WithMapping, ShouldAutoSize, With
     {
         $from = $this->from;
         $to = $this->to;
+        $id = $this->id;
 
-        return Report::query()->where('project_id', $this->id)->when($from, function($q) use ($from) {
+        return Report::query()->when($id, function($q) use ($id) { 
+            $q->where('user_id', $id);
+        })->when($from, function($q) use ($from) {
             return $q->where('created_at', '>=', $from);
         })->when($to, function($q) use ($to) {
             return $q->where('created_at', '<=', $to);
-        })->with(['user', 'project']);
+        })->with('user');
     }
 
     public function map($reports): array
@@ -46,7 +49,6 @@ class DailyReportsExport implements FromQuery, WithMapping, ShouldAutoSize, With
             $reports->id,
             $reports->details,
             $reports->user->name,
-            $reports->project->name,
             $reports->created_at,
         ];
     }
@@ -57,7 +59,6 @@ class DailyReportsExport implements FromQuery, WithMapping, ShouldAutoSize, With
             'ID',
             'Details',
             'Developer',
-            'Project',
             'Created At',
         ];
     }
@@ -66,7 +67,7 @@ class DailyReportsExport implements FromQuery, WithMapping, ShouldAutoSize, With
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $event->sheet->getStyle('A1:E1')->applyFromArray([
+                $event->sheet->getStyle('A1:D1')->applyFromArray([
                     'font' => [
                         'bold' => true,
                     ],

@@ -18,6 +18,7 @@ import AddResourceForm from '../components/AddResourceForm';
 import Resources from '../components/Resources';
 import SingleResource from '../components/SingleResource';
 import UserProjects from '../components/UserProjects';
+import DailyReports from '../components/DailyReports';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -46,6 +47,8 @@ function Dashboard({match}) {
                     return <SingleResource />;
                 }
                 return <Resources />;
+            case 'daily-reports':
+                return <DailyReports />
             case 'change-password':
                 return <ChangePasswordForm />;
             case 'add-user':

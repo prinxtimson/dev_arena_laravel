@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
@@ -30,12 +31,14 @@ const AppNavBar = () => {
     const classes = useStyles();
     const {state, logout} = React.useContext(UserContext)
     return (
-            <AppBar position="static" elevation={0} color="inherit">
+            <AppBar position="static" elevation={0} color="inherit" style={{padding: 10}}>
                 <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
+                <div className={classes.title}>
+                    <Avatar style={{width: 200, height: 50}} variant="square" alt="Dev Arena" src="/storage/images/logo.png" >
                         Dev Arena
-                    </Typography>
-                    {state.user ? (
+                    </Avatar>
+                </div>
+                {state.user ? (
                         <div>
                              <Button 
                                 color="primary"
@@ -50,6 +53,7 @@ const AppNavBar = () => {
                                 color="primary"
                                 className={classes.menuButton}
                                 variant="contained"
+                                size="medium"
                                 onClick={logout}
                             >
                                 Logout

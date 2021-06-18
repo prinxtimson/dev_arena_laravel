@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/projects/export', [ProjectExportController::class, 'export']);
     Route::get('/projects/export/{id}', [ProjectExportController::class, 'export_one']);
     Route::get('/users/export', [UserController::class, 'export']);
-    Route::get('/reports/export/{id}', [ReportController::class, 'export']);
+    Route::get('/reports/export', [ReportController::class, 'export']);
     Route::get('/blockers/export/{id}', [IssueController::class, 'export']);
 });
 

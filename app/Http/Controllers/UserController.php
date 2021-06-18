@@ -51,7 +51,9 @@ class UserController extends Controller
             'roles', function($q){
                 $q->where('name', 'developer');
             }
-        )->get();
+        )->with(['roles', 'projects' => function ($query) {
+            $query->where('end_at', '>', Carbon::now());
+        }])->get();
 
         return $users;
     }

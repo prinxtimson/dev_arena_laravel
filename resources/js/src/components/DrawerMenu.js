@@ -20,6 +20,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Skeleton from '@material-ui/lab/Skeleton';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import WorkIcon from '@material-ui/icons/Work';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import Avatar from '@material-ui/core/Avatar';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -55,9 +56,17 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
+  toolbar: {
+    ...theme.mixins.toolbar,
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: 20
+  },
   drawerPaper: {
     width: drawerWidth,
+  },
+  space: {
+    marginBottom: theme.spacing(5)
   },
   content: {
     flexGrow: 1,
@@ -113,8 +122,12 @@ function DrawerMenu({ window, children }) {
     };
   
     const drawer = (
-      <div>
-        <div className={classes.toolbar} />
+      <div>        
+        <div className={classes.toolbar}>
+          <Avatar style={{width: 180, height: 45}} variant="square" alt="Dev Arena" src="/storage/images/logo.png" >
+            Dev Arena
+          </Avatar>
+        </div>
         <Divider />
         <List>
           {state.loading ? null : state.user?.roles[0].name === 'developer' ? (
@@ -128,6 +141,16 @@ function DrawerMenu({ window, children }) {
                   <BusinessCenterIcon />
                 </ListItemIcon>
                 <ListItemText primary="Projects" />
+              </MenuItem>
+              <MenuItem
+                component={Link}
+                to="/dashboard/daily-reports"
+                onClick={handleDrawerToggle}
+              >
+                <ListItemIcon>
+                  <AssignmentIcon />
+                </ListItemIcon>
+                <ListItemText primary="Daily Reports" />
               </MenuItem>
               <MenuItem
                 component={Link}
@@ -178,6 +201,16 @@ function DrawerMenu({ window, children }) {
                   <ListItemText primary="Add User" />
                 </MenuItem>
               </List>
+              <MenuItem
+                component={Link}
+                to="/dashboard/daily-reports"
+                onClick={handleDrawerToggle}
+              >
+                <ListItemIcon>
+                  <AssignmentIcon />
+                </ListItemIcon>
+                <ListItemText primary="Daily Reports" />
+              </MenuItem>
               <MenuItem
                 component={Link}
                 to="/dashboard/projects"
@@ -233,8 +266,10 @@ function DrawerMenu({ window, children }) {
             >
               <MenuIcon />
             </IconButton>
+            <Avatar style={{width: 180, height: 45}} className={classes.menuButton} variant="square" alt="Dev Arena" src="/storage/images/logo.png" >
+            Dev Arena
+            </Avatar>
             <div className={classes.grow} />
-
             <IconButton
               aria-label="notifications"
               color="inherit"
@@ -305,6 +340,7 @@ function DrawerMenu({ window, children }) {
         </nav>
         <main className={classes.content}>
           <div className={classes.toolbar} />
+          <div className={classes.space} />
           {children}          
         </main>
       </div>

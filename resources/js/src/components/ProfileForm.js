@@ -16,12 +16,14 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   paper: {
-    padding: theme.spacing(3),
+    paddingTop: theme.spacing(3),
     borderRadius: 15,
+    backgroundColor: '#530f77',
   },
   title: {
     flex: '1 1 100%',
-    margin: theme.spacing(2, 3)
+    margin: theme.spacing(0, 0, 3, 2),
+    color: 'white'
   }
 }));
 
@@ -66,7 +68,7 @@ const ProfileForm = () => {
   }
 
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} elevation={5}>
       <CssBaseline />
       <Snackbar
         open={Boolean(msg)}
@@ -90,7 +92,7 @@ const ProfileForm = () => {
         >
           Update Profile
         </Typography>
-      <form noValidate>
+      <form noValidate style={{backgroundColor: 'white', padding: 20, borderBottomLeftRadius: 15, borderBottomRightRadius: 15}}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <TextField

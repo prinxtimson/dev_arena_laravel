@@ -44,10 +44,6 @@ class Project extends Model implements HasMedia
         return $this->belongsToMany(User::class, 'user_projects', 'user_id', 'project_id')->withTimestamps();
     }
 
-    public function reports() {
-        return $this->hasMany(Report::class);
-    }
-
     public function files() {
         return $this->hasMany(File::class);
     }

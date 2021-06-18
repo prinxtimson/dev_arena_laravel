@@ -172,7 +172,7 @@ React.useEffect(() => {
                 <div style={{ paddingTop: '30%' }} />
                 </Skeleton>
             ) : ( 
-            <Card className={classes.root}>
+            <Card className={classes.root} elevation={5}>
                 <CardContent className={classes.content}>
                     <Avatar
                         alt={user?.name}
@@ -222,7 +222,7 @@ React.useEffect(() => {
                             <div style={{ paddingTop: '70%' }} />
                           </Skeleton>
                         ) : ( 
-                        <Paper className={classes.paper}>
+                        <Paper className={classes.paper} elevation={5}>
                             <List>
                                 <ListItem>
                                     <ListItemText
@@ -306,7 +306,7 @@ React.useEffect(() => {
                     </Grid>
                     {isEdit ? (
                         <Grid item sm={12} md={8}>
-                            <Paper className={classes.paper}>
+                            <Paper className={classes.paper} elevation={5}>
                                 <form className={classes.form} noValidate>
                                     <Grid container spacing={3}>
                                         <Grid item xs={12} md={6}>

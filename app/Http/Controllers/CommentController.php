@@ -38,7 +38,7 @@ class CommentController extends Controller
     {
         $user = auth()->user();
         $comment = $user->comments()->create($request->all());
-        return $comment;
+        return $comment->load('user');
     }
 
     /**

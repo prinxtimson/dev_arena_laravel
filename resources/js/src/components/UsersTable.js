@@ -22,7 +22,7 @@ import Grid from '@material-ui/core/Grid';
 import AppContainer from './AppContainer';
 import { axios, BASE_URL } from '../utils/utils';
 import { UserContext } from '../context/GlobalState';
-import { Link, NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     btnContainer: {
@@ -34,7 +34,9 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1, 0)
     },
     paper: {
-        padding: theme.spacing(3)
+        marginBottom: theme.spacing(2),
+        backgroundColor: '#530f77',
+        borderRadius: 15,
     },
     table: {
         borderWidth: 0
@@ -248,8 +250,8 @@ const UsersTable = () => {
                 handleClose={handleClose}
                 handleDelete={handleDelete}
             />
-            <Paper variant="outlined" className={classes.paper}>
-                <Grid container spacing={5} justify="center" alignItems="center">
+            <Paper elevation={5} className={classes.paper}>
+                <Grid container spacing={2} justify="center" alignItems="center" style={{padding: 30}}>
                     <Grid item xs={12} sm={6}>
                         <Button
                             variant="contained"
@@ -261,31 +263,35 @@ const UsersTable = () => {
                             Export Table
                         </Button>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            id="role"
-                            select
-                            fullWidth
-                            margin="dense"
-                            label="Select Role"
-                            value={role}
-                            onChange={e => handleOnSelectChange(e.target.value)}
-                            SelectProps={{
-                                native: true,
-                            }}
-                            variant="outlined"
-                        >
-                            <option />
-                            <option value="admin">
-                                Admin
-                            </option>
-                            <option value="developer">
-                                Developer
-                            </option>
-                        </TextField> 
+                    <Grid item xs={12} sm={6} style={{backgroundColor: 'whitesmoke', borderRadius: 5, padding: 10}}>
+                        <Grid container spacing={5}>
+                            <Grid item xs>
+                                <TextField
+                                    id="role"
+                                    select
+                                    fullWidth
+                                    margin="dense"
+                                    label="Select Role"
+                                    value={role}
+                                    onChange={e => handleOnSelectChange(e.target.value)}
+                                    SelectProps={{
+                                        native: true,
+                                    }}
+                                    variant="outlined"
+                                >
+                                    <option />
+                                    <option value="admin">
+                                        Admin
+                                    </option>
+                                    <option value="developer">
+                                        Developer
+                                    </option>
+                                </TextField> 
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
-                <TableContainer variant="elevation" elevation={0} component={Paper}>
+                <TableContainer variant="elevation" style={{borderTopLeftRadius: 0, borderTopRightRadius: 0}} elevation={0} component={Paper}>
                     <Table aria-label="customized table" >
                         <TableHead>
                             <TableRow>

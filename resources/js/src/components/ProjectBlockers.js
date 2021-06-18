@@ -1,7 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
@@ -23,6 +24,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Avatar from '@material-ui/core/Avatar';
 import moment from 'moment';
 import { UserContext } from '../context/GlobalState';
@@ -55,8 +57,32 @@ const useStyles = makeStyles((theme) => ({
   inline: {
     display: 'block',
     fontSize: 14,
+  },
+  container: {
+    display: 'flex',
+    justifyContent: 'space-between',
   }
 }));
+
+const StyledCardContent = withStyles((theme) => ({
+  root: {
+    padding: 5,
+    paddingLeft: '12%',
+  },
+}))(CardContent);
+
+const StyledCardActions = withStyles((theme) => ({
+  root: {
+    padding: 5,
+    paddingLeft: '12%',
+  },
+}))(CardActions);
+
+const StyledListItemSecondaryAction = withStyles((theme) => ({
+  root: {
+    top: '20%'
+  },
+}))(ListItemSecondaryAction);
 
 const CustomTextField = ({blocker, handleClick, handleUpdate}) => {
   const classes = useStyles();
@@ -120,6 +146,9 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
   const classes = useStyles();
   const [loading, setLoading] = React.useState(false);
   const [edit, setEdit] = React.useState(false);
+  const [isEdit, setIsEdit] = React.useState(null);
+  const [editLoading, setEditLoading] = React.useState(false);
+  const [text, setText] = React.useState('');
   const [comments, setComments] = React.useState(blocker.comments)
   const [comment, setComment] = React.useState({
     text: '',
@@ -128,6 +157,39 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
 
   const handleClick = () => {
     setEdit(false)
+  }
+
+  const handleEditClick = data => {
+    setText(data.text)
+    setIsEdit(data.id);
+  }
+
+  const handleEditCancel = () => {
+    setText('')
+    setIsEdit(null)
+  }
+
+  const handleOnEdit = () => {
+    setEditLoading(true);
+    axios.put(`${BASE_URL}/api/comments/${isEdit}`, {text}).then(res => {
+      const index = comments.findIndex(val => val.id === res.data.id);
+      comments.splice(index, 1, res.data);
+      setComments([...comments]);
+      handleEditCancel()
+      setEditLoading(false);
+    }).catch(err => {
+      console.log(err.response);
+      setEditLoading(false);
+    })
+  }
+
+  const handleDeleteComment = (id) => {
+    axios.delete(`${BASE_URL}/api/comments/${id}`).then(res => {
+      const newComments = comments.filter(val => val.id !== id);
+      setComments([...newComments]);
+    }).catch(err => {
+      console.log(err.response);
+    })
   }
 
   const handleOnClose = () => {
@@ -147,7 +209,7 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
   const handleSubmitComment = () => {
     axios.post(`${BASE_URL}/api/comments`, comment).then(res => {
       console.log(res.data)
-      //handleUpdate(res.data)
+      setComments([res.data, ...comments]);
       setLoading(false);
       setComment({...comment, text: ''})
     }).catch(err => {
@@ -158,26 +220,35 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
 
   return (
     <Card className={classes.root} elevation={0} key={blocker.id}>
+      <CardHeader
+        avatar={
+          <Avatar alt={blocker.user.name} src={blocker.user.avatar} className={classes.avatar} />
+        }
+        action={
+          <Typography color="textSecondary">
+            {blocker.ticket_no}   
+          </Typography>
+        }
+        title={blocker.user.name}
+        subheader={moment(blocker.created_at).format('lll')}
+      />
       {edit ? (
-        <CardContent>
+        <StyledCardContent>
           <CustomTextField
             blocker={blocker}
             handleClick={handleClick}
             handleUpdate={handleUpdate}
           />
-        </CardContent>
+        </StyledCardContent>
       ) : (
         <>
-          <CardContent>
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
-              {`${blocker.ticket_no} - ${moment(blocker.created_at).format('lll')}`}
-            </Typography>
+          <StyledCardContent>
             <Typography variant="body2" component="p">
               {blocker.details}
             </Typography>
-          </CardContent>
+          </StyledCardContent>
             {isPermitted ? (
-              <CardActions>
+              <StyledCardActions>
                 <Button
                   size="small"
                   variant="text"
@@ -196,9 +267,9 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
                   startIcon={<EditIcon />}>
                   Edit
                 </Button>
-              </CardActions>
-            ) : state.user?.roles[0].name === 'admin' && (
-              <CardActions>
+              </StyledCardActions>
+            ) : state.user?.roles[0].name === 'super-admin' || state.user?.roles[0].name === 'admin' && (
+              <StyledCardActions className={{padding: 5}}>
                 <Button
                   size="small"
                   variant="text"
@@ -207,21 +278,11 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
                   onClick={handleOnClose}
                   className={classes.button}
                   startIcon={<DoneAllIcon />}>
-                  Close
+                  Resolved
                 </Button>
-                <Button
-                  size="small"
-                  variant="text"
-                  color="secondary"
-                  onClick={handleOnOpen}
-                  disabled={!blocker.resolve_at}
-                  className={classes.button}
-                  startIcon={<LoopIcon />}>
-                  Open
-                </Button>
-              </CardActions>
+              </StyledCardActions>
             )}
-          <CardContent>
+          <StyledCardContent>
             <Grid container spacing={2} alignItems="center">
               <Grid item xs={8}>
                 <TextField
@@ -249,53 +310,93 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
             </Grid>
             <List>
               {comments.map(val => (
-                <ListItem alignItems="flex-start" key={val.id}>
-                  <ListItemAvatar>
-                    <Avatar alt={val.user.name} src={val.user.avatar} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={val.user.name}
-                    secondary={
-                      <React.Fragment>
-                        {moment(val.created_at).format('lll')}
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          className={classes.inline}
-                          color="textPrimary"
-                        >
-                          {`- ${val.text}`}
-                        </Typography>
-                        {state.user?.id === val.user.id && (
+                  <ListItem alignItems="flex-start" key={val.id}>
+                    <ListItemAvatar>
+                      <Avatar alt={val.user.name} src={val.user.avatar} />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={val.user.name}
+                      secondary={
+                        isEdit === val.id ? (
                           <React.Fragment>
-                          
+                            <TextField
+                              id="comment"
+                              margin="dense"
+                              label="Enter Comment"
+                              multiline
+                              rows={2}
+                              className={classes.inline}
+                              value={text}
+                              onChange={e => setText(e.target.value)}
+                              variant="outlined"
+                            />
+                            <React.Fragment>
                               <Button
                                 size="small"
-                                variant="text"
+                                variant="contained"
                                 color="primary"
-                                //onClick={() => setEdit(true)}
+                                onClick={handleOnEdit}
                                 className={classes.button}
+                                disabled={editLoading}
                                 startIcon={<EditIcon />}>
-                                Edit
+                                Submit
                               </Button>
                               <Button
                                 size="small"
-                                variant="text"
-                                color="secondary"
+                                variant="contained"
+                                color="default"
                                 className={classes.button}
-                                //onClick={() => handleOpen(blocker.id)}
+                                onClick={handleEditCancel}
                                 startIcon={<DeleteIcon />}>
-                                Delete
+                                Cancel
                               </Button>
+                            </React.Fragment>
                           </React.Fragment>
-                        )}
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>
-              ))}
+                        ) : (
+                        <React.Fragment>
+                          <Typography
+                            component="span"
+                            variant="body2"
+                            className={classes.inline}
+                            color="textPrimary"
+                          >
+                            {`${val.text}`}
+                          </Typography>
+                          {state.user?.id === val.user.id && (
+                            <React.Fragment>
+                                <Button
+                                  size="small"
+                                  variant="text"
+                                  color="primary"
+                                  onClick={() => handleEditClick(val)}
+                                  className={classes.button}
+                                  startIcon={<EditIcon />}>
+                                  Edit
+                                </Button>
+                                <Button
+                                  size="small"
+                                  variant="text"
+                                  color="secondary"
+                                  className={classes.button}
+                                  onClick={() => handleDeleteComment(val.id)}
+                                  startIcon={<DeleteIcon />}>
+                                  Delete
+                                </Button>
+                            </React.Fragment>
+                          )}
+                        </React.Fragment>
+                        )
+                      }
+                    />
+                    <StyledListItemSecondaryAction>
+                      <Typography color="textSecondary" style={{fontSize: 13}}>
+                        {moment(val.created_at).format('lll')}
+                      </Typography>
+                    </StyledListItemSecondaryAction>
+                  </ListItem>
+                ))}
             </List>
-          </CardContent>
+          </StyledCardContent>
         </>
       )}
     </Card>
@@ -452,7 +553,7 @@ const ProjectBlockers = ({id}) => {
               <div style={{ paddingTop: '35%' }} />
             </Skeleton>
           ) : state.user?.roles[0]?.name === 'developer' ? (
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} elevation={5}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
@@ -478,7 +579,7 @@ const ProjectBlockers = ({id}) => {
               </Grid>
             </Paper>
           ) : (
-              <Paper className={classes.paper}>
+              <Paper className={classes.paper} elevation={5}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <Button
@@ -556,8 +657,8 @@ const ProjectBlockers = ({id}) => {
               <div style={{ paddingTop: '45%' }} />
             </Skeleton>
           ) : (
-            <Paper className={classes.paper}>
-              {blockers.length > 0 && blockers.map(blocker => (
+            <Paper className={classes.paper} elevation={5}>
+              {blockers.length > 0 && blockers.map((blocker, index) => (
                 <div key={blocker.id}>
                   <RenderCard
                     key={blocker.id}
@@ -566,7 +667,9 @@ const ProjectBlockers = ({id}) => {
                     handleOpen={handleOpen}
                     handleUpdate={handleUpdate}
                     blocker={blocker}/>
-                  <Divider />
+                  {blockers.length-1 === index ? null : (
+                    <Divider />
+                  )}  
                 </div>
               ))}
             </Paper>

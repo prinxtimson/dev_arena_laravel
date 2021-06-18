@@ -1,8 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -12,10 +13,12 @@ import TextField from '@material-ui/core/TextField';
 import EditIcon from '@material-ui/icons/Edit';
 import Paper from '@material-ui/core/Paper';
 import Dialog from '@material-ui/core/Dialog';
+import Avatar from '@material-ui/core/Avatar';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
 import { UserContext } from '../context/GlobalState';
 import moment from 'moment';
 import { axios, BASE_URL } from '../utils/utils';
@@ -31,6 +34,20 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
 }));
+
+const StyledCardContent = withStyles((theme) => ({
+  root: {
+    padding: 5,
+    paddingLeft: '12%',
+  },
+}))(CardContent);
+
+const StyledCardActions = withStyles((theme) => ({
+  root: {
+    padding: 5,
+    paddingLeft: '12%',
+  },
+}))(CardActions);
 
 const CustomTextField = ({report, handleClick, handleUpdate}) => {
   const classes = useStyles();
@@ -100,26 +117,30 @@ const RenderCard = ({report, handleUpdate, handleOpen, state}) => {
 
   return (
     <Card className={classes.root} elevation={0} key={report.id}>
+      <CardHeader
+        avatar={
+          <Avatar alt={report.user.name} src={report.user.avatar} className={classes.avatar} />
+        }
+        title={report.user.name}
+        subheader={moment(report.created_at).format('lll')}
+      />
       {edit ? (
-        <CardContent>
+        <StyledCardContent>
           <CustomTextField
             report={report}
             handleClick={handleClick}
             handleUpdate={handleUpdate}
           />
-        </CardContent>
-      ) : (
+        </StyledCardContent>
+      ) : ( 
         <>
-          <CardContent>
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
-              {moment(report.created_at).format('LLLL')}
-            </Typography>
+          <StyledCardContent>
             <Typography variant="body2" component="p">
               {report.details}
             </Typography>
-          </CardContent>
+          </StyledCardContent>
           {state.user && state.user.id === report.user_id && (
-            <CardActions>
+            <StyledCardActions>
               <Button
                 size="small"
                 variant="text"
@@ -138,7 +159,7 @@ const RenderCard = ({report, handleUpdate, handleOpen, state}) => {
                 startIcon={<EditIcon />}>
                 Edit
               </Button>
-            </CardActions>
+            </StyledCardActions>
           )}
         </>
       )}
@@ -172,7 +193,7 @@ const RenderConfirmDelete = ({open, id, handleClose, handleDelete}) => (
   </Dialog>
 )
 
-const DailyReports = ({id}) => {
+const DailyReports = () => {
   const classes = useStyles();
   const {state} = React.useContext(UserContext);
   const [loading, setLoading] = React.useState(true);
@@ -212,7 +233,7 @@ const DailyReports = ({id}) => {
   React.useEffect(() => {
     const project = state.user?.projects.find(project => project.id == id);
     setIspermitted(Boolean(project));
-    axios.get(`${BASE_URL}/api/reports/${id}`)
+    axios.get(`${BASE_URL}/api/reports`)
       .then(res => {
         setReports(res.data);
         setLoading(false)
@@ -227,7 +248,7 @@ const DailyReports = ({id}) => {
     const {from, to} = search;
     if(from || to) {
       setFormLoading(true)
-      axios.get(`${BASE_URL}/api/reports/${id}?${from && `from=${new Date(from).toISOString()}`}${to && from ? `&to=${new Date(to).toISOString()}` : to && !from && `to=${new Date(to).toISOString()}`}`)
+      axios.get(`${BASE_URL}/api/reports?${from && `from=${new Date(from).toISOString()}`}${to && from ? `&to=${new Date(to).toISOString()}` : to && !from && `to=${new Date(to).toISOString()}`}`)
       .then(res => {
         setReports(res.data);
         setFormLoading(false)
@@ -241,7 +262,7 @@ const DailyReports = ({id}) => {
 
   const handleReset = () => {
     setSearch({from: '', to: ''});
-    axios.get(`${BASE_URL}/api/reports/${id}`)
+    axios.get(`${BASE_URL}/api/reports`)
       .then(res => {
         setReports(res.data);
       })
@@ -252,7 +273,7 @@ const DailyReports = ({id}) => {
 
   const handleOnSave = () => {
     setFormLoading(true)
-    axios.post(`${BASE_URL}/api/reports/${id}`, {details})
+    axios.post(`${BASE_URL}/api/reports`, {details})
       .then(res => {
         setReports([res.data, ...reports]);
         setDetails('');
@@ -267,9 +288,9 @@ const DailyReports = ({id}) => {
   const handleExport = () => {
     const {from, to} = search;
     if (from || to) {
-      window.location.href = `${BASE_URL}/reports/export/${id}?${from && `from=${from}`}${to && from ? `&to=${to}` : to && !from && `to=${to}`}`
+      window.location.href = `${BASE_URL}/reports/export?${from && `from=${from}`}${to && from ? `&to=${to}` : to && !from && `to=${to}`}`
     }else {
-      window.location.href = `${BASE_URL}/reports/export/${id}`
+      window.location.href = `${BASE_URL}/reports/export`
     }
   }
 
@@ -288,7 +309,7 @@ const DailyReports = ({id}) => {
               <div style={{ paddingTop: '35%' }} />
             </Skeleton>
           ) : state.user?.roles[0].name === 'developer' ? (          
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} elevation={5}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
@@ -306,7 +327,7 @@ const DailyReports = ({id}) => {
                   <Button
                     color="primary"
                     variant="outlined"
-                    disabled={formLoading || !details || !isPermitted}
+                    disabled={formLoading || !details}
                     onClick={handleOnSave}>
                     Save
                   </Button>
@@ -314,7 +335,7 @@ const DailyReports = ({id}) => {
               </Grid>
             </Paper>
           ) : (
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} elevation={5}>
               <Grid container spacing={2}>
               <Grid item xs={12}>
                   <Button
@@ -392,15 +413,19 @@ const DailyReports = ({id}) => {
               <div style={{ paddingTop: '45%' }} />
             </Skeleton>
           ) : (
-            <Paper className={classes.paper}>
-              {reports.length > 0 && reports.map(report => (
-                <RenderCard
-                  key={report.id}
-                  state={state}
-                  report={report}
-                  handleOpen={handleOpen}
-                  handleUpdate={handleUpdate}
-                />
+            <Paper className={classes.paper} elevation={5}>
+              {reports.length > 0 && reports.map((report, index) => (
+                <div key={report.id}>
+                  <RenderCard
+                    state={state}
+                    report={report}
+                    handleOpen={handleOpen}
+                    handleUpdate={handleUpdate}
+                  />
+                  {reports.length-1 === index ? null : (
+                    <Divider />
+                  )}
+                </div>
               ))}
             </Paper>
           )}

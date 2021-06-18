@@ -39,8 +39,12 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     width: '100%',
-    padding: theme.spacing(3),
     marginBottom: theme.spacing(2),
+    backgroundColor: '#530f77',
+    borderRadius: 15
+  },
+  table: {
+    margin: 10
   },
   grid: {
     margin: theme.spacing(0.5, 0)
@@ -141,7 +145,9 @@ const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
 
   const handleAssignDev = () => {
     handleDialogOpen();
-    setDev(true)
+    if (!project.assign_at) {
+      setDev(true);
+    }
   }
 
   const handleClose = () => {
@@ -150,6 +156,17 @@ const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
 
   const handleUpdate = (data) => {
     setProject(data);
+  }
+
+  const onRemoveDev = (id) => {
+    axios.put(`${BASE_URL}/api/detach-dev/${project.id}/${id}`).then(res => {
+      handleUpdate(res.data)
+    }).catch(err => {
+      console.log(err.response);
+      if (err.response.statusText === "Unauthorized") {
+        location.replace('/login');
+      }
+    })
   }
 
   const handleCloseProject = () => {
@@ -209,6 +226,7 @@ const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
         isEdit={isEdit}
         dev={dev}
         handleEdit={handleEdit}
+        onRemoveDev={onRemoveDev}
         handleUpdate={handleUpdate}
         project={project}
         loading={loading}
@@ -256,7 +274,7 @@ const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
           {moment(project.end_at).format('MMM Do YYYY')}
         </StyledTableCell>
         <StyledTableCell align="left">
-          {a.diff(b, 'weeks') + 'Weeks'}
+          {a.diff(b, 'days') + ' Days'}
         </StyledTableCell>
         <StyledTableCell align="right">
           <IconButton
@@ -268,7 +286,9 @@ const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
           <DropMenu
             id={project.id}
             handleClose={handleClose}
+            project={project}
             anchorEl={anchorEl}
+            onRemoveDev={onRemoveDev}
             handleEdit={handleEdit}
             handleDelDialogOpen={handleDelDialogOpen}
             handleCloseProject={handleCloseProject}
@@ -281,7 +301,7 @@ const Row = ({row, handleUpdateRows, handleDeleteRow}) => {
   )
 }
 
-const DropMenu = ({anchorEl, handleClose, handleEdit, id, handleAssignDev, handleCloseProject, handleDelDialogOpen, handleDocDialogOpen}) => {
+const DropMenu = ({anchorEl, handleClose, handleEdit, id, handleAssignDev, handleCloseProject, handleDelDialogOpen, handleDocDialogOpen, project, onRemoveDev}) => {
 
   return (
     <Menu
@@ -299,8 +319,21 @@ const DropMenu = ({anchorEl, handleClose, handleEdit, id, handleAssignDev, handl
       open={Boolean(anchorEl)}
       onClose={handleClose}
     >
-      <MenuItem component={Link} onClick={handleClose} to={`/dashboard/projects/${id}`}>View</MenuItem>
-      <MenuItem onClick={handleAssignDev}>Assign Dev</MenuItem>
+      <MenuItem component={Link} onClick={handleClose} to={`/dashboard/projects/${id}`}>
+        View
+      </MenuItem>
+      {project.assign_at ? (
+        <MenuItem onClick={() => {
+          onRemoveDev(project.developers[0]?.id)
+          handleClose();
+        }}>
+          Unassign Dev
+        </MenuItem>
+      ) : (
+        <MenuItem onClick={handleAssignDev}>
+          Assign Dev
+        </MenuItem>
+      )}
       <MenuItem onClick={handleEdit}>Edit</MenuItem>
       <MenuItem onClick={handleDocDialogOpen}>Upload Docs</MenuItem>
       <MenuItem onClick={handleCloseProject}>Close</MenuItem>
@@ -430,8 +463,8 @@ const ProjectsTable = () => {
 
   return (
     <AppContainer>
-      <Paper variant="outlined" className={classes.paper}>
-          <Grid container spacing={5} justify="center" alignItems="center">
+      <Paper className={classes.paper} elevation={5}>
+          <Grid container spacing={5} justify="center" style={{padding: 30}} alignItems="center">
             <Grid item xs={12} sm={3}>
               <Button
                 variant="contained"
@@ -444,7 +477,7 @@ const ProjectsTable = () => {
               </Button>
             </Grid>
             <Grid item xs={12} sm={9}>
-              <Grid container spacing={2} justify="center" alignItems="center">
+              <Grid container spacing={2} justify="center" style={{backgroundColor: 'whitesmoke', borderRadius: 5, padding: 5}} alignItems="center">
                 <Grid item xs={6} sm={4}>
                   <TextField
                     variant="outlined"
@@ -513,7 +546,7 @@ const ProjectsTable = () => {
               </Grid>
             </Grid>
         </Grid>
-        <TableContainer component={Paper} elevation={0}>
+        <TableContainer component={Paper} style={{borderTopLeftRadius: 0, borderTopRightRadius: 0}} elevation={0}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -521,7 +554,7 @@ const ProjectsTable = () => {
                 <TableCell align="left">Start</TableCell>
                 <TableCell align="left">Expected End Date</TableCell>
                 <TableCell align="left">End Date</TableCell>
-                <TableCell align="left">Weeks</TableCell>
+                <TableCell align="left">Days Left</TableCell>
                 <TableCell align="right" />
               </TableRow>
             </TableHead>

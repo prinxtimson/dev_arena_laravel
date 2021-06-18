@@ -61,7 +61,7 @@ const ProjectDetails = ({id}) => {
               <div style={{ paddingTop: '35%' }} />
             </Skeleton>
           ) : (
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} elevation={5}>
               <Grid container spacing={5}>
                 <Grid item xs={12}>
                   <FormGroup>
@@ -107,7 +107,7 @@ const ProjectDetails = ({id}) => {
               <div style={{ paddingTop: '45%' }} />
             </Skeleton>
           ) : (
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} elevation={5}>
               <Grid container spacing={3}>
                 <Grid item xs={12}>
                   <ListItemText primary="Name" secondary={project.name} />

@@ -21,7 +21,7 @@ function MainFooter() {
             <CssBaseline />
             <Typography variant="body2" color="textSecondary" align="center">
                 {'Copyright © '}
-                <Link color="inherit" href="#">
+                <Link color="inherit" href="https://tritekconsulting.co.uk">
                     Tritek Consulting Ltd
                 </Link>{' '}
                 {new Date().getFullYear()}

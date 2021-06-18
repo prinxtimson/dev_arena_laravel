@@ -150,10 +150,8 @@ const handleUploadAvatar = (img) => {
                 <div style={{ paddingTop: '30%' }} />
                 </Skeleton>
             ) : ( 
-            <Card className={classes.root}>
-                
-                    
-                    <CardContent className={classes.content}>
+            <Card className={classes.root} elevation={5}>
+                <CardContent className={classes.content}>
                         <div style={{position: 'relative'}}>
                             <Avatar
                                 alt={state.user && state.user.name}
@@ -209,7 +207,7 @@ const handleUploadAvatar = (img) => {
                             <div style={{ paddingTop: '70%' }} />
                           </Skeleton>
                         ) : ( 
-                        <Paper className={classes.paper}>
+                        <Paper className={classes.paper} elevation={5}>
                             <List>
                                 <ListItem>
                                     <ListItemText

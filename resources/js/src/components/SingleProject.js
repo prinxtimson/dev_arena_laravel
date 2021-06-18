@@ -75,10 +75,9 @@ const SingleProject = () => {
         >
           <AntTab label="Details" {...a11yProps(0)} />
           <AntTab label="Documents" {...a11yProps(1)} />
-          <AntTab label="Daily Updates" {...a11yProps(2)} />
-          <AntTab label="Blockers" {...a11yProps(3)} />
-          {state.user && state.user.roles[0].name === 'admin' && (
-            <AntTab label="Edit Project" {...a11yProps(4)} />
+          <AntTab label="Blockers" {...a11yProps(2)} />
+          {state.user?.roles[0].name !== 'developer' && (
+            <AntTab label="Edit Project" {...a11yProps(3)} />
           )}
         </Tabs>
         <div>
@@ -95,13 +94,10 @@ const SingleProject = () => {
                   <ProjectDocuments id={id} />
               </TabPanel>
               <TabPanel value={value} index={2}>
-                  <DailyReports id={id} />
-              </TabPanel>
-              <TabPanel value={value} index={3}>
                   <ProjectBlockers id={id} />
               </TabPanel>
-              {state.user && state.user.roles[0].name === 'admin' && (
-                <TabPanel value={value} index={4}>
+              {state.user?.roles[0].name !== 'developer' && (
+                <TabPanel value={value} index={3}>
                   <EditProjectForm id={id} />
                 </TabPanel>
               )}

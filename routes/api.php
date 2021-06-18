@@ -45,9 +45,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/decline-project', [ProjectController::class, 'decline_project']);
     Route::get('/projects/{id}', [ProjectController::class, 'show']);
 
-    Route::get('/reports/{id}', [ReportController::class, 'index']);
+    Route::get('/reports', [ReportController::class, 'index']);
     //Route::get('/reports/{id}', [ReportController::class, 'show']);
-    Route::post('/reports/{id}', [ReportController::class, 'store']);
+    Route::post('/reports', [ReportController::class, 'store']);
     Route::put('/reports/{id}', [ReportController::class, 'update']);
     Route::delete('/reports/{id}', [ReportController::class, 'destroy']);
 

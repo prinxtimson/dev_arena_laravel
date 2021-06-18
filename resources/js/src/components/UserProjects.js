@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flex: '1 1 100%',
-    margin: theme.spacing(2, 3)
+    margin: theme.spacing(2, 3),
+    color: 'white'
   },
   link: {
     textDecoration: 'none',
@@ -36,7 +37,7 @@ const UserProjects = ({projects}) => {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} style={{backgroundColor: '#530f77', borderRadius: 15}} elevation={5}>
       <Typography
         variant="h6"
         id="tableTitle"
@@ -44,7 +45,7 @@ const UserProjects = ({projects}) => {
         className={classes.title}>
         Projects
       </Typography>
-      <Table aria-label="simple table">
+      <Table aria-label="simple table"  style={{backgroundColor: 'white'}}>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>

@@ -16,7 +16,7 @@ class ResourceController extends Controller
      */
     public function index()
     {
-        $resources = Resource::with('media')->get();
+        $resources = Resource::orderBy('id', 'DESC')->with('media')->get();
 
         return $resources;
     }

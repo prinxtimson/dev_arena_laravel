@@ -43,12 +43,12 @@ class IssueController extends Controller
 
         $project = Project::find($id);
 
-        return $project->issues()->when($from, function($q) use ($from) {
+        return $project->issues()->orderBy('id', 'DESC')->when($from, function($q) use ($from) {
             return $q->where('created_at', '>=', $from);
         })->when($to, function($q) use ($to) {
             return $q->where('created_at', '<=', $to);
         })->with(['comments' => function($q) {
-            return $q->with('user')->get();
+            return $q->orderBy('id', 'DESC')->with('user')->get();
         }, 'user'])->get();
     }
 
@@ -103,7 +103,9 @@ class IssueController extends Controller
 
         $issue->update($request->all());
 
-        return $issue->refresh()->load(['project', 'comments', 'user']);
+        return $issue->refresh()->load(['project', 'comments' => function($q) {
+            return $q->orderBy('id', 'DESC')->with('user')->get();
+        }, 'user']);
     }
 
     /**
@@ -126,7 +128,9 @@ class IssueController extends Controller
             'resolve_at' => Carbon::now(),
         ]);
 
-        $issue->refresh()->load(['project', 'comments', 'user']);
+        $issue->refresh()->load(['project', 'comments' => function($q) {
+            return $q->orderBy('id', 'DESC')->with('user')->get();
+        }, 'user']);
 
         $user->notify(new IssueResolved($issue));
 
@@ -141,7 +145,9 @@ class IssueController extends Controller
             'resolve_at' => null,
         ]);
 
-        $issue->refresh()->load(['project', 'comments', 'user']);
+        $issue->refresh()->load(['project', 'comments' => function($q) {
+            return $q->orderBy('id', 'DESC')->with('user')->get();
+        }, 'user']);
 
         $user->notify(new IssueReopen($issue));
 

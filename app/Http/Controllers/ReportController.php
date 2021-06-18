@@ -36,7 +36,7 @@ class ReportController extends Controller
         $from = $request->from;
         $to = $request->to;
 
-        return Report::when($from, function($q) use ($from) {
+        return Report::orderBy('id', 'DESC')->when($from, function($q) use ($from) {
             return $q->where('created_at', '>=', $from);
         })->when($to, function($q) use ($to) {
             return $q->where('created_at', '<=', $to);

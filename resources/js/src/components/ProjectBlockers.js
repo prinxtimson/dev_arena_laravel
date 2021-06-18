@@ -268,8 +268,8 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
                   Edit
                 </Button>
               </StyledCardActions>
-            ) : state.user?.roles[0].name === 'super-admin' || state.user?.roles[0].name === 'admin' && (
-              <StyledCardActions className={{padding: 5}}>
+            ) : state.user?.roles[0].name !== 'developer' && (
+              <StyledCardActions>
                 <Button
                   size="small"
                   variant="text"

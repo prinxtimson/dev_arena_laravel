@@ -268,7 +268,7 @@ function DrawerMenu({ window, children }) {
             >
               <MenuIcon />
             </IconButton>
-            <Avatar style={{width: 180, height: 45}} className={classes.menuButton} variant="square" alt="Dev Arena" src="/storage/images/logo.png" >
+            <Avatar style={{width: 180, height: 45}} className={classes.menuButton} variant="square" alt="Dev Arena" src="/images/logo.png" >
             Dev Arena
             </Avatar>
             <div className={classes.grow} />

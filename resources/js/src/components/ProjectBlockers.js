@@ -155,6 +155,9 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
     text: '',
     issue_id: blocker.id
   });
+  const d = moment();
+  const createdAt = moment(blocker.created_at);
+  const hours = moment.duration(d.diff(createdAt)).asHours();
 
   const handleClick = () => {
     setEdit(false)
@@ -257,6 +260,7 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
                   variant="text"
                   color="primary"
                   onClick={() => setEdit(true)}
+                  disabled={Boolean(blocker.resolve_at) || Boolean(hours >= 2)}
                   className={classes.button}
                   startIcon={<EditIcon />}>
                   Edit

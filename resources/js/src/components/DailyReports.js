@@ -110,7 +110,10 @@ const CustomTextField = ({report, handleClick, handleUpdate}) => {
 
 const RenderCard = ({report, handleUpdate, handleOpen, state}) => {
   const classes = useStyles();
-  const [edit, setEdit] = React.useState(false)
+  const [edit, setEdit] = React.useState(false);
+  const d = moment();
+  const createdAt = moment(report.created_at);
+  const hours = moment.duration(d.diff(createdAt)).asHours();
 
   const handleClick = () => {
     setEdit(false)
@@ -147,6 +150,7 @@ const RenderCard = ({report, handleUpdate, handleOpen, state}) => {
                 variant="text"
                 color="primary"
                 onClick={() => setEdit(true)}
+                disabled={Boolean(hours >= 2)}
                 className={classes.button}
                 startIcon={<EditIcon />}>
                 Edit

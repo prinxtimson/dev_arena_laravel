@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
+    padding: theme.spacing(1, 0)
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -61,10 +62,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     paddingLeft: 20,
-    margin: 10,
+    margin: 8,
   },
   drawerPaper: {
     width: drawerWidth,
+    borderWidth: 0,
   },
   space: {
     marginBottom: theme.spacing(5)
@@ -269,7 +271,7 @@ function DrawerMenu({ window, children }) {
               <MenuIcon />
             </IconButton>
             <Avatar style={{width: 180, height: 45}} className={classes.menuButton} variant="square" alt="Dev Arena" src="/images/logo.png" >
-            Dev Arena
+              Dev Arena
             </Avatar>
             <div className={classes.grow} />
             <IconButton

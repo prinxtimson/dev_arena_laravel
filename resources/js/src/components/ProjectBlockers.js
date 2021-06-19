@@ -32,7 +32,8 @@ import { BASE_URL, axios } from '../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: theme.spacing(2, 0),
+    margin: theme.spacing(2, 0), 
+    backgroundColor: 'whitesmoke'
   },
   paper: {
     padding: theme.spacing(3)
@@ -196,7 +197,9 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
     axios.get(`${BASE_URL}/api/issues/close/${blocker.id}`)
         .then(res => {
             handleUpdate(res.data);
-        })      
+        }).catch(err => {
+          console.log(err.response);
+        })     
   }
 
   const handleOnOpen = () => {
@@ -249,15 +252,6 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
           </StyledCardContent>
             {isPermitted ? (
               <StyledCardActions>
-                <Button
-                  size="small"
-                  variant="text"
-                  color="secondary"
-                  className={classes.button}
-                  onClick={() => handleOpen(blocker.id)}
-                  startIcon={<DeleteIcon />}>
-                  Delete
-                </Button>
                 <Button
                   size="small"
                   variant="text"

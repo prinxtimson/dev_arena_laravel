@@ -162,7 +162,7 @@ const NotificationsMenu = ({notifications, anchorE2, handleClose, handleOnFocus}
             return (
             <div key={notification.id}>
             <ListItem button onClick={() => handleClick(notification.data.project_id)}>
-              <ListItemText primary="Issues Raised" secondary={`${notification && notification.data.name} had raised a blocker on Project ${notification && notification.data.project}`} />
+              <ListItemText primary="Blocker Raised" secondary={`${notification && notification.data.name} had raised a blocker on Project ${notification && notification.data.project}`} />
             </ListItem>
             {notifications.length-1 === index ? null :  <Divider />} 
             </div>
@@ -172,7 +172,7 @@ const NotificationsMenu = ({notifications, anchorE2, handleClose, handleOnFocus}
             return (
             <div key={notification.id}>
             <ListItem button onClick={() => handleClick(notification.data.issue.project.id)}>
-              <ListItemText primary="Issue Resolved" secondary={`Issue with Ticket No. ${notification && notification.data.issue.ticket_no} on Project ${notification && notification.data.issue.project.name} had been resolved.`} />
+              <ListItemText primary="Blocker Resolved" secondary={`Issue with Ticket No. ${notification && notification.data.issue.ticket_no} on Project ${notification && notification.data.issue.project.name} had been resolved.`} />
             </ListItem>
             {notifications.length-1 === index ? null :  <Divider />} 
             </div>

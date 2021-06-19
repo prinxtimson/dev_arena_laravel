@@ -26,6 +26,7 @@ import { axios, BASE_URL } from '../utils/utils';
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(2, 0),
+    backgroundColor: 'whitesmoke'
   },
   paper: {
     padding: theme.spacing(3)
@@ -139,17 +140,8 @@ const RenderCard = ({report, handleUpdate, handleOpen, state}) => {
               {report.details}
             </Typography>
           </StyledCardContent>
-          {state.user && state.user.id === report.user_id && (
+          {state.user?.id === report.user_id && (
             <StyledCardActions>
-              <Button
-                size="small"
-                variant="text"
-                color="secondary"
-                onClick={() => handleOpen(report.id)}
-                className={classes.button}
-                startIcon={<DeleteIcon />}>
-                Delete
-              </Button>
               <Button
                 size="small"
                 variant="text"
@@ -197,7 +189,6 @@ const DailyReports = () => {
   const classes = useStyles();
   const {state} = React.useContext(UserContext);
   const [loading, setLoading] = React.useState(true);
-  const [isPermitted, setIspermitted] = React.useState(false);
   const [formLoading, setFormLoading] = React.useState(false);
   const [reports, setReports] = React.useState([])
   const [details, setDetails] = React.useState('');
@@ -231,8 +222,6 @@ const DailyReports = () => {
   }
 
   React.useEffect(() => {
-    const project = state.user?.projects.find(project => project.id == id);
-    setIspermitted(Boolean(project));
     axios.get(`${BASE_URL}/api/reports`)
       .then(res => {
         setReports(res.data);
@@ -414,7 +403,19 @@ const DailyReports = () => {
             </Skeleton>
           ) : (
             <Paper className={classes.paper} elevation={5}>
-              {reports.length > 0 && reports.map((report, index) => (
+              {reports.length > 0 && reports.map((report, index) => state.user?.roles[0]?.name !== 'developer' ? (
+                <div key={report.id}>
+                  <RenderCard
+                    state={state}
+                    report={report}
+                    handleOpen={handleOpen}
+                    handleUpdate={handleUpdate}
+                  />
+                  {reports.length-1 === index ? null : (
+                    <Divider />
+                  )}
+                </div>
+              ) : state.user?.id === report.user_id && (
                 <div key={report.id}>
                   <RenderCard
                     state={state}

@@ -122,7 +122,7 @@ class IssueController extends Controller
     public function close($id)
     {
         $issue = Issue::find($id);
-        $user = User::find($issue->raise_by);
+        $user = User::find($issue->user_id);
 
         $issue->update([
             'resolve_at' => Carbon::now(),
@@ -140,6 +140,7 @@ class IssueController extends Controller
     public function open($id)
     {
         $issue = Issue::find($id);
+        $user = $issue->user();
 
         $issue->update([
             'resolve_at' => null,

@@ -34,7 +34,7 @@ const AppNavBar = () => {
             <AppBar position="static" elevation={0} color="inherit" style={{padding: 10}}>
                 <Toolbar>
                 <div className={classes.title}>
-                    <Avatar style={{width: 200, height: 50}} variant="square" alt="Dev Arena" src="/storage/images/logo.png" >
+                    <Avatar style={{width: 200, height: 50}} variant="square" alt="Dev Arena" src="/images/logo.png" >
                         Dev Arena
                     </Avatar>
                 </div>

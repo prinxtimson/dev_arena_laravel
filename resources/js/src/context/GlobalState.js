@@ -51,16 +51,11 @@ export default ({children}) => {
     }, [])
 
     React.useEffect(() => {
-        window.echo.private(`App.Models.User.${state.user && state.user.id}`)
+        window.echo.private(`App.Models.User.${state.user?.id}`)
         .notification((notification) => {
           //
-          console.log(notification)
-          const newNotification = {
-            data: notification,
-            type: notification.type,
-            id: notification.id
-          }  
-          dispatch({type: ON_NEW_NOTIFICATION, payload: newNotification});
+          console.log(notification) 
+          dispatch({type: ON_NEW_NOTIFICATION, payload: notification});
     });
     }, [state.isAuthenticated]);
     

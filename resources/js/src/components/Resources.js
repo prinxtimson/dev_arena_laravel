@@ -69,7 +69,7 @@ const Resources = () => {
                         component="img"
                         alt={resource.title}
                         height="220"
-                        src="/storage/images/folder_icon.png"
+                        src="/images/folder_icon_small.png"
                         title={resource.title}
                       />
                       <CardContent>

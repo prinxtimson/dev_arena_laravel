@@ -30,7 +30,7 @@ class NewUser extends Mailable
      */
     public function build()
     {
-        $subject = 'Dev Arena Unboading';
+        $subject = 'Dev Arena Onboarding';
         $address = 'noreply@dev-arena.com';
 
         return $this->markdown('emails.new_user')

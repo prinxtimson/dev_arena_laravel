@@ -12,6 +12,7 @@ import Container from '@material-ui/core/Container';
 import AppContainer from './AppContainer';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+import { UserContext } from '../context/GlobalState';
 import { axios, BASE_URL, generatePassword } from '../utils/utils';
 
 
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AddUserForm = () => {
     const classes = useStyles();
+    const {state} = React.useContext(UserContext);
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState(null);
     const [msg, setMsg] = React.useState(null);
@@ -48,7 +50,7 @@ const AddUserForm = () => {
         firstname: '',
         lastname: '',
         email: '',
-        role: '',
+        role: state.user?.roles[0]?.name === 'admin' ? 'developer': '',
         password: '',
         confirm_password: '',
         showPassword: false
@@ -180,10 +182,12 @@ const AddUserForm = () => {
                         variant="outlined"
                     >
                         <option />
-                        <option value="admin">
-                            Admin
-                        </option>
-                        <option value="developer">
+                        {state.user?.roles[0]?.name === 'super-admin' && (
+                            <option value="admin">
+                                Admin
+                            </option>
+                        )}
+                        <option value="developer" selected={state.user?.roles[0]?.name === 'admin'}>
                             Developer
                         </option>
                     </TextField>

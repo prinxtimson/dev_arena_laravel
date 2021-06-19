@@ -16,7 +16,7 @@
         </div>
         <div>
           <div>
-            <p>Welcome to Tritek Consulting Ltd Dev Arena Portal. Find the following is your login details to the Dev Arena Portal, Please be sure to change your password on your first login to the platform.</p>
+            <p>Welcome to Tritek Consulting Ltd Dev Arena Portal. Find the following your login details to the Dev Arena Portal, Please be sure to change your password on your first login to the platform.</p>
           </div>
           <div>
             <p>Username: {{$data['email']}}</p>

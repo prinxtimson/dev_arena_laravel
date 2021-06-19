@@ -32,7 +32,7 @@ class SignupEmail extends Mailable
     public function build()
     {
         $address = 'noreply@dev-arena.com';
-        $subject = 'Dev Arena Unboading';
+        $subject = 'Dev Arena Onboarding';
         $name = 'Admin';
 
         return $this->markdown('view.emails.signup')

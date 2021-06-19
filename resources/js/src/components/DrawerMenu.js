@@ -60,7 +60,8 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     display: 'flex',
     alignItems: 'center',
-    paddingLeft: 20
+    paddingLeft: 20,
+    margin: 10,
   },
   drawerPaper: {
     width: drawerWidth,
@@ -71,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+    backgroundColor: 'whitesmoke'
   },
   grow: {
     flexGrow: 1,
@@ -124,7 +126,7 @@ function DrawerMenu({ window, children }) {
     const drawer = (
       <div>        
         <div className={classes.toolbar}>
-          <Avatar style={{width: 180, height: 45}} variant="square" alt="Dev Arena" src="/storage/images/logo.png" >
+          <Avatar style={{width: 180, height: 45}} variant="square" alt="Dev Arena" src="/images/logo.png" >
             Dev Arena
           </Avatar>
         </div>

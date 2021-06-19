@@ -52,7 +52,7 @@ const UserProjects = ({projects}) => {
             <TableCell align="left">Start</TableCell>
             <TableCell align="left">Expected End Date</TableCell>
             <TableCell align="left">End Date</TableCell>
-            <TableCell align="left">Weeks</TableCell>
+            <TableCell align="left">Days Left</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -82,7 +82,7 @@ const UserProjects = ({projects}) => {
                         {moment(project.end_at).format('MMM Do YYYY')}
                       </TableCell>
                       <TableCell align="left">
-                        {a.diff(b, 'weeks') + 'Weeks'}
+                        {a.diff(b, 'days') + ' Days'}
                       </TableCell>
                     </TableRow>
                   )

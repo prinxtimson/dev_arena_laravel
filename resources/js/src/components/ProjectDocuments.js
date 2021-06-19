@@ -16,6 +16,7 @@ import { axios, BASE_URL } from '../utils/utils';
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(2, 0),
+    backgroundColor: 'whitesmoke'
   },
   paper: {
     padding: theme.spacing(3)

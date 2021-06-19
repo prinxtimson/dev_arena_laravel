@@ -28,6 +28,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  root: {
+    flex: 1,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
@@ -68,6 +74,7 @@ export default function SignIn() {
   return (
     <AppContainer>
       <AppNavBar />
+      <div className={classes.root}>
         <Container component="main" maxWidth="xs" className="card">
             <CssBaseline />
             <div className={classes.paper}>
@@ -153,6 +160,7 @@ export default function SignIn() {
                 </form>
             </div>
         </Container>
+      </div>
     </AppContainer>
   );
 }

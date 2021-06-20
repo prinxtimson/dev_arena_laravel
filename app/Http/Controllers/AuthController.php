@@ -96,8 +96,8 @@ class AuthController extends Controller
         $projects = Project::count();
         $completed = Project::whereDate('end_at', '<=', Carbon::now())->count();
         $pending = Project::whereNull('assign_at')->whereDate('end_at', '>=', Carbon::now())->count();
-        $progress = Project::whereNotNull('assign_at')->where('assign_at', '!=', '')->where('end_at', '>=', Carbon::now())->count();
-        $extend = Project::whereColumn('end_at', '>', 'est_end_at')->where('end_at', '>=', Carbon::now())->count();
+        $progress = Project::whereNotNull('assign_at')->whereDate('end_at', '>=', Carbon::now())->count();
+        $extend = Project::whereColumn('end_at', '>', 'est_end_at')->whereDate('end_at', '>=', Carbon::now())->count();
         $users = User::withTrashed()->count();
 
         return $response = [

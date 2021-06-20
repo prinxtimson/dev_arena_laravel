@@ -12,7 +12,9 @@ import List from '@material-ui/core/List';
 import FolderIcon from '@material-ui/icons/Folder';
 import NewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import MenuItem from '@material-ui/core/MenuItem';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -43,12 +45,36 @@ const useStyles = makeStyles((theme) => ({
       flexShrink: 0,
     },
   },
+  logo: {
+    [theme.breakpoints.down('lg')]: {
+        width: '12rem',
+        height: '5%',
+    },
+    [theme.breakpoints.down('md')]: {
+        width: '10rem',
+        height: '5%',
+    },
+    [theme.breakpoints.down('sm')]: {
+        width: '8rem',
+        height: '5%',
+    },
+  },
+  logo2: {
+    [theme.breakpoints.down('md')]: {
+        width: '10rem',
+        height: '5%',
+    },
+    [theme.breakpoints.down('sm')]: {
+        width: '8rem',
+        height: '5%',
+    },
+  },
   appBar: {
     [theme.breakpoints.up('lg')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
-    padding: theme.spacing(1, 0)
+    padding: theme.spacing(0.5, 0)
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -62,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     paddingLeft: 20,
-    margin: 8,
+    margin: 4,
   },
   drawerPaper: {
     width: drawerWidth,
@@ -82,6 +108,11 @@ const useStyles = makeStyles((theme) => ({
   nested: {
     paddingLeft: theme.spacing(4),
     fontSize: 12
+  },
+  nameDiv: {
+    margin: theme.spacing(2),
+    backgroundColor: 'whitesmoke',
+    borderRadius: 10,
   },
 }));
 
@@ -128,12 +159,24 @@ function DrawerMenu({ window, children }) {
     const drawer = (
       <div>        
         <div className={classes.toolbar}>
-          <Avatar style={{width: 180, height: 45}} variant="square" alt="Dev Arena" src="/images/logo.png" >
+          <Avatar className={classes.logo} variant="square" alt="Dev Arena" src="/images/logo.png" >
             Dev Arena
           </Avatar>
         </div>
-        <Divider />
         <List>
+          <div className={classes.nameDiv}>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar alt={state.user?.name} src={state.user?.avatar}>
+                {`${state.user?.profile.firstname.charAt(0)}${state.user?.profile.lastname.charAt(0)}`}
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText 
+              primary={state.user?.name}
+              secondary={state.user?.roles[0].name} 
+            />
+          </ListItem>
+          </div>
           {state.loading ? null : state.user?.roles[0].name === 'developer' ? (
             <>
               <MenuItem
@@ -144,7 +187,13 @@ function DrawerMenu({ window, children }) {
                 <ListItemIcon>
                   <BusinessCenterIcon />
                 </ListItemIcon>
-                <ListItemText primary="Projects" />
+                <ListItemText
+                  primaryTypographyProps={{
+                    style: {
+                      fontWeight: '500'
+                    }
+                  }}
+                  primary="Projects" />
               </MenuItem>
               <MenuItem
                 component={Link}
@@ -154,7 +203,13 @@ function DrawerMenu({ window, children }) {
                 <ListItemIcon>
                   <AssignmentIcon />
                 </ListItemIcon>
-                <ListItemText primary="Daily Reports" />
+                <ListItemText
+                  primaryTypographyProps={{
+                    style: {
+                      fontWeight: '500'
+                    }
+                  }}
+                 primary="Daily Reports" />
               </MenuItem>
               <MenuItem
                 component={Link}
@@ -164,7 +219,13 @@ function DrawerMenu({ window, children }) {
                 <ListItemIcon>
                   <FolderIcon />
                 </ListItemIcon>
-                <ListItemText primary="Resources" />
+                <ListItemText
+                  primaryTypographyProps={{
+                    style: {
+                      fontWeight: '500'
+                    }
+                  }}
+                 primary="Resources" />
               </MenuItem>
               <List dense>
                 <MenuItem
@@ -176,7 +237,13 @@ function DrawerMenu({ window, children }) {
                   <ListItemIcon>
                     <NewFolderIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Add Resources" />
+                  <ListItemText
+                    primaryTypographyProps={{
+                      style: {
+                        fontWeight: '500'
+                      }
+                    }}
+                   primary="Add Resources" />
                 </MenuItem>
               </List>
             </>
@@ -190,7 +257,13 @@ function DrawerMenu({ window, children }) {
                 <ListItemIcon>
                   <PersonIcon />
                 </ListItemIcon>
-                <ListItemText primary="Users" />
+                <ListItemText
+                  primary="Users"
+                  primaryTypographyProps={{
+                    style: {
+                      fontWeight: '500'
+                    }
+                  }} />
               </MenuItem>
               <List dense>
                 <MenuItem
@@ -202,7 +275,13 @@ function DrawerMenu({ window, children }) {
                   <ListItemIcon>
                     <PersonAddIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Add User" />
+                  <ListItemText
+                    primaryTypographyProps={{
+                      style: {
+                        fontWeight: '500'
+                      }
+                    }}
+                   primary="Add User" />
                 </MenuItem>
               </List>
               <MenuItem
@@ -213,7 +292,13 @@ function DrawerMenu({ window, children }) {
                 <ListItemIcon>
                   <AssignmentIcon />
                 </ListItemIcon>
-                <ListItemText primary="Daily Reports" />
+                <ListItemText
+                  primaryTypographyProps={{
+                    style: {
+                      fontWeight: '500'
+                    }
+                  }}
+                  primary="Daily Reports" />
               </MenuItem>
               <MenuItem
                 component={Link}
@@ -223,7 +308,13 @@ function DrawerMenu({ window, children }) {
                 <ListItemIcon>
                   <BusinessCenterIcon />
                 </ListItemIcon>
-                <ListItemText primary="Projects" />
+                <ListItemText
+                  primaryTypographyProps={{
+                    style: {
+                      fontWeight: '500'
+                    }
+                  }}
+                 primary="Projects" />
               </MenuItem>
               <List dense>
                 <MenuItem
@@ -235,7 +326,13 @@ function DrawerMenu({ window, children }) {
                   <ListItemIcon>
                     <WorkIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Add Project" />
+                  <ListItemText
+                    primaryTypographyProps={{
+                      style: {
+                        fontWeight: '500'
+                      }
+                    }}
+                   primary="Add Project" />
                 </MenuItem>
               </List>
               <MenuItem
@@ -246,7 +343,13 @@ function DrawerMenu({ window, children }) {
                 <ListItemIcon>
                   <FolderIcon />
                 </ListItemIcon>
-                <ListItemText primary="Resources" />
+                <ListItemText
+                  primaryTypographyProps={{
+                    style: {
+                      fontWeight: '500'
+                    }
+                  }}
+                 primary="Resources" />
               </MenuItem>
             </>
           )}   
@@ -270,7 +373,7 @@ function DrawerMenu({ window, children }) {
             >
               <MenuIcon />
             </IconButton>
-            <Avatar style={{width: 180, height: 45}} className={classes.menuButton} variant="square" alt="Dev Arena" src="/images/logo.png" >
+            <Avatar className={[classes.menuButton, classes.logo2].join(' ')} variant="square" alt="Dev Arena" src="/images/logo.png" >
               Dev Arena
             </Avatar>
             <div className={classes.grow} />
@@ -291,9 +394,9 @@ function DrawerMenu({ window, children }) {
                 color="inherit"
                 onClick={handleClick}
               >
-                  <Avatar alt={state.user && state.user.name} src={state.user && state.user.avatar}>
-                  {state.user && `${state.user.profile.firstname.charAt(0)}${state.user.profile.lastname.charAt(0)}`}
-                  </Avatar>
+                <Avatar alt={state.user?.name} src={state.user?.avatar}>
+                  {`${state.user?.profile.firstname.charAt(0)}${state.user?.profile.lastname.charAt(0)}`}
+                </Avatar>
               </IconButton>
             )}
             {!state.loading && (

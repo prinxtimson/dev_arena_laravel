@@ -101,6 +101,12 @@ class IssueController extends Controller
 
         $issue = Issue::find($id);
 
+        if ($issue->resolve_at) {
+            return $issue->refresh()->load(['project', 'comments' => function($q) {
+                return $q->orderBy('id', 'DESC')->with('user')->get();
+            }, 'user']);
+        }
+
         $issue->update($request->all());
 
         return $issue->refresh()->load(['project', 'comments' => function($q) {

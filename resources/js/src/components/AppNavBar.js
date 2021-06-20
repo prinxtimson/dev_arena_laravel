@@ -16,7 +16,10 @@ const useStyles = makeStyles(theme => ({
     },
     menuButton: {
       padding: theme.spacing(0, 2.5),
-      marginRight: theme.spacing(2)
+      marginRight: theme.spacing(2),
+      '&:hover': {
+        color: '#fff',
+        }
     },
     title: {
       flexGrow: 1,
@@ -24,6 +27,20 @@ const useStyles = makeStyles(theme => ({
     image: {
         width: 85,
         height: 42,
+    },
+    logo: {
+        [theme.breakpoints.up('md')]: {
+            width: '12rem',
+            height: '5%',
+        },
+        [theme.breakpoints.down('md')]: {
+            width: '10rem',
+            height: '5%',
+        },
+        [theme.breakpoints.down('sm')]: {
+            width: '8rem',
+            height: '5%',
+        },
     }
 }));
 
@@ -31,10 +48,11 @@ const AppNavBar = () => {
     const classes = useStyles();
     const {state, logout} = React.useContext(UserContext)
     return (
+        <div className={classes.root}>
             <AppBar position="static" elevation={0} color="inherit" style={{padding: 10}}>
                 <Toolbar>
                 <div className={classes.title}>
-                    <Avatar style={{width: 200, height: 50}} variant="square" alt="Dev Arena" src="/images/logo.png" >
+                    <Avatar className={classes.logo} variant="square" alt="Dev Arena" src="/images/logo.png" >
                         Dev Arena
                     </Avatar>
                 </div>
@@ -53,7 +71,6 @@ const AppNavBar = () => {
                                 color="primary"
                                 className={classes.menuButton}
                                 variant="contained"
-                                size="medium"
                                 onClick={logout}
                             >
                                 Logout
@@ -64,7 +81,6 @@ const AppNavBar = () => {
                             color="primary"
                             className={classes.menuButton}
                             variant="outlined"
-                            size="large"
                             component={Link}
                             to="/login"
                         >
@@ -73,6 +89,7 @@ const AppNavBar = () => {
                     )}  
                 </Toolbar>
             </AppBar>
+        </div>
     )
 }
 

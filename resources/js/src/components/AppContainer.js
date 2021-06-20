@@ -9,10 +9,11 @@ const HEIGHT = window.innerHeight;
 const useStyles = makeStyles((theme) => ({
     container: {
         backgroundColor: 'whitesmoke',
-        minHeight: HEIGHT,
+        minHeight: '100vh',
     },
     container2: {
         backgroundColor: 'white',
+        minHeight: '100vh',
     },
     innerContainer: {
         margin: theme.spacing(5, 0),
@@ -27,7 +28,7 @@ function AppContainer({children}) {
     let location = useLocation();
 
     return (
-        <div className={location.pathname === '/login' ? classes.container2 : classes.container}>     
+        <div className={location.pathname === '/login' || location.pathname === '/' ? classes.container2 : classes.container}>     
             <CssBaseline />
             {children}
             <MainFooter />

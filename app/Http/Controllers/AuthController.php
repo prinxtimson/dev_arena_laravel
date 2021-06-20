@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +16,7 @@ use Illuminate\Http\UploadedFile;
 
 class AuthController extends Controller
 {
-    //
+
     public function login(Request $request) {
         $fields = $request->validate([
             'email' => 'required|string',
@@ -50,8 +52,9 @@ class AuthController extends Controller
             'notifications' => [
                 'data' => $notifications,
                 'count' => $count
-            ]
-            ];
+            ],
+            'project'
+        ];
         return $response;
     }
 
@@ -75,7 +78,7 @@ class AuthController extends Controller
         //$user = User::find($user);
         $user->update([
             'name' =>  $fields['firstname'].' '.$fields['lastname'],
-            strtolower($fields['firstname'].$fields['lastname']),
+            'username' => strtolower($fields['firstname'].$fields['lastname']),
         ]);
 
         $user->profile()->update($request->all());
@@ -86,6 +89,25 @@ class AuthController extends Controller
         ];
 
         return $response;
+    }
+
+    public function summary()
+    {
+        $projects = Project::count();
+        $completed = Project::whereDate('end_at', '<=', Carbon::now())->count();
+        $pending = Project::whereNull('assign_at')->whereDate('end_at', '>=', Carbon::now())->count();
+        $progress = Project::whereNotNull('assign_at')->where('assign_at', '!=', '')->whereDate('end_at', '>=', Carbon::now())->count();
+        $extend = Project::whereColumn('end_at', '>', 'est_end_at')->whereDate('end_at', '>=', Carbon::now())->count();
+        $users = User::withTrashed()->count();
+
+        return $response = [
+            'total_projects' => $projects,
+            'completed_projects' => $completed,
+            'pending_projects' => $pending,
+            'in_progress_projects' => $pending,
+            'extended_projects' => $extend,
+            'users' => $users,
+        ];
     }
 
     public function changePass(Request $request)

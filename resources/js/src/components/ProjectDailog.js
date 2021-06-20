@@ -447,22 +447,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
             </Grid>
             <Grid item xs={12} sm={4}>
               {isEdit ? (
-                <TextField
-                  variant="outlined"
-                  margin="dense"
-                  required
-                  fullWidth
-                  id="start_date"
-                  label="Start Date"
-                  name="start_date"
-                  type=""
-                  autoFocus
-                  defaultValue={moment(data.start_at).format('L')}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  onChange={e => setData({...data, start_at: e.target.value})}
-                />
+               null
               ) : (
                 <ListItemText
                   primary="Start Date"
@@ -472,22 +457,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
             </Grid>
             <Grid item xs={12} sm={4}>
               {isEdit ? (
-                <TextField
-                  variant="outlined"
-                  margin="dense"
-                  required
-                  fullWidth
-                  id="est_end_date"
-                  label="Estimated End Date"
-                  name="est_end_date"
-                  type=""
-                  autoFocus
-                  defaultValue={moment(data.est_end_at).format('L')}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  onChange={e => setData({...data, est_end_at: e.target.value})}
-                />
+                null
               ) : (
                 <ListItemText
                   primary="Estimated End Date"
@@ -504,7 +474,7 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
                   id="end_date"
                   label="End Date"
                   name="end_date"
-                  type=""
+                  type="date"
                   autoFocus
                   defaultValue={moment(data.end_at).format('L')}
                   InputLabelProps={{

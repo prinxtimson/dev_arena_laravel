@@ -104,7 +104,7 @@ class AuthController extends Controller
             'total_projects' => $projects,
             'completed_projects' => $completed,
             'pending_projects' => $pending,
-            'in_progress_projects' => $pending,
+            'in_progress_projects' => $progress,
             'extended_projects' => $extend,
             'users' => $users,
         ];

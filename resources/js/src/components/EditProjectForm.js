@@ -213,41 +213,14 @@ React.useEffect(() => {
                 margin="normal"
                 required
                 fullWidth
-                id="start_at"
-                label="Start Date"
-                type=""
-                name="start_at"
-                defaultValue={moment(data.start_at).format('L')}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={e => setData({...data, start_at: e.target.value})}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="est_end_at"
-                label="Estimated End Date"
-                name="est_end_at"
-                type=""
-                defaultValue={moment(data.est_end_at).format('L')}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={e => setData({...data, est_end_at: e.target.value})}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
                 id="end_at"
                 label="End Date"
                 name="end_at"
                 type="date"
                 value={moment(data.end_at).format('L')}
+                inputProps={{
+                  min: data.start_at
+                }}
                 InputLabelProps={{
                   shrink: true,
                 }}

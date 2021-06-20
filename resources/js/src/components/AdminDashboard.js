@@ -8,7 +8,7 @@ import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import PeopleIcon from '@material-ui/icons/People';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { green, red, blue, purple, orange } from '@material-ui/core/colors';
+import { green, red, blue, purple, orange, indigo } from '@material-ui/core/colors';
 import AppContainer from './AppContainer';
 import { axios, BASE_URL } from '../utils/utils';
 
@@ -58,7 +58,7 @@ const AdminDashboard = () => {
 
   return (
           <Grid container spacing={3}>
-          {loading ? Array.from(new Array(3)).map((item, index) => (
+          {loading ? Array.from(new Array(6)).map((item, index) => (
               <Grid item xs={12} sm={4} key={index}>
                   <Skeleton variant="rect" width="100%" height={150} />
               </Grid>
@@ -126,7 +126,7 @@ const AdminDashboard = () => {
                               <Grid item>
                                   <Avatar
                                       style={{
-                                      backgroundColor: green[600],
+                                      backgroundColor: indigo[600],
                                       height: 56,
                                       width: 56
                                       }}
@@ -163,7 +163,81 @@ const AdminDashboard = () => {
                               <Grid item>
                                   <Avatar
                                       style={{
+                                      backgroundColor: green[600],
+                                      height: 56,
+                                      width: 56
+                                      }}
+                                  >
+                                      <BusinessCenterIcon />
+                                  </Avatar>
+                              </Grid>
+                          </Grid>
+                      </CardContent>
+                  </Card>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                  <Card elevation={5} className={classes.card}>
+                      <CardContent>
+                          <Grid
+                              container
+                              spacing={3}
+                              style={{ justifyContent: 'space-between' }}
+                          >
+                              <Grid item>
+                                  <Typography
+                                      color="textPrimary"
+                                      variant="h6"
+                                  >
+                                      Projects Pending  
+                                  </Typography>
+                                  <Typography
+                                      color="textPrimary"
+                                      variant="h3"
+                                  >
+                                      {summary?.pending_projects}
+                                  </Typography>
+                              </Grid>
+                              <Grid item>
+                                  <Avatar
+                                      style={{
                                       backgroundColor: orange[600],
+                                      height: 56,
+                                      width: 56
+                                      }}
+                                  >
+                                      <BusinessCenterIcon />
+                                  </Avatar>
+                              </Grid>
+                          </Grid>
+                      </CardContent>
+                  </Card>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                  <Card elevation={5} className={classes.card}>
+                      <CardContent>
+                          <Grid
+                              container
+                              spacing={3}
+                              style={{ justifyContent: 'space-between' }}
+                          >
+                              <Grid item>
+                                  <Typography
+                                      color="textPrimary"
+                                      variant="h6"
+                                  >
+                                      Projects Extended  
+                                  </Typography>
+                                  <Typography
+                                      color="textPrimary"
+                                      variant="h3"
+                                  >
+                                      {summary?.extended_projects}
+                                  </Typography>
+                              </Grid>
+                              <Grid item>
+                                  <Avatar
+                                      style={{
+                                      backgroundColor: red[600],
                                       height: 56,
                                       width: 56
                                       }}

@@ -24,11 +24,11 @@ class ProjectController extends Controller
         $start = $request->start;
         $end = $request->end;
         return Project::when($start, function($q) use ($start) {
-                return $q->where('start_at', '>=', $start);
+                return $q->whereDate('start_at', '>=', $start);
             })->when($end, function($q) use ($end) {
-                return $q->where('end_at', '<=', $end);
+                return $q->whereDate('end_at', '<=', $end);
             })->with(['developers', 'media', 'issues' => function ($query) {
-                $query->where('resolve_at', '=', null);
+                $query->whereNull('resolve_at');
             }])->paginate(20);
     }
 
@@ -97,7 +97,7 @@ class ProjectController extends Controller
         }
 
         $project->load(['developers', 'media', 'issues' => function ($query) {
-            $query->where('resolve_at', '=', null);
+            $query->whereNull('resolve_at');
         }]);
 
         $response = [
@@ -143,7 +143,7 @@ class ProjectController extends Controller
     public function search(Request $request)
     {
         return Project::with(['developers', 'media', 'issues' => function ($query) {
-            $query->where('resolve_at', '=', null);
+            $query->whereNull('resolve_at');
         }])->when($request->start_date, function($query) use ($request){
             $query->where('assign_at', '>=', $request->start_date);
         })
@@ -162,7 +162,7 @@ class ProjectController extends Controller
         ]);
 
         $project->refresh()->load(['developers', 'media', 'issues' => function ($query) {
-            $query->where('resolve_at', '=', null);
+            $query->whereNull('resolve_at');
         }]);
 
         $response = [
@@ -186,7 +186,7 @@ class ProjectController extends Controller
         $project->update(['assign_at' => Carbon::now()]);
 
         $project->refresh()->load(['developers', 'media', 'issues' => function ($query) {
-            $query->where('resolve_at', '=', null);
+            $query->whereNull('resolve_at');
         }]);
 
         $fields = [
@@ -213,7 +213,7 @@ class ProjectController extends Controller
         $project->update(['assign_at' => null]);
 
         $project->refresh()->load(['developers', 'media', 'issues' => function ($query) {
-            $query->where('resolve_at', '=', null);
+            $query->whereNull('resolve_at');
         }]);
 
         return $project;

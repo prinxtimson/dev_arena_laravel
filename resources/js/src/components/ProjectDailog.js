@@ -445,25 +445,25 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
                     }/>
               )}
             </Grid>
-            <Grid item xs={12} sm={4}>
-              {isEdit ? (
+            {isEdit ? (
                null
-              ) : (
+            ) : (
+              <Grid item xs={12} sm={4}>
                 <ListItemText
                   primary="Start Date"
                   secondary={moment(project.start_at).format('MMM Do YYYY')} 
                 />
-              )}
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              {isEdit ? (
+              </Grid>
+             )}
+             {isEdit ? (
                 null
               ) : (
+              <Grid item xs={12} sm={4}>
                 <ListItemText
                   primary="Estimated End Date"
                   secondary={moment(project.est_end_at).format('MMM Do YYYY')}/>
-              )}
-            </Grid>
+              </Grid>
+            )}
             <Grid item xs={12} sm={4}>
               {isEdit ? (
                 <TextField
@@ -479,6 +479,9 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
                   defaultValue={moment(data.end_at).format('L')}
                   InputLabelProps={{
                     shrink: true,
+                  }}
+                  inputProps={{
+                    min: data.start_at
                   }}
                   onChange={e => setData({...data, end_at: e.target.value})}
                 />

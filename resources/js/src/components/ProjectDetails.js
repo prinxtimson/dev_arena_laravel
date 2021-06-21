@@ -55,52 +55,54 @@ const ProjectDetails = ({id}) => {
   return (
     <div className={classes.root} >
       <Grid container spacing={3}>
-        <Grid item sm={4} xs={12}>
-          {loading ? (
-            <Skeleton variant="rect" width="100%">
-              <div style={{ paddingTop: '35%' }} />
-            </Skeleton>
-          ) : (
-            <Paper className={classes.paper} elevation={5}>
-              <Grid container spacing={5}>
-                <Grid item xs={12}>
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={state.reports}
-                          onChange={handleChange}
-                          name="reports"
-                          color="primary"
-                        />
-                      }
-                      label="Include Reports"
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={state.issues}
-                          onChange={handleChange}
-                          name="issues"
-                          color="primary"
-                        />
-                      }
-                      label="Include Blockers"
-                    />
-                  </FormGroup>
+        {state.user?.roles[0].name !== 'developer' && (
+          <Grid item sm={4} xs={12}>
+            {loading ? (
+              <Skeleton variant="rect" width="100%">
+                <div style={{ paddingTop: '35%' }} />
+              </Skeleton>
+            ) : (
+              <Paper className={classes.paper} elevation={5}>
+                <Grid container spacing={5}>
+                  <Grid item xs={12}>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={state.reports}
+                            onChange={handleChange}
+                            name="reports"
+                            color="primary"
+                          />
+                        }
+                        label="Include Reports"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={state.issues}
+                            onChange={handleChange}
+                            name="issues"
+                            color="primary"
+                          />
+                        }
+                        label="Include Blockers"
+                      />
+                    </FormGroup>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      color="primary"
+                      variant="outlined"
+                      onClick={handleOnExport}>
+                      Export Project
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    color="primary"
-                    variant="outlined"
-                    onClick={handleOnExport}>
-                    Export Project
-                  </Button>
-                </Grid>
-              </Grid>
-            </Paper>
-          )}
-        </Grid>
+              </Paper>
+            )}
+          </Grid>
+        )}
         <Grid item sm={8} xs={12}>
           {loading ? (
             <Skeleton variant="rect" width="100%">

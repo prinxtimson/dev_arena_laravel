@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(3, 0),
     padding: theme.spacing(2.5),
+    maxWidth: '80%'
   },
   paper: {
     margin: theme.spacing(3, 0),
@@ -97,7 +98,7 @@ React.useEffect(() => {
   return (
     <AppContainer>
       {loading ? (
-        <Skeleton variant="rect" width="100%">
+        <Skeleton variant="rect" width="80%">
           <div style={{ paddingTop: '45%' }} />
         </Skeleton>
       ) : (

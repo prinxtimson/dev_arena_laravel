@@ -37,14 +37,14 @@ class BlockersExport implements FromQuery, WithMapping, ShouldAutoSize, WithHead
         $resolved = $this->resolved;
 
         return Issue::query()->where('project_id', $this->id)->when($from, function($q) use ($from) {
-            return $q->where('created_at', '>=', $from);
+            return $q->whereDate('created_at', '>=', $from);
         })->when($to, function($q) use ($to) {
-            return $q->where('created_at', '<=', $to);
+            return $q->whereDate('created_at', '<=', $to);
         })->when($resolved, function($q) use ($resolved) {
             if ($resolved) {
                 return $q->where('resolve_at');
             }
-            return $q->where('resolve_at', '=', null);
+            return $q->whereNull('resolve_at');
         })->with(['user', 'project']);
     }
 

@@ -31,9 +31,9 @@ class ProjectsExport implements FromQuery, WithMapping, ShouldAutoSize, WithHead
         $start = $this->start;
         $end = $this->end;
         return Project::query()->when($start, function($q) use ($start) {
-            return $q->where('start_at', '>=', $start);
+            return $q->whereDate('start_at', '>=', $start);
         })->when($end, function($q) use ($end) {
-            return $q->where('end_at', '<=', $end);
+            return $q->whereDate('end_at', '<=', $end);
         })->with('reports');
     }
 

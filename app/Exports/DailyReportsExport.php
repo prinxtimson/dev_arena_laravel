@@ -37,9 +37,9 @@ class DailyReportsExport implements FromQuery, WithMapping, ShouldAutoSize, With
         return Report::query()->when($id, function($q) use ($id) { 
             $q->where('user_id', $id);
         })->when($from, function($q) use ($from) {
-            return $q->where('created_at', '>=', $from);
+            return $q->whereDate('created_at', '>=', $from);
         })->when($to, function($q) use ($to) {
-            return $q->where('created_at', '<=', $to);
+            return $q->whereDate('created_at', '<=', $to);
         })->with('user');
     }
 

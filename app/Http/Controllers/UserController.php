@@ -39,7 +39,7 @@ class UserController extends Controller
     {
         //
         $users = User::withTrashed()->with(['roles', 'projects' => function ($query) {
-            $query->where('end_at', '>', Carbon::now());
+            $query->whereDate('end_at', '>', Carbon::now());
         }])->paginate(20);
 
         return $users;
@@ -52,7 +52,7 @@ class UserController extends Controller
                 $q->where('name', 'developer');
             }
         )->with(['roles', 'projects' => function ($query) {
-            $query->where('end_at', '>', Carbon::now());
+            $query->whereDate('end_at', '>', Carbon::now());
         }])->get();
 
         return $users;
@@ -65,7 +65,7 @@ class UserController extends Controller
                 $q->where('name', $role);
             }
         )->with(['roles', 'projects' => function ($query) {
-            $query->where('end_at', '>', Carbon::now());
+            $query->whereDate('end_at', '>', Carbon::now());
         }])->paginate(20);
 
         return $users;
@@ -167,7 +167,7 @@ class UserController extends Controller
         User::find($id)->delete();
 
         $user = User::withTrashed()->find($id)->load(['roles', 'projects' => function ($query) {
-            $query->where('end_at', '>', Carbon::now());
+            $query->whereDate('end_at', '>', Carbon::now());
         }]);
 
         return $user;
@@ -178,7 +178,7 @@ class UserController extends Controller
         User::withTrashed()->find($id)->restore();
 
         $user = User::withTrashed()->find($id)->load(['roles', 'projects' => function ($query) {
-            $query->where('end_at', '>', Carbon::now());
+            $query->whereDate('end_at', '>', Carbon::now());
         }]);
 
         return $user;

@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   logo: {
-    [theme.breakpoints.down('lg')]: {
+    [theme.breakpoints.up('md')]: {
         width: '12rem',
         height: '5%',
     },

@@ -149,7 +149,10 @@ const UsersTable = () => {
                 const newRows = state.rows.filter(row => row.id !== user.id);
                 setState({...state, rows: newRows});
                 setUser(null)
-            })      
+            })
+            .catch(err => {
+                console.log(err.response);
+            });     
     }
 
     const handleOpen = currentUser => {

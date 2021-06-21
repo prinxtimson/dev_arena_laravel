@@ -10,6 +10,9 @@ use Illuminate\Http\Response;
 use App\Events\Illuminate\Auth\Events\NewUserAdded;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\NewUser;
+use App\Mail\UserDeactivate;
+use App\Mail\UserReactivate;
+use App\Mail\UserDelete;
 use Illuminate\Support\Facades\Mail;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Excel;
@@ -166,9 +169,11 @@ class UserController extends Controller
     {
         User::find($id)->delete();
 
-        $user = User::withTrashed()->find($id)->load(['roles', 'projects' => function ($query) {
+        $user = User::withTrashed()->find($id)->load(['profile', 'roles', 'projects' => function ($query) {
             $query->whereDate('end_at', '>', Carbon::now());
         }]);
+
+        Mail::to($user)->send(new UserDeactivate($user->profile));
 
         return $user;
     }
@@ -177,9 +182,11 @@ class UserController extends Controller
     {
         User::withTrashed()->find($id)->restore();
 
-        $user = User::withTrashed()->find($id)->load(['roles', 'projects' => function ($query) {
+        $user = User::withTrashed()->find($id)->load(['profile', 'roles', 'projects' => function ($query) {
             $query->whereDate('end_at', '>', Carbon::now());
         }]);
+
+        Mail::to($user)->send(new UserReactivate($user->profile));
 
         return $user;
     }
@@ -192,7 +199,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
-        return User::forceDelete($id);
+        $user = User::withTrashed()->find($id)->load(['profile', 'roles', 'projects']);
+
+        $user->reports()->delete();
+
+        $deleted = $user->forceDelete($id);
+
+        Mail::to($user)->send(new UserDelete($user->profile));
+
+        return $deleted;
     }
 }

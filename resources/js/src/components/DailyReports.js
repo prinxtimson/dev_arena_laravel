@@ -12,6 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
 import EditIcon from '@material-ui/icons/Edit';
 import Paper from '@material-ui/core/Paper';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Dialog from '@material-ui/core/Dialog';
 import Avatar from '@material-ui/core/Avatar';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -305,12 +306,11 @@ const DailyReports = () => {
             <Paper className={classes.paper} elevation={5}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <TextField
+                  <TextareaAutosize
                     id="report"
                     label="Daily Report"
-                    multiline
                     className={classes.textfield}
-                    rows={4}
+                    rowsMin={4}
                     value={details}
                     onChange={e => setDetails(e.target.value)}
                     variant="outlined"

@@ -44,7 +44,7 @@ function HomePage() {
               <Grid container spacing={5} justify="center" alignItems="center">
                 <Grid item xs={12} sm={4}>
                   <Typography variant="h2" component="h5" className={classes.title}>
-                    Welcome to Tritek Dev Arena
+                    Welcome to Tritek DevArena
                   </Typography>
                   <Typography></Typography>
                   {state.user ? null : (

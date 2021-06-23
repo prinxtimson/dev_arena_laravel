@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         
-        <title>Dev Arena</title>
+        <title>DevArena</title>
 
         <link rel="icon" href="https://tritekconsulting.co.uk/wp-content/uploads/2021/01/logo-e1607448801387-1.png">
         <link rel="stylesheet" href="{{asset('css/app.css')}}">

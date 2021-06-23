@@ -12,6 +12,7 @@ import List from '@material-ui/core/List';
 import FolderIcon from '@material-ui/icons/Folder';
 import NewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import HomeIcon from '@material-ui/icons/Home';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -38,6 +39,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     backgroundColor: 'white'
+  },
+  btn: {
+    '&:hover': {
+      color: '#000',
+      }
   },
   drawer: {
     [theme.breakpoints.up('lg')]: {
@@ -377,6 +383,15 @@ function DrawerMenu({ window, children }) {
               Dev Arena
             </Avatar>
             <div className={classes.grow} />
+            <IconButton
+              aria-label="home"
+              color="inherit"
+              component={Link}
+              className={classes.btn}
+              to="/"
+            >
+                <HomeIcon />
+            </IconButton>
             <IconButton
               aria-label="notifications"
               color="inherit"

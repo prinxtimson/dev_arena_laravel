@@ -18,9 +18,16 @@ const useStyles = makeStyles(theme => ({
       padding: theme.spacing(0, 2.5),
       marginRight: theme.spacing(2),
       '&:hover': {
-        color: '#fff',
+        color: '#c7a936',
         }
     },
+    menuButton2: {
+        padding: theme.spacing(0, 2.5),
+        marginRight: theme.spacing(2),
+        '&:hover': {
+          color: '#fff',
+          }
+      },
     title: {
       flexGrow: 1,
     },
@@ -69,7 +76,7 @@ const AppNavBar = () => {
                             </Button>
                             <Button 
                                 color="primary"
-                                className={classes.menuButton}
+                                className={classes.menuButton2}
                                 variant="contained"
                                 onClick={logout}
                             >

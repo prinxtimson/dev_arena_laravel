@@ -19,6 +19,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import LoopIcon from '@material-ui/icons/Loop';
 import Paper from '@material-ui/core/Paper';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -283,11 +284,10 @@ const RenderCard = ({blocker, handleUpdate, handleOpen, state, isPermitted}) => 
           <StyledCardContent>
             <Grid container spacing={2} alignItems="center">
               <Grid item xs={8}>
-                <TextField
+                <TextareaAutosize
                   id="comment"
                   margin="dense"
                   label="Enter Comment"
-                  multiline
                   className={classes.textfield}
                   value={comment.text}
                   onChange={e => setComment({...comment, text: e.target.value})}
@@ -554,12 +554,11 @@ const ProjectBlockers = ({id}) => {
             <Paper className={classes.paper} elevation={5}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <TextField
+                  <TextareaAutosize
                     id="blocker"
                     label="Blocker Details"
                     className={classes.textfield}
-                    multiline
-                    rows={4}
+                    rowsMin={4}
                     value={data.details}
                     onChange={e => setData({...data, details: e.target.value})}
                     variant="outlined"

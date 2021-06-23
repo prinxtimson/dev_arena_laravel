@@ -477,11 +477,11 @@ const ProjectDailog = ({isEdit, open, handleClose, handleEdit, project, loading,
                   type="date"
                   autoFocus
                   defaultValue={moment(data.end_at).format('L')}
+                  inputProps={{
+                    min: moment(data.est_end_at).format('L')
+                  }}
                   InputLabelProps={{
                     shrink: true,
-                  }}
-                  inputProps={{
-                    min: data.start_at
                   }}
                   onChange={e => setData({...data, end_at: e.target.value})}
                 />

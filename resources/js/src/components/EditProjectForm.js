@@ -218,9 +218,9 @@ React.useEffect(() => {
                 label="End Date"
                 name="end_at"
                 type="date"
-                value={moment(data.end_at).format('L')}
+                defaultValue={moment(data.end_at).format('L')}
                 inputProps={{
-                  min: data.start_at
+                  min: moment(data.est_end_at).format('L')
                 }}
                 InputLabelProps={{
                   shrink: true,

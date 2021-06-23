@@ -9,6 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import { UserContext } from '../context/GlobalState';
 import moment from 'moment';
 import { axios, BASE_URL } from '../utils/utils';
 
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProjectDetails = ({id}) => {
   const classes = useStyles();
+  const global = React.useContext(UserContext);
   const [loading, setLoading] = React.useState(true);
   const [project, setProject] = React.useState({
     developers: []
@@ -55,7 +57,7 @@ const ProjectDetails = ({id}) => {
   return (
     <div className={classes.root} >
       <Grid container spacing={3}>
-        {state.user?.roles[0].name !== 'developer' && (
+        {global.state.user?.roles[0]?.name !== 'developer' && (
           <Grid item sm={4} xs={12}>
             {loading ? (
               <Skeleton variant="rect" width="100%">
